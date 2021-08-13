@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changeHpView, changePasswordInput, changeUsernameInput, changeUser} from '../../usersSlice';
+import {changePasswordInput, changeUsernameInput, changeUser} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 
@@ -10,27 +10,10 @@ function Login() {
     const passwordInput = useSelector(state => state.passwordInput);
     const [errors, setErrors] = useState([])
 
-    console.log(typeof(usernameInput), passwordInput)
-
-    // const handleUsernameChange = (e) => {
-    //     console.log(e)
-    //     dispatch({
-    //         type: "CHANGE_USERNAME_INPUT",
-    //         payload: e.target.value
-    //     })
-    // }
-      
-    // const handlePasswordChange = (e) => {
-    //     console.log(e)
-    //     dispatch({
-    //         type: "CHANGE_PASSWORD_INPUT",
-    //         payload: e.target.value
-    //     })
-    // }
+    // console.log(typeof(usernameInput), passwordInput)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(username, password)
         async function login(){
             const res = await fetch("http://localhost:3000/login", {
                 method: "POST",
@@ -64,9 +47,9 @@ function Login() {
                 <br></br>
                 <input type="submit"></input>
             </form>
-            {errors.map(error => 
+            {/* {errors.map(error => 
                 (<p>{`${error}`}</p>)
-            )}
+            )} */}
         </div>
     );
 }

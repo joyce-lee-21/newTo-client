@@ -30,9 +30,9 @@ const usersSlice = createSlice({
     initialState: {
         usernameInput: "",
         passwordInput: "",
-        hp_view: "main",
-        user: {},
-        // status: "idle", // loading state
+        nameInput: "",
+        cityInput: "",
+        user: null,
     },
 
     reducers: {
@@ -41,9 +41,6 @@ const usersSlice = createSlice({
         },
         changePasswordInput(state, action) {
             state.passwordInput = action.payload
-        },
-        changeHpView(state, action) {
-            state.hp_view = action.payload
         },
         changeUser(state, action) {
             state.user = action.payload
@@ -65,7 +62,8 @@ const usersSlice = createSlice({
 const { 
     changeUsernameInput, 
     changePasswordInput, 
-    changeHpView, 
+    changeNameInput,
+    changeCityInput,
     changeUser
 } = usersSlice.actions; 
 
@@ -74,7 +72,8 @@ const {
 export { 
     changeUsernameInput, 
     changePasswordInput, 
-    changeHpView,
+    changeNameInput,
+    changeCityInput,
     changeUser
 }
 

@@ -4,9 +4,26 @@ import {
 } from "react-router-dom";
 import Header from './Header';
 import Content from './Content';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {changeUser} from '.././usersSlice';
 
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch("http://localhost:3000/me")
+    .then((r) => {
+      if (r.ok) {
+        r.json()
+        .then((user) => {
+          // console.log('App useEffect fetch:', user, userType)
+          dispatch(changeUser(user))
+        });
+      }
+    })
+  }, []);
 
   return (
     <>

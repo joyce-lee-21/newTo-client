@@ -1,10 +1,22 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
+import {changeUser} from '.././usersSlice';
 
 function Header() {
     const dispatch = useDispatch();
     const city = "Austin";
     const user = useSelector((state) => state.user);
+    const history = useHistory();
+
+    const onLogout = () => {
+        fetch("http://localhost:3000/logout", { method: "DELETE" }).then((r) => {
+            if (r.ok) {
+                dispatch(changeUser(null))
+                history.push("/")
+            }
+        });
+    }
+    // console.log(user !== null ? true: null)
 
     return (
         <div>
@@ -16,7 +28,7 @@ function Header() {
             </div>
             {user
                 ? <>
-                    <h4>{`Welcome, ${user.name}!`}</h4>
+                    <h5>{`Welcome, ${user.name}!`}</h5>
                     <div className="nav-right">
                         <NavLink to="/account" className="nav-link" style={{ textDecoration: 'none' }}>
                             {/* <Button variant="contained" color="primary">Account</Button> */}
@@ -31,7 +43,8 @@ function Header() {
                         </NavLink>
                         <NavLink to="/logout" className="nav-link" style={{ textDecoration: 'none' }}>
                             {/* <Button variant="contained" color="primary" onClick={onLogout}>Logout</Button> */}
-                            <button>Logout</button>
+                            <button onClick={()=>onLogout()}>Logout</button>
+                            {/* <button>Logout</button> */}
                         </NavLink>
                     </div>
                 </>
