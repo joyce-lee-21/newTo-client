@@ -14,7 +14,7 @@ function Content() {
     const dispatch = useDispatch();
 
     return (
-        <div>
+        <div className="content-container">
             <Switch>
                 <Route exact path="/">
                     <HomePage />
@@ -35,7 +35,6 @@ function Content() {
                     <Results />
                 </Route>
             </Switch>
-            
         </div>
     );
 }

@@ -2,6 +2,7 @@
 export const initialState = {
     usernameInput: "",
     passwordInput: "",
+    hp_view: "main",
 }
 
 export const reducer = (state, action) => {
@@ -10,12 +11,17 @@ export const reducer = (state, action) => {
         return {
             ...state, usernameInput: action.payload
         }
-        break
+        
         case "CHANGE_PASSWORD_INPUT": 
         return {
             ...state, passwordInput: action.payload
         }
-        break
+        
+        case "CHANGE_HOMEPAGE_VIEW": 
+        return {
+            ...state, hp_view: action.payload
+        }
+        
     } 
     return state
 }

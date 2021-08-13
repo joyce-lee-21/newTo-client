@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 function Header() {
     const dispatch = useDispatch();
     const city = "Austin";
-    const user = false;
+    const user = useSelector((state) => state.user);
 
     return (
         <div>
@@ -16,7 +16,7 @@ function Header() {
             </div>
             {user
                 ? <>
-                    {/* <h4>{`Welcome, ${user.profile.name}!`}</h4> */}
+                    <h4>{`Welcome, ${user.name}!`}</h4>
                     <div className="nav-right">
                         <NavLink to="/account" className="nav-link" style={{ textDecoration: 'none' }}>
                             {/* <Button variant="contained" color="primary">Account</Button> */}

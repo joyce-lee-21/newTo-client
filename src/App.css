@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+/* Login */
+.content-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login-container, .signup-container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  border: 1px black solid;
+  margin: 20px;
+}
