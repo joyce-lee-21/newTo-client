@@ -1,11 +1,13 @@
-import {useDispatch, useSelector} from 'react-redux';
+// import {changeUser} from '../../usersSlice';
 
-function ViewCategoryCard() {
-    const dispatch = useDispatch();
+function ViewCategoryCard({cat}) {
+    // const usernameInput = useSelector(state => state.usernameInput);
 
     return (
         <div>
-            ViewCategoryCard component
+            <div className="tile">
+                {cat.name}
+            </div>
         </div>
     );
 }

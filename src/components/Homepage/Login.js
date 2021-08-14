@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changePasswordInput, changeUsernameInput, changeUser} from '../../usersSlice';
+import {changePasswordInput, changeUsernameInput, changeUser, changeCitySelection} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 
@@ -17,8 +17,9 @@ function Login() {
         async function login(){
             const res = await fetch("http://localhost:3000/login", {
                 method: "POST",
+                // credentials: "include",
                 headers: {
-                "Content-Type": "application/json",
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ 
                     username: usernameInput, 
@@ -27,11 +28,16 @@ function Login() {
             })
             if(res.ok){
                 const user = await res.json()
+                // set user to state
                 dispatch(changeUser(user))
+                // set city selection if user only has 1 city profile
+                if (user.cities.length === 1) {
+                    dispatch(changeCitySelection(user.cities[0]))
+                }
                 history.push('/profile')
             } else {
                 const err = await res.json()
-                console.log(err.errors)
+                // console.log(err.errors)
                 setErrors(err.errors)
             }
         };
@@ -47,9 +53,7 @@ function Login() {
                 <br></br>
                 <input type="submit"></input>
             </form>
-            {/* {errors.map(error => 
-                (<p>{`${error}`}</p>)
-            )} */}
+            {errors ? errors.map(error => (<p>{`${error}`}</p>)) : null}
         </div>
     );
 }

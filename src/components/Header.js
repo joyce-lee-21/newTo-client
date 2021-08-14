@@ -9,7 +9,10 @@ function Header() {
     const history = useHistory();
 
     const onLogout = () => {
-        fetch("http://localhost:3000/logout", { method: "DELETE" }).then((r) => {
+        fetch("http://localhost:3000/logout", { 
+            method: "DELETE" 
+        })
+        .then((r) => {
             if (r.ok) {
                 dispatch(changeUser(null))
                 history.push("/")

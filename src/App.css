@@ -50,3 +50,14 @@
   border: 1px black solid;
   margin: 20px;
 }
+
+/* Profile Tiles */
+.tile {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px;
+  padding: 5px;
+  height: 100px;
+  border: 1px black solid;
+}

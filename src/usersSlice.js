@@ -28,11 +28,20 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 const usersSlice = createSlice({
     name: "auth",
     initialState: {
+        // used for SignUp / Login / Account components
         usernameInput: "",
         passwordInput: "",
         nameInput: "",
         cityInput: "",
+
+        // used for all components after Login/Sign Up steps
         user: null,
+
+        // used for Profile > child components
+        citySelection: "",
+        savedVenuesArray: [],
+        categoryArray: [],
+        profileView: "",
     },
 
     reducers: {
@@ -42,8 +51,26 @@ const usersSlice = createSlice({
         changePasswordInput(state, action) {
             state.passwordInput = action.payload
         },
+        changeNameInput(state, action) {
+            state.nameInput = action.payload
+        },
+        changeCityInput(state, action) {
+            state.cityInput = action.payload
+        },
         changeUser(state, action) {
             state.user = action.payload
+        },
+        changeCitySelection(state, action) {
+            state.citySelection = action.payload
+        },
+        changeSavedVenuesArray(state, action) {
+            state.savedVenuesArray = action.payload
+        },
+        changeCategoryArray(state, action) {
+            state.categoryArray = action.payload
+        },
+        changeProfileView(state, action) {
+            state.profileView = action.payload
         }
     },
     // extraReducers: {
@@ -64,7 +91,12 @@ const {
     changePasswordInput, 
     changeNameInput,
     changeCityInput,
-    changeUser
+    changeUser,
+    changeCitySelection,
+    changeSavedVenuesArray,
+    changeCategoryArray,
+    changeProfileView,
+
 } = usersSlice.actions; 
 
 // exports
@@ -74,7 +106,11 @@ export {
     changePasswordInput, 
     changeNameInput,
     changeCityInput,
-    changeUser
+    changeUser,
+    changeCitySelection,
+    changeSavedVenuesArray,
+    changeCategoryArray,
+    changeProfileView,
 }
 
 export default usersSlice.reducer;

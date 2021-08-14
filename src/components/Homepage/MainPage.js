@@ -2,6 +2,7 @@
 // import {changeHpView, changePasswordInput, changeUsernameInput} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 
+
 function MainPage() {
     // const dispatch = useDispatch();
     const history = useHistory();
