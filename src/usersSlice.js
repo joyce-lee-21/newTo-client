@@ -40,8 +40,16 @@ const usersSlice = createSlice({
         // used for Profile > child components
         citySelection: "",
         savedVenuesArray: [],
-        categoryArray: [],
         profileView: "",
+        // category selections saved to the user city_profile
+        categoryArray: [],
+        // categories to be selected from seed data (foursquare's primary and secondary categories)
+        selectCategoryArray: [],
+        // categories selected from selectCategoryArray, not yet saved to the user city_profile
+        selectedCategoryArray: [],
+        categoryArrFirst: 0,
+        categoryArrLast: 5,
+
     },
 
     reducers: {
@@ -71,6 +79,18 @@ const usersSlice = createSlice({
         },
         changeProfileView(state, action) {
             state.profileView = action.payload
+        },
+        changeSelectCategoryArray(state, action) {
+            state.selectCategoryArray = action.payload
+        },
+        changeCategoryArrFirst(state, action) {
+            state.categoryArrFirst = action.payload
+        },
+        changeCategoryArrLast(state, action) {
+            state.categoryArrLast = action.payload
+        },
+        changeSelectedCategoryArray(state, action) {
+            state.selectedCategoryArray = action.payload
         }
     },
     // extraReducers: {
@@ -96,6 +116,10 @@ const {
     changeSavedVenuesArray,
     changeCategoryArray,
     changeProfileView,
+    changeSelectCategoryArray,
+    changeCategoryArrFirst,
+    changeCategoryArrLast,
+    changeSelectedCategoryArray,
 
 } = usersSlice.actions; 
 
@@ -111,6 +135,10 @@ export {
     changeSavedVenuesArray,
     changeCategoryArray,
     changeProfileView,
+    changeSelectCategoryArray,
+    changeCategoryArrFirst,
+    changeCategoryArrLast,
+    changeSelectedCategoryArray,
 }
 
 export default usersSlice.reducer;

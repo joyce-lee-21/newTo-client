@@ -23,7 +23,8 @@ function Profile() {
             {/* if there are more than one city, and a citySelection === "" */}
             {user.city_profiles.length > 1 && citySelection === ""
                 ? <ProfileCity />
-                : categoryArray.length === 0
+                // since all category_selections under each user instance has empty arrays, we have to go into the first array and see if there are any categories selected. categoryArray is declared at the Login component after signing in
+                : categoryArray[0].length === 0
                     ? <ProfileSelection />
                     : <ProfileView />
             }

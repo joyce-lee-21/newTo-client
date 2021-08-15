@@ -1,18 +1,18 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changeUser} from '../../usersSlice';
+import {changeSelectedCategoryArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 
-function SelectCategoryList() {
+function SelectCategoryList({cat}) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const usernameInput = useSelector(state => state.usernameInput);
-    const passwordInput = useSelector(state => state.passwordInput);
+    // const selectCategoryArray = useSelector(state => state.selectCategoryArray);
+    const selectedCategoryArray = useSelector(state => state.selectedCategoryArray);
     const [errors, setErrors] = useState([])
 
     return (
         <div>
-            SelectCategoryList component
+            <button id={cat.id} onClick={()=>dispatch(changeSelectedCategoryArray([...selectedCategoryArray, cat]))}>{cat.name}</button>
         </div>
     );
 }

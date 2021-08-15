@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changePasswordInput, changeUsernameInput, changeUser, changeCitySelection} from '../../usersSlice';
+import {changePasswordInput, changeUsernameInput, changeUser, changeCitySelection, changeCategoryArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 
@@ -33,6 +33,7 @@ function Login() {
                 // set city selection if user only has 1 city profile
                 if (user.cities.length === 1) {
                     dispatch(changeCitySelection(user.cities[0]))
+                    dispatch(changeCategoryArray(user.category_selections))
                 }
                 history.push('/profile')
             } else {
