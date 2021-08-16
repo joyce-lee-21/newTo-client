@@ -16,7 +16,7 @@ function ViewVenueItem({venue}) {
         fetch(`http://localhost:3000/saved_venues/${venue.id}`, { 
             method: "DELETE" 
         })
-        .then((r) => console.log(r))
+        // .then((r) => console.log(r))
     }
 
     return (

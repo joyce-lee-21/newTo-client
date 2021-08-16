@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
-
 // Action Creators
 
 // async actions
@@ -12,18 +11,6 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 //   }); 
 
 // Reducer
-
-// const usersSlice = createSlice({
-// name: "user",
-// initialState: {
-//     user: {
-//         id: 0,
-//         name: "",
-//         username: "",
-//         password: ""
-//     }
-//     // status: "idle", // loading state
-// },
 
 const usersSlice = createSlice({
     name: "auth",
@@ -40,8 +27,10 @@ const usersSlice = createSlice({
         // used for Profile > child components
         citySelection: "",
         venuesResultsArray: [],
+        venuesDetailsArray: [],
         savedVenuesArray: [],
         profileView: "categories",
+
         // category selections saved to the user city_profile
         categoryArray: [],
         // categories to be selected from seed data (foursquare's primary and secondary categories)
@@ -51,6 +40,10 @@ const usersSlice = createSlice({
         categoryArrFirst: 0,
         categoryArrLast: 5,
 
+        // private - external API credentials
+        clientId: "TMPN4FQH3UGB0NX5JBBA0B4WBWRYMK51MTOO0YN10JDLDKDQ",
+        clientSecret: "FXBLX5RUDZGZC34FNOVMNJTIMTLPTOIAINUO3FYUQNEQKGLN",
+        version: "20210801"
     },
 
     reducers: {
@@ -95,6 +88,9 @@ const usersSlice = createSlice({
         },
         changeVenuesResultsArray(state, action) {
             state.venuesResultsArray = action.payload
+        },
+        changeVenuesDetailsArray(state, action) {
+            state.venuesDetailsArray = action.payload
         }
     },
     // extraReducers: {
@@ -125,6 +121,7 @@ const {
     changeCategoryArrLast,
     changeSelectedCategoryArray,
     changeVenuesResultsArray,
+    changeVenuesDetailsArray,
 
 } = usersSlice.actions; 
 
@@ -145,6 +142,7 @@ export {
     changeCategoryArrLast,
     changeSelectedCategoryArray,
     changeVenuesResultsArray,
+    changeVenuesDetailsArray,
 }
 
 export default usersSlice.reducer;

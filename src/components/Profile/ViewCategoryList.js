@@ -32,7 +32,7 @@ function ViewCategoryList() {
         fetch(`http://localhost:3000/category_selections/profile=${citySelection.id}`, { 
             method: "DELETE" 
         })
-        .then((r) => console.log(r))
+        // .then((r) => console.log(r))
     }
     
 
