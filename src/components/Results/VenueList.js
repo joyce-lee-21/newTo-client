@@ -16,35 +16,40 @@ function VenueList({venuesResultsArray}) {
     // console.log(venuesResultsArray)
     // console.log(venuesResultsArray.join())
 
+    // const detailsArray = [];
+
     // grab fs_venue_ids from resultsArray
-    useEffect(() => {
-        async function venueDetails(venue){
-            console.log(venue.venue.id)
-            const res = await fetch(
-                `https://api.foursquare.com/v2/venues/${venue.venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`, 
-                {method: "GET",}
-            )
-            if(res.ok){
-                const arr = await res.json()
-                console.log(arr.response.venue)
-                dispatch(changeVenuesDetailsArray([...venuesDetailsArray, arr.response.venue])) 
-                // !! update VenueItem array source after successfully dispatching
-            } else {
-                const err = await res.json()
-                console.log(err.errors)
-                // setErrors(err.errors)
-            }
-        };
-        // use this to test one venue detail fetch:
-        venueDetails(venuesResultsArray[0]);
-        // use this to fetch details for all venues in array:
-        // venuesResultsArray.forEach(venue=>venueDetails(venue));
-    }, [venuesResultsArray])
+    // useEffect(() => {
+    //     async function venueDetails(venue){
+    //         // console.log(venue.venue.id)
+    //         const res = await fetch(
+    //             `https://api.foursquare.com/v2/venues/${venue.venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`, 
+    //             {method: "GET",}
+    //         )
+    //         if(res.ok){
+    //             const arr = await res.json()
+    //             // arr.map(d=>detailsArray.push(d))
+    //             // console.log(arr.response.venue)
+    //             dispatch(changeVenuesDetailsArray([...venuesDetailsArray, arr])) 
+    //             // !! update VenueItem array source after successfully dispatching
+    //         } else {
+    //             const err = await res.json()
+    //             // console.log(err.errors)
+    //             setErrors(err.errors)
+    //         }
+    //     };
+    //     // use this to test one venue detail fetch:
+    //     venueDetails(venuesResultsArray[0]);
+
+    //     // use this to fetch details for all venues in array:
+    //     // venuesResultsArray.forEach(venue=>venueDetails(venue));
+    // }, [venuesResultsArray])
 
     return (
         <div>
             <button>Search bar and filter dropdown goes here</button>
             {venuesResultsArray.map(v=>
+                // <VenueItem key={v.id} venue={v}/>
                 <VenueItem key={v.venue.id} venue={v.venue}/>
             )}
         </div>

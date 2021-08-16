@@ -7,19 +7,51 @@ function VenueItem({venue}) {
     const citySelection = useSelector(state => state.citySelection);
 
     const onHeart = (e, venue) => {
+        // console.log(venue)
+        // console.log(venue.categories[0].name)
         const v = {
             city_profile_id: citySelection.id,
             name: venue.name,
             address: venue.location.address,
-            // url: ,
-            // rating: ,
+            // url: venue.url,
+            // rating: venue.rating,
             fs_venue_id: venue.id,
             lat: venue.location.lat,
             long: venue.location.lng,
+            // category: venue.category
             category: venue.categories[0].name
         }
-        console.log(v)
-        // dispatch(changeSavedVenuesArray([...savedVenuesArray, venue]))
+        async function heartLike(){
+            const res = await fetch("http://localhost:3000/saved_venues", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({venue: v}),
+            })
+            if(res.ok){
+                const venue = await res.json()
+                console.log(venue)
+                dispatch(changeSavedVenuesArray([...savedVenuesArray, {
+                    id: venue.id,
+                    city_profile_id: venue.city_profile_id,
+                    name: venue.name,
+                    address: venue.address,
+                    // url: venue.url,
+                    // rating: venue.rating,
+                    fs_venue_id: venue.fs_venue_id,
+                    lat: venue.lat,
+                    long: venue.long,
+                    category: venue.category
+                }]))
+            } else {
+                const err = await res.json()
+                console.log(err.errors)
+                // setErrors(err.errors)
+            }
+        };
+        heartLike();
+        
         console.log("Hearted!")
     }
 

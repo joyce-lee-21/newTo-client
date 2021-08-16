@@ -43,7 +43,7 @@ const usersSlice = createSlice({
 
         // private - external API credentials
         clientId: "TMPN4FQH3UGB0NX5JBBA0B4WBWRYMK51MTOO0YN10JDLDKDQ",
-        clientSecret: "FXBLX5RUDZGZC34FNOVMNJTIMTLPTOIAINUO3FYUQNEQKGLN",
+        clientSecret: "2DBBU5NEY4QZF2DYPXVRUZ5CZJALBQ3QMLNBSWE4V403UFL4",
         version: "20210801"
     },
 

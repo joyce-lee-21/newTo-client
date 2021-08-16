@@ -30,14 +30,16 @@ function Results() {
                 const arr = await res.json()
                 const vArr = arr.response.groups[0].items
                 vArr.map(v=> venueArray.push(v))
-                // console.log(venueArray)
+                console.log(vArr)
                 dispatch(changeVenuesResultsArray([...venuesResultsArray, ...venueArray]))
             } else {
                 const err = await res.json()
                 console.log(err.errors)
             }
         };
-        categoryArray.forEach(cat => fsVenue(cat))
+        // limiting category to one, change to categoryArray after fetches work:
+        fsVenue(categoryArray[0])
+        // categoryArray.forEach(cat => fsVenue(cat))
     }
 
     return (
