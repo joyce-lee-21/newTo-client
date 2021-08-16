@@ -1,21 +1,33 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changeUser} from '../../usersSlice';
+import {changeSavedVenuesArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 
-function ViewVenueItem() {
+function ViewVenueItem({venue}) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const usernameInput = useSelector(state => state.usernameInput);
-    const passwordInput = useSelector(state => state.passwordInput);
+    const savedVenuesArray = useSelector(state => state.savedVenuesArray);
     const [errors, setErrors] = useState([])
+
+    // console.log(venue === [] ? `${venue.id}: this is true` : `${venue.id}: this is false`)
+
+    const onCompleted = (e, venue) => {
+        dispatch(changeSavedVenuesArray(savedVenuesArray.filter(v=>v.id !== venue.id)))
+        fetch(`http://localhost:3000/saved_venues/${venue.id}`, { 
+            method: "DELETE" 
+        })
+        .then((r) => console.log(r))
+    }
 
     return (
         <div>
-            ViewVenueItem component
-            <div className="tile">
-                {/* {cat.name} */}
-                <button>Completed</button>
+            {/* ViewVenueItem component */}
+            <div className="venue-tile">
+                <h5>{venue.name}</h5>
+                <p>{venue.rating}</p>
+                <p>{venue.address}</p>
+                <p>{venue.url}</p>
+                <button onClick={(e)=>onCompleted(e, venue)}>Completed</button>
             </div>
         </div>
     );

@@ -61,3 +61,18 @@
   height: 100px;
   border: 1px black solid;
 }
+
+.venue-tile {
+  display: flex;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  margin: 5px;
+  padding: 5px;
+  height: 150px;
+  border: 1px black solid;
+}
+
+.venue-tile p{
+  margin: 2px;
+}

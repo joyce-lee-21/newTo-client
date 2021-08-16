@@ -39,8 +39,9 @@ const usersSlice = createSlice({
 
         // used for Profile > child components
         citySelection: "",
+        venuesResultsArray: [],
         savedVenuesArray: [],
-        profileView: "",
+        profileView: "categories",
         // category selections saved to the user city_profile
         categoryArray: [],
         // categories to be selected from seed data (foursquare's primary and secondary categories)
@@ -91,6 +92,9 @@ const usersSlice = createSlice({
         },
         changeSelectedCategoryArray(state, action) {
             state.selectedCategoryArray = action.payload
+        },
+        changeVenuesResultsArray(state, action) {
+            state.venuesResultsArray = action.payload
         }
     },
     // extraReducers: {
@@ -120,6 +124,7 @@ const {
     changeCategoryArrFirst,
     changeCategoryArrLast,
     changeSelectedCategoryArray,
+    changeVenuesResultsArray,
 
 } = usersSlice.actions; 
 
@@ -139,6 +144,7 @@ export {
     changeCategoryArrFirst,
     changeCategoryArrLast,
     changeSelectedCategoryArray,
+    changeVenuesResultsArray,
 }
 
 export default usersSlice.reducer;

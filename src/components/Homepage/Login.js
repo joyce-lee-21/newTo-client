@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changePasswordInput, changeUsernameInput, changeUser, changeCitySelection, changeCategoryArray} from '../../usersSlice';
+import {changePasswordInput, changeUsernameInput, changeUser, changeCitySelection, changeCategoryArray, changeSavedVenuesArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 
@@ -34,6 +34,11 @@ function Login() {
                 if (user.cities.length === 1) {
                     dispatch(changeCitySelection(user.cities[0]))
                     dispatch(changeCategoryArray(user.category_selections))
+                    dispatch(changeSavedVenuesArray(user.venue_selections))
+                }
+                else {
+                    dispatch(changeCategoryArray(user.category_selections))
+                    dispatch(changeSavedVenuesArray(user.venue_selections))
                 }
                 history.push('/profile')
             } else {

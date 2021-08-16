@@ -12,6 +12,7 @@ function ProfileSelection() {
     const selectedCategoryArray = useSelector(state => state.selectedCategoryArray);
     const categoryArrFirst = useSelector(state => state.categoryArrFirst);
     const categoryArrLast = useSelector(state => state.categoryArrLast);
+    const citySelection = useSelector(state => state.citySelection);
     const [errors, setErrors] = useState([])
 
     const primary_categories = [];
@@ -52,6 +53,36 @@ function ProfileSelection() {
     const onSubmitClick = () => {
         dispatch(changeCategoryArray(selectedCategoryArray))
         // build fetch to POST to "http://localhost:3000/category_selections"
+        async function catArray(cat){
+            const res = await fetch(`http://localhost:3000/category_selections/`, {
+                method: "POST",
+                // credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ 
+                    name: cat.name, 
+                    city_profile_id: citySelection.id,
+                    fs_category_id: cat.fs_category_id,
+                    primary_category_id: cat.id
+                    }),
+            })
+            if(res.ok){
+                const selected = await res.json()
+                // dispatch(changeCategoryArray([...categoryArray, selected]))
+                console.log("category_selection added")
+                // console.log(categoryArray)
+                // set city selection if user only has 1 city profile
+            } else {
+                const err = await res.json()
+                console.log(err.errors)
+                setErrors(err.errors)
+            }
+        };
+        // function catArray(cat){
+        //     console.log(cat)
+        // }
+        selectedCategoryArray.forEach(cat => catArray(cat))
     }
 
     return (

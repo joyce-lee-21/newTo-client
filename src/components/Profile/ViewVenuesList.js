@@ -8,14 +8,14 @@ import ViewVenueItem from './ViewVenueItem';
 function ViewVenuesList() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const usernameInput = useSelector(state => state.usernameInput);
+    const savedVenuesArray = useSelector(state => state.savedVenuesArray);
     const [errors, setErrors] = useState([])
 
     return (
         <div>
-            {/* {categoryArray.map(cat => (
-                <ViewVenueItem />
-            ))} */}
+            {savedVenuesArray.map(venue => 
+                (<ViewVenueItem key={venue.id} venue={venue}/>)
+            )}
         </div>
     );
 }

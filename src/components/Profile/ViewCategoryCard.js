@@ -2,7 +2,7 @@
 
 function ViewCategoryCard({cat}) {
     // const usernameInput = useSelector(state => state.usernameInput);
-    console.log(cat)
+    // console.log(cat)
 
     return (
         <div>
