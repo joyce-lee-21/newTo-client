@@ -23,6 +23,7 @@ const usersSlice = createSlice({
 
         // used for all components after Login/Sign Up steps
         user: null,
+        isLoggedIn: false,
 
         // used for Profile > child components
         citySelection: "",
@@ -62,6 +63,9 @@ const usersSlice = createSlice({
         changeUser(state, action) {
             state.user = action.payload
         },
+        changeIsLoggedIn(state, action) {
+            state.isLoggedIn = action.payload
+        },
         changeCitySelection(state, action) {
             state.citySelection = action.payload
         },
@@ -91,7 +95,8 @@ const usersSlice = createSlice({
         },
         changeVenuesDetailsArray(state, action) {
             state.venuesDetailsArray = action.payload
-        }
+        },
+
     },
     // extraReducers: {
     //     // handle async action types
@@ -112,6 +117,7 @@ const {
     changeNameInput,
     changeCityInput,
     changeUser,
+    changeIsLoggedIn,
     changeCitySelection,
     changeSavedVenuesArray,
     changeCategoryArray,
@@ -133,6 +139,7 @@ export {
     changeNameInput,
     changeCityInput,
     changeUser,
+    changeIsLoggedIn,
     changeCitySelection,
     changeSavedVenuesArray,
     changeCategoryArray,

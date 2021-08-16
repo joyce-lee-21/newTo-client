@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink, useHistory} from 'react-router-dom';
-import {changeUser} from '.././usersSlice';
+import {changeUser, changeIsLoggedIn} from '.././usersSlice';
 
 function Header() {
     const dispatch = useDispatch();
@@ -10,11 +10,12 @@ function Header() {
 
     const onLogout = () => {
         fetch("http://localhost:3000/logout", { 
-            method: "DELETE" 
+            method: "POST" 
         })
         .then((r) => {
             if (r.ok) {
                 dispatch(changeUser(null))
+                dispatch(changeIsLoggedIn(false))
                 history.push("/")
             }
         });

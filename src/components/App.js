@@ -6,27 +6,42 @@ import Header from './Header';
 import Content from './Content';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {changeUser} from '.././usersSlice';
+import {changeUser, changeIsLoggedIn} from '.././usersSlice';
 
 
 function App() {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+
+  const handleLogin = (data) => {
+    dispatch(changeIsLoggedIn(true))
+    dispatch(changeUser(data.user))
+  }
+
+  const handleLogout = () => {
+    dispatch(changeIsLoggedIn(false))
+    dispatch(changeUser(null))
+  }
 
   useEffect(() => {
-    fetch("http://localhost:3000/me", {
+    loginStatus();
+  }, []);
+
+  const loginStatus = () => {
+    fetch("http://localhost:3000/logged_in", {
       method: "GET",
       credentials: "include"
     })
-    .then((r) => {
-      if (r.ok) {
-        r.json()
-        .then((user) => {
-          // console.log('App useEffect fetch:', user)
-          dispatch(changeUser(user))
-        });
+    .then((r) => r.json())
+    .then(data=> {
+      // console.log(data)
+      if (data.logged_in) {
+        handleLogin(data)
+      } else {
+        handleLogout()
       }
     })
-  }, []);
+  }
 
   return (
     <>

@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changePasswordInput, changeUsernameInput, changeUser, changeCitySelection, changeCategoryArray, changeSavedVenuesArray} from '../../usersSlice';
+import {changePasswordInput, changeUsernameInput, changeUser, changeIsLoggedIn, changeCitySelection, changeCategoryArray, changeSavedVenuesArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 
@@ -14,23 +14,42 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // const user = {
+        //     username: usernameInput, 
+        //     password: passwordInput 
+        // }
         async function login(){
             const res = await fetch("http://localhost:3000/login", {
                 method: "POST",
-                // credentials: "include",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ 
-                    username: usernameInput, 
-                    password: passwordInput 
-                    }),
+                body: JSON.stringify({
+                    user: {
+                        username: usernameInput, 
+                        password: passwordInput 
+                    }
+                })
             })
             if(res.ok){
-                const user = await res.json()
                 // set user to state
-                dispatch(changeUser(user))
+                const user = await res.json()
+                dispatch(changeUser({
+                    id: user.user.id,
+                    name: user.user.name,
+                    username: user.user.username,
+                    cities: user.cities,
+                    category_selections: user.category_selections,
+                    venue_selections: user.venue_selections,
+                    city_profiles: user.city_profiles
+                }))
+                dispatch(changeIsLoggedIn(true))
+                
+                // console.log(user) 
+
                 // set city selection if user only has 1 city profile
+                
                 if (user.cities.length === 1) {
                     dispatch(changeCitySelection(user.cities[0]))
                     dispatch(changeCategoryArray(user.category_selections))
