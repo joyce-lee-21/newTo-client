@@ -1,26 +1,42 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink, useHistory} from 'react-router-dom';
-import {changeUser, changeIsLoggedIn} from '.././usersSlice';
+// ***---V2 CODE---***
+// import {changeUser, changeIsLoggedIn} from '.././usersSlice';
+
+// ***---V1 CODE---***
+import {changeUser} from '.././usersSlice';
 
 function Header() {
     const dispatch = useDispatch();
-    const city = "Austin";
     const user = useSelector((state) => state.user);
     const history = useHistory();
 
+    // ***---V2 CODE---***
+    // const onLogout = () => {
+    //     fetch("http://localhost:3000/logout", { 
+    //         method: "POST" 
+    //     })
+    //     .then((r) => {
+    //         if (r.ok) {
+    //             dispatch(changeUser(null))
+    //             dispatch(changeIsLoggedIn(false))
+    //             history.push("/")
+    //         }
+    //     });
+    // }
+    
+    // ***---V1 CODE---***
     const onLogout = () => {
         fetch("http://localhost:3000/logout", { 
-            method: "POST" 
+            method: "DELETE" 
         })
         .then((r) => {
             if (r.ok) {
                 dispatch(changeUser(null))
-                dispatch(changeIsLoggedIn(false))
                 history.push("/")
             }
         });
     }
-    // console.log(user !== null ? true: null)
 
     return (
         <div>

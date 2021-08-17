@@ -29,7 +29,7 @@ function Results() {
             if(res.ok){
                 const arr = await res.json()
                 const vArr = arr.response.groups[0].items
-                vArr.map(v=> venueArray.push(v))
+                vArr.map(v=> venueArray.push(v.venue))
                 console.log(vArr)
                 dispatch(changeVenuesResultsArray([...venuesResultsArray, ...venueArray]))
             } else {
