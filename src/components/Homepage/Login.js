@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 // ***---V2 CODE---***
 // import {changePasswordInput, changeUsernameInput, changeUser, changeIsLoggedIn, changeCitySelection, changeCategoryArray, changeSavedVenuesArray} from '../../usersSlice';
 // ***---V1 CODE---***
-import {changePasswordInput, changeUsernameInput, changeNameInput, changeUser, changeCityInput, changeCitySelection, changeCategoryArray, changeSavedVenuesArray, changeIsLoggedIn} from '../../usersSlice';
+import {changePasswordInput, changeUsernameInput, changeNameInput, changeUser, changeCityInput, changeCitySelection, changeCategoryArray, changeSavedVenuesArray, changeIsLoggedIn, changeCityProfiles} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 
@@ -93,6 +93,7 @@ function Login() {
                     dispatch(changeSavedVenuesArray(user.venue_selections))
                     dispatch(changeNameInput(user.name))
                     dispatch(changeUsernameInput(user.username))
+                    dispatch(changeCityProfiles(user.city_profiles))
                     // dispatch(changeCityInput(user.cities))
                 }
                 else {
@@ -100,6 +101,7 @@ function Login() {
                     dispatch(changeSavedVenuesArray(user.venue_selections))
                     dispatch(changeNameInput(user.name))
                     dispatch(changeUsernameInput(user.username))
+                    dispatch(changeCityProfiles(user.city_profiles))
                     // dispatch(changeCityInput(user.cities))
                 }
                 history.push('/profile')

@@ -10,7 +10,14 @@ import {useDispatch, useSelector} from 'react-redux';
 // import {changeUser, changeIsLoggedIn} from '.././usersSlice';
 
 // ***---V1 CODE---***
-import {changeUser, changeCitySelection, changeCategoryArray, changeSavedVenuesArray, changeIsLoggedIn} from '../usersSlice';
+import {
+  changeUser, 
+  changeCitySelection, 
+  changeCategoryArray, 
+  changeSavedVenuesArray, 
+  changeIsLoggedIn,
+  changeCityProfiles,
+} from '../usersSlice';
 
 
 function App() {
@@ -67,10 +74,12 @@ function App() {
             dispatch(changeCitySelection(user.cities[0]))
             dispatch(changeCategoryArray(user.category_selections))
             dispatch(changeSavedVenuesArray(user.venue_selections))
+            dispatch(changeCityProfiles(user.city_profiles))
           }
           else {
               dispatch(changeCategoryArray(user.category_selections))
               dispatch(changeSavedVenuesArray(user.venue_selections))
+              dispatch(changeCityProfiles(user.city_profiles))
           }
         });
       }

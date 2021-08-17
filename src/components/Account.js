@@ -1,5 +1,14 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changePasswordInput, changeUsernameInput, changeCityInput, changeNameInput, changeUser, changeEditStatus, changeAddCity} from '../usersSlice';
+import {
+    changePasswordInput, 
+    changeUsernameInput, 
+    changeCityInput, 
+    changeNameInput, 
+    changeUser, 
+    changeEditStatus, 
+    changeAddCity,
+    changeCityProfiles,
+} from '../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 
@@ -12,7 +21,10 @@ function Account() {
     const editStatus = useSelector(state => state.editStatus);
     const user = useSelector(state => state.user);
     const addCity = useSelector(state => state.addCity);
+    const cityProfiles = useSelector(state => state.cityProfiles);
     const [errors, setErrors] = useState([]);
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -48,7 +60,7 @@ function Account() {
             const res = await fetch(`http://localhost:3000/city_profiles/${city.id}`, {
                 method: "DELETE",
             })
-            .then(dispatch(changeUser(user)))
+            .then(dispatch(changeCityProfiles(cityProfiles.filter(cp=> cp.id !== city.id))))
         };
         deleteCity();
     }
@@ -69,9 +81,16 @@ function Account() {
                 body: JSON.stringify({profile: c})
             })
             if(res.ok){
-                const response = await res.json()
-                console.log(response)
-                // dispatch(changeCityInput(cityInput))
+                const newCity = await res.json()
+                const formatNewCity = {
+                    id: newCity.id,
+                    city: newCity.city,
+                    user_id: newCity.user_id
+                }
+                // console.log(newCity)
+                // console.log([...cityProfiles, formatNewCity])
+                dispatch(changeCityProfiles([...cityProfiles, formatNewCity]))
+                dispatch(changeAddCity(false))
             } else {
                 const err = await res.json()
                 // console.log(err.errors)
@@ -115,7 +134,7 @@ function Account() {
             </div>
             <div className="city-edit-container">
                 <h1>Cities</h1>
-                {user.city_profiles.map(city=>
+                {cityProfiles.map(city=>
                     (<>
                     <p>{city.city}</p>
                     <button onClick={(e)=>onDeleteCity(e, city)}>Delete</button>
@@ -127,7 +146,8 @@ function Account() {
                         <input type="text" name="city" style={{width: '80%'}} onChange={(e)=>dispatch(changeCityInput(e.target.value))}></input>
                         <button onClick={(e)=>onAddCity(e)}>Add</button>
                     </>
-                    : <button onClick={()=>dispatch(changeAddCity(true))}>Add New City</button>}
+                    : <button onClick={()=>dispatch(changeAddCity(true))}>Add New City</button>
+                }
             </div>
         </>
     );

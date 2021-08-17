@@ -22,6 +22,7 @@ const usersSlice = createSlice({
         cityInput: "",
         editStatus: false,
         addCity: false,
+        cityProfiles: null,
 
         // used for all components after Login/Sign Up steps
         user: null,
@@ -74,6 +75,9 @@ const usersSlice = createSlice({
         },
         changeUser(state, action) {
             state.user = action.payload
+        },
+        changeCityProfiles(state, action) {
+            state.cityProfiles = action.payload
         },
         changeIsLoggedIn(state, action) {
             state.isLoggedIn = action.payload
@@ -146,6 +150,7 @@ const {
     changeFilteredVenueResults,
     changeEditStatus,
     changeAddCity,
+    changeCityProfiles,
 
 } = usersSlice.actions; 
 
@@ -171,6 +176,7 @@ export {
     changeFilteredVenueResults,
     changeEditStatus,
     changeAddCity,
+    changeCityProfiles,
 }
 
 export default usersSlice.reducer;

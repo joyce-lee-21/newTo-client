@@ -100,7 +100,7 @@ function ProfileSelection() {
             }
             <button onClick={()=> {
                 dispatch(changeCategoryArrFirst(categoryArrFirst + 10))
-            }}>Next</button>
+            }}>Load More</button>
             <button onClick={onSubmitClick}>
                 Submit Selections
             </button>

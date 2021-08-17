@@ -13,6 +13,7 @@ function Profile() {
     const user = useSelector(state => state.user);
     const citySelection = useSelector(state => state.citySelection);
     const categoryArray = useSelector(state => state.categoryArray);
+    const cityProfiles = useSelector(state => state.cityProfiles);
     const [errors, setErrors] = useState([])
 
     // console.log(categoryArray.length)
@@ -22,7 +23,7 @@ function Profile() {
     return (
         <div>
             {/* if there are more than one city, and a citySelection === "" */}
-            {user.city_profiles.length > 1 && !citySelection
+            {cityProfiles.length > 1 && !citySelection
             // ? citySelection
                 // ? categoryArray[0].length === 0
                     // ? <ProfileSelection />

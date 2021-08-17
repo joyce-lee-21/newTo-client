@@ -6,6 +6,7 @@ import {changeCitySelection, changeCategoryArray, changeSavedVenuesArray} from '
 function ProfileCity() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
+    const cityProfiles = useSelector(state => state.cityProfiles);
     const [errors, setErrors] = useState([])
 
     const getCityProfile = (e, profile) => {
@@ -35,7 +36,7 @@ function ProfileCity() {
     return (
         <div>
             <h1>Select a city:</h1> 
-            {user.city_profiles.map(profile => (
+            {cityProfiles.map(profile => (
                 <button key={profile.id} id={profile.id} onClick={(e)=>getCityProfile(e, profile)}>{profile.city}</button>
             ))}
         </div>
