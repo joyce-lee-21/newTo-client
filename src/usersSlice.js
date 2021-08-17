@@ -27,10 +27,14 @@ const usersSlice = createSlice({
 
         // used for Profile > child components
         citySelection: "",
-        venuesResultsArray: [],
-        venuesDetailsArray: [],
         savedVenuesArray: [],
         profileView: "categories",
+
+        // used for Results components
+
+        venuesResultsArray: [],
+        venuesDetailsArray: [],
+        filteredVenueResults: [],
 
         // category selections saved to the user city_profile
         categoryArray: [],
@@ -93,6 +97,9 @@ const usersSlice = createSlice({
         changeVenuesResultsArray(state, action) {
             state.venuesResultsArray = action.payload
         },
+        changeFilteredVenueResults(state, action) {
+            state.filteredVenueResults = action.payload
+        },
         changeVenuesDetailsArray(state, action) {
             state.venuesDetailsArray = action.payload
         },
@@ -128,6 +135,7 @@ const {
     changeSelectedCategoryArray,
     changeVenuesResultsArray,
     changeVenuesDetailsArray,
+    changeFilteredVenueResults,
 
 } = usersSlice.actions; 
 
@@ -150,6 +158,7 @@ export {
     changeSelectedCategoryArray,
     changeVenuesResultsArray,
     changeVenuesDetailsArray,
+    changeFilteredVenueResults,
 }
 
 export default usersSlice.reducer;

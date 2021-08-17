@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useState, useEffect} from 'react';
-import {changeVenuesDetailsArray} from '../../usersSlice';
+import {changeVenuesDetailsArray, changeFilteredVenueResults} from '../../usersSlice';
 
 import VenueItem from './VenueItem';
 
@@ -12,6 +12,8 @@ function VenueList({venuesResultsArray}) {
     const client_secret = useSelector(state => state.clientSecret);
     const version = useSelector(state => state.version);
     const venuesDetailsArray = useSelector(state => state.venuesDetailsArray);
+    const filteredVenueResults = useSelector(state => state.filteredVenueResults);
+    const categoryArray = useSelector(state => state.categoryArray);
 
     // console.log(venuesResultsArray)
     // console.log(venuesResultsArray.join())
@@ -31,6 +33,7 @@ function VenueList({venuesResultsArray}) {
     //             // arr.map(d=>detailsArray.push(d))
     //             // console.log(arr.response.venue)
     //             dispatch(changeVenuesDetailsArray([...venuesDetailsArray, arr])) 
+    // dispatch(changeFilteredVenueResults([...filteredVenueResults, ...venueArray]))
     //             // !! update VenueItem array source after successfully dispatching
     //         } else {
     //             const err = await res.json()
@@ -45,12 +48,27 @@ function VenueList({venuesResultsArray}) {
     //     // venuesResultsArray.forEach(venue=>venueDetails(venue));
     // }, [venuesResultsArray])
 
+    const onCategoryFilter = (e) => {
+        console.log(e.target.value)
+        if (e.target.value !== "") {
+            const filtered = venuesDetailsArray.filter(v=> v.categories[0] === e.target.value)
+            console.log(filtered)
+    //         dispatch(changeFilteredVenueResults(filtered))
+        }
+    }
+
     return (
         <div>
-            <button>Search bar and filter dropdown goes here</button>
+            <input type="text" label="Search"></input>
+            <select id="category" name="category" onChange={(e)=>onCategoryFilter(e)}>
+                <option value="">All</option>
+                {categoryArray.map(cat=> 
+                    (<option value={`${cat.name}`}>{cat.name}</option>)
+                )}
+            </select>
             {venuesResultsArray.map(v=>
-                // <VenueItem key={v.id} venue={v}/>
-                <VenueItem key={v.venue.id} venue={v.venue}/>
+                <VenueItem key={v.id} venue={v}/>
+                // <VenueItem key={v.venue.id} venue={v.venue}/>
             )}
         </div>
     );

@@ -7,8 +7,6 @@ function VenueItem({venue}) {
     const citySelection = useSelector(state => state.citySelection);
 
     const onHeart = (e, venue) => {
-        // console.log(venue)
-        // console.log(venue.categories[0].name)
         const v = {
             city_profile_id: citySelection.id,
             name: venue.name,
@@ -18,7 +16,6 @@ function VenueItem({venue}) {
             fs_venue_id: venue.id,
             lat: venue.location.lat,
             long: venue.location.lng,
-            // category: venue.category
             category: venue.categories[0].name
         }
         async function heartLike(){
