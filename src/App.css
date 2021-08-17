@@ -43,7 +43,7 @@
   justify-content: center;
 }
 
-.login-container, .signup-container {
+.login-container, .signup-container, .account-edit-container, .city-edit-container {
   display: flex;
   flex-direction: column;
   width: 30%;

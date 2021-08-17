@@ -34,8 +34,8 @@ function VenueItem({venue}) {
                     city_profile_id: venue.city_profile_id,
                     name: venue.name,
                     address: venue.address,
-                    // url: venue.url,
-                    // rating: venue.rating,
+                    url: venue.url,
+                    rating: venue.rating,
                     fs_venue_id: venue.fs_venue_id,
                     lat: venue.lat,
                     long: venue.long,
@@ -55,9 +55,10 @@ function VenueItem({venue}) {
     return (
         <div className="venue-tile">
             <h5>{venue.name}</h5>
-            {/* <p>{venue.rating}</p> */}
+            <p>{`Category: ${venue.categories[0].name}`}</p>
+            <p>{`Rating: ${venue.rating}`}</p>
             <p>{venue.location.address}</p>
-            {/* <p>{venue.url}</p> */}
+            <p>{venue.url}</p>
             <button onClick={(e)=>onHeart(e, venue)}>Heart Icon</button>
         </div>
     );

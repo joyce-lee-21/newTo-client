@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 // import {changeUser, changeIsLoggedIn} from '.././usersSlice';
 
 // ***---V1 CODE---***
-import {changeUser} from '.././usersSlice';
+import {changeUser, changeCitySelection, changeCategoryArray, changeSavedVenuesArray, changeIsLoggedIn} from '../usersSlice';
 
 
 function App() {
@@ -60,8 +60,18 @@ function App() {
       if (r.ok) {
         r.json()
         .then((user) => {
-          // console.log('App useEffect fetch:', user)
+          console.log('App useEffect fetch:', user)
           dispatch(changeUser(user))
+          dispatch(changeIsLoggedIn(true))
+          if (user.cities.length === 1) {
+            dispatch(changeCitySelection(user.cities[0]))
+            dispatch(changeCategoryArray(user.category_selections))
+            dispatch(changeSavedVenuesArray(user.venue_selections))
+          }
+          else {
+              dispatch(changeCategoryArray(user.category_selections))
+              dispatch(changeSavedVenuesArray(user.venue_selections))
+          }
         });
       }
     })

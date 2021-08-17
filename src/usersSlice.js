@@ -20,6 +20,8 @@ const usersSlice = createSlice({
         passwordInput: "",
         nameInput: "",
         cityInput: "",
+        editStatus: false,
+        addCity: false,
 
         // used for all components after Login/Sign Up steps
         user: null,
@@ -37,13 +39,13 @@ const usersSlice = createSlice({
         filteredVenueResults: [],
 
         // category selections saved to the user city_profile
-        categoryArray: [],
+        categoryArray: null,
         // categories to be selected from seed data (foursquare's primary and secondary categories)
         selectCategoryArray: [],
         // categories selected from selectCategoryArray, not yet saved to the user city_profile
         selectedCategoryArray: [],
         categoryArrFirst: 0,
-        categoryArrLast: 5,
+        categoryArrLength: 10,
 
         // private - external API credentials
         clientId: "TMPN4FQH3UGB0NX5JBBA0B4WBWRYMK51MTOO0YN10JDLDKDQ",
@@ -63,6 +65,12 @@ const usersSlice = createSlice({
         },
         changeCityInput(state, action) {
             state.cityInput = action.payload
+        },
+        changeEditStatus(state, action) {
+            state.editStatus = action.payload
+        },
+        changeAddCity(state, action) {
+            state.addCity = action.payload
         },
         changeUser(state, action) {
             state.user = action.payload
@@ -88,7 +96,7 @@ const usersSlice = createSlice({
         changeCategoryArrFirst(state, action) {
             state.categoryArrFirst = action.payload
         },
-        changeCategoryArrLast(state, action) {
+        changeCategoryArrLength(state, action) {
             state.categoryArrLast = action.payload
         },
         changeSelectedCategoryArray(state, action) {
@@ -131,11 +139,13 @@ const {
     changeProfileView,
     changeSelectCategoryArray,
     changeCategoryArrFirst,
-    changeCategoryArrLast,
+    changeCategoryArrLength,
     changeSelectedCategoryArray,
     changeVenuesResultsArray,
     changeVenuesDetailsArray,
     changeFilteredVenueResults,
+    changeEditStatus,
+    changeAddCity,
 
 } = usersSlice.actions; 
 
@@ -154,11 +164,13 @@ export {
     changeProfileView,
     changeSelectCategoryArray,
     changeCategoryArrFirst,
-    changeCategoryArrLast,
+    changeCategoryArrLength,
     changeSelectedCategoryArray,
     changeVenuesResultsArray,
     changeVenuesDetailsArray,
     changeFilteredVenueResults,
+    changeEditStatus,
+    changeAddCity,
 }
 
 export default usersSlice.reducer;

@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changeCategoryArrFirst, changeCategoryArrLast, changeSelectCategoryArray, changeCategoryArray} from '../../usersSlice';
+import {changeCategoryArrFirst, changecategoryArrLength, changeSelectCategoryArray, changeCategoryArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState, useEffect} from 'react'
 
@@ -11,21 +11,22 @@ function ProfileSelection() {
     const selectCategoryArray = useSelector(state => state.selectCategoryArray);
     const selectedCategoryArray = useSelector(state => state.selectedCategoryArray);
     const categoryArrFirst = useSelector(state => state.categoryArrFirst);
-    const categoryArrLast = useSelector(state => state.categoryArrLast);
+    const categoryArrLength = useSelector(state => state.categoryArrLength);
     const citySelection = useSelector(state => state.citySelection);
     const [errors, setErrors] = useState([])
 
-    const primary_categories = [];
+  
 
     useEffect(() => {
         async function categories(){
+            console.log(categoryArrFirst, categoryArrLength)
             // const res = await fetch("http://localhost:3000/primary_categories", {
             //     method: "GET",
             //     headers: {
             //         "Content-Type": "application/json",
             //     },
             // })
-            const res = await fetch(`http://localhost:3000/categories/list/${categoryArrFirst}&${categoryArrLast}`, {
+            const res = await fetch(`http://localhost:3000/categories/list/${categoryArrFirst}&${categoryArrLength}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -33,11 +34,12 @@ function ProfileSelection() {
             })
             if(res.ok){
                 const arr = await res.json()
-                // console.log(arr)
-                // console.log(primary_categories)
+                console.log(arr)
+                const primary_categories = [];
                 arr.forEach((cat) => {
                     primary_categories.push(cat)
                 })
+                console.log(primary_categories)
                 dispatch(changeSelectCategoryArray(primary_categories)) 
                 // history.push('/profile')
             } else {
@@ -87,20 +89,17 @@ function ProfileSelection() {
 
     return (
         <div>
-            ProfileSelection
             {selectCategoryArray.map(cat => (
-                <SelectCategoryList key={cat.id} cat={cat} catArray={primary_categories}/>
+                <SelectCategoryList key={cat.id} cat={cat}/>
             ))}
             {categoryArrFirst > 0 
                 ? (<button onClick={()=> {
-                    dispatch(changeCategoryArrFirst(categoryArrFirst - 5))
-                    dispatch(changeCategoryArrLast(categoryArrLast - 5))
+                    dispatch(changeCategoryArrFirst(categoryArrFirst - 10))
                 }}>Back</button>)
                 : null
             }
             <button onClick={()=> {
-                dispatch(changeCategoryArrFirst(categoryArrFirst + 5))
-                dispatch(changeCategoryArrLast(categoryArrLast + 5))
+                dispatch(changeCategoryArrFirst(categoryArrFirst + 10))
             }}>Next</button>
             <button onClick={onSubmitClick}>
                 Submit Selections

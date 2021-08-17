@@ -14,7 +14,7 @@ function ViewCategoryList() {
     const [errors, setErrors] = useState([])
 
     const onReset = () => {
-        dispatch(changeCategoryArray([[]]))
+        dispatch(changeCategoryArray([]))
         dispatch(changeSelectedCategoryArray([]))
         // async function resetCatArray(){
         //     const res = await fetch(`http://localhost:3000/category_selections/${citySelection.id}`, { 

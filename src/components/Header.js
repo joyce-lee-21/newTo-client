@@ -4,11 +4,12 @@ import {NavLink, useHistory} from 'react-router-dom';
 // import {changeUser, changeIsLoggedIn} from '.././usersSlice';
 
 // ***---V1 CODE---***
-import {changeUser} from '.././usersSlice';
+import {changeUser} from '../usersSlice';
 
 function Header() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
+    const citySelection = useSelector(state => state.citySelection);
     const history = useHistory();
 
     // ***---V2 CODE---***
@@ -42,7 +43,10 @@ function Header() {
         <div>
             <div className="nav-left">
                 <NavLink exact to="/" style={{color: 'inherit', textDecoration: 'none'}}>
-                    <h1>{`New To: _____`}</h1>
+                    {citySelection.city 
+                        ? <h1>{`New To: ${citySelection.city}`}</h1>
+                        : <h1>{`New To: _____`}</h1>
+                    }
                 {/* <h1>{`New To: ${city}`}</h1> */}
                 </NavLink>
             </div>
