@@ -151,8 +151,8 @@ function Login() {
             className={classes.login}
         >
             <Grid item xs={10} className={classes.loginBox}>
-                <h1 style={{textAlign: 'center'}}>Login</h1>
-                <form style={{textAlign: 'center'}} onSubmit={handleSubmit}>
+                <h1>Login</h1>
+                <form onSubmit={handleSubmit}>
                     <p>Username</p>
                     <input 
                         type="text" 

@@ -1,11 +1,40 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 import {changeCitySelection, changeCategoryArray, changeSavedVenuesArray} from '../../usersSlice';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const ProfileCityButton = withStyles({
+    root: {
+      boxShadow: 'none',
+      fontSize: 14,
+      fontWeight: 'bold',
+      border: '1px solid',
+      lineHeight: 1.5,
+      backgroundColor: '#ffeca9',
+      borderColor: '#ffeca9',
+      padding: '6px 15px',
+      margin: '20px',
+      height: '80px',
+      '&:hover': {
+        backgroundColor: '#ffeca9',
+        borderColor: '#ffeca9',
+        boxShadow: 'none',
+      },
+      '&:active': {
+        boxShadow: 'none',
+        backgroundColor: '#ffeca9',
+        borderColor: '#ffeca9',
+      },
+      '&:focused': {
+        boxShadow: '0 0 0 0.2rem #ffeca9',
+      },
+    },
+  })(Button);
 
 function ProfileCity() {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
     const cityProfiles = useSelector(state => state.cityProfiles);
     const [errors, setErrors] = useState([])
 
@@ -34,12 +63,15 @@ function ProfileCity() {
     }
 
     return (
-        <div>
+        <>
+        <Grid item xs={2}></Grid>
+        <Grid item xs={8}>
             <h1>Select a city:</h1> 
             {cityProfiles.map(profile => (
-                <button key={profile.id} id={profile.id} onClick={(e)=>getCityProfile(e, profile)}>{profile.city}</button>
+                <ProfileCityButton key={profile.id} id={profile.id} onClick={(e)=>getCityProfile(e, profile)}>{profile.city}</ProfileCityButton>
             ))}
-        </div>
+        </Grid>
+        </>
     );
 }
     

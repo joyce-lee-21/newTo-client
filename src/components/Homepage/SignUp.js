@@ -76,9 +76,9 @@ function SignUp() {
         <Grid container 
             className={classes.login}
         >
-            <Grid item xs={10} classes={classes.loginBox}>
-                <h1 style={{textAlign: 'center'}}>Sign Up</h1>
-                <form style={{textAlign: 'center'}} onSubmit={(e)=>handleSubmit(e)}>
+            <Grid item xs={10}>
+                <h1>Sign Up</h1>
+                <form onSubmit={(e)=>handleSubmit(e)}>
                     <p>Name</p>
                     <input type="text" name="name" onChange={(e)=>dispatch(changeNameInput(e.target.value))}></input>
                     <p>City</p>

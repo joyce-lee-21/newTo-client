@@ -11,6 +11,35 @@ import {
 } from '../usersSlice';
 import {useState} from 'react';
 import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const AccountButton = withStyles({
+    root: {
+      boxShadow: 'none',
+      textTransform: 'none',
+      fontSize: 14,
+      padding: '6px 15px',
+      marginBottom: '20px',
+      border: '1px solid',
+      lineHeight: 1.5,
+      backgroundColor: 'white',
+      borderColor: 'gray',
+      '&:hover': {
+        backgroundColor: '#9fcbb4',
+        borderColor: '#9fcbb4',
+        boxShadow: 'none',
+      },
+      '&:active': {
+        boxShadow: 'none',
+        backgroundColor: '#9fcbb4',
+        borderColor: '#9fcbb4',
+      },
+      '&:focused': {
+        boxShadow: '0 0 0 0.2rem #9fcbb4',
+      },
+    },
+  })(Button);
 
 function Account() {
     const dispatch = useDispatch();
@@ -100,20 +129,16 @@ function Account() {
 
     return (
         <Grid container>
-            <Grid item xs={2} className={classes.accountBoxes}></Grid>
-            <Grid item xs={4}>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={4} className={classes.accountBoxes}>
                 <h1>Account Details</h1>
                 {editStatus === false
                 ? 
                     (<div>
-                        <p>{nameInput}</p>
-                        <span>
-                            Cities:
-                            {user.city_profiles.map(city=><p key={city.id}>{city.city}</p>)}
-                        </span>
-                        <p>{usernameInput}</p>
-                        <p>***</p>
-                        <button onClick={()=>dispatch(changeEditStatus(true))}>Edit</button>
+                        <p>Name: {nameInput}</p>
+                        <p>Username: {usernameInput}</p>
+                        <p>Password: ***</p>
+                        <AccountButton onClick={()=>dispatch(changeEditStatus(true))}>Edit</AccountButton>
                     </div>)
                 :
                 <>
@@ -126,26 +151,27 @@ function Account() {
                     <input type="text" name="password" style={{width: '80%'}} onChange={(e)=>dispatch(changePasswordInput(e.target.value))}></input>
                     <br></br>
                     <input type="submit" value="Save Changes"></input>
-                    <button onClick={()=>dispatch(changeEditStatus(false))}>Cancel</button>
+                    <AccountButton onClick={()=>dispatch(changeEditStatus(false))}>Cancel</AccountButton>
                 </form>
                 </>
                 }
             </Grid>
-            <Grid>
+            <Grid item xs={4} className={classes.accountBoxes}>
                 <h1>Cities</h1>
                 {cityProfiles.map(city=>
                     (<>
-                    <p>{city.city}</p>
-                    <button onClick={(e)=>onDeleteCity(e, city)}>Delete</button>
+                    <p style={{width: "50%", marginRight: '20px', display: 'inline'}}>{city.city}</p>
+                    <AccountButton onClick={(e)=>onDeleteCity(e, city)}>Delete</AccountButton>
+                    <br></br>
                     </>
                     )
                 )}
                 {addCity 
                     ? <>
                         <input type="text" name="city" style={{width: '80%'}} onChange={(e)=>dispatch(changeCityInput(e.target.value))}></input>
-                        <button onClick={(e)=>onAddCity(e)}>Add</button>
+                        <AccountButton onClick={(e)=>onAddCity(e)}>Add</AccountButton>
                     </>
-                    : <button onClick={()=>dispatch(changeAddCity(true))}>Add New City</button>
+                    : <AccountButton onClick={()=>dispatch(changeAddCity(true))}>Add New City</AccountButton>
                 }
             </Grid>
         </Grid>

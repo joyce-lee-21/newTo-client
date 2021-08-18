@@ -1,15 +1,12 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {changeUser} from '../../usersSlice';
-import {useHistory} from 'react-router-dom';
-import {useState} from 'react'
+import {useSelector} from 'react-redux';
 
 import ViewVenueItem from './ViewVenueItem';
 
+import Grid from '@material-ui/core/Grid';
+
+
 function ViewVenuesList() {
-    const dispatch = useDispatch();
-    const history = useHistory();
     const savedVenuesArray = useSelector(state => state.savedVenuesArray);
-    const [errors, setErrors] = useState([])
 
     return (
         <div>

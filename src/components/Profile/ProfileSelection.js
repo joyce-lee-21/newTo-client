@@ -1,13 +1,14 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changeCategoryArrFirst, changecategoryArrLength, changeSelectCategoryArray, changeCategoryArray} from '../../usersSlice';
+import {changeCategoryArrFirst, changeSelectCategoryArray, changeCategoryArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState, useEffect} from 'react'
 
 import SelectCategoryList from './SelectCategoryList';
 
+import Grid from '@material-ui/core/Grid';
+
 function ProfileSelection() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const selectCategoryArray = useSelector(state => state.selectCategoryArray);
     const selectedCategoryArray = useSelector(state => state.selectedCategoryArray);
     const categoryArrFirst = useSelector(state => state.categoryArrFirst);
@@ -20,12 +21,6 @@ function ProfileSelection() {
     useEffect(() => {
         async function categories(){
             console.log(categoryArrFirst, categoryArrLength)
-            // const res = await fetch("http://localhost:3000/primary_categories", {
-            //     method: "GET",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            // })
             const res = await fetch(`http://localhost:3000/categories/list/${categoryArrFirst}&${categoryArrLength}`, {
                 method: "GET",
                 headers: {
@@ -41,7 +36,6 @@ function ProfileSelection() {
                 })
                 console.log(primary_categories)
                 dispatch(changeSelectCategoryArray(primary_categories)) 
-                // history.push('/profile')
             } else {
                 const err = await res.json()
                 // console.log(err.errors)
@@ -88,7 +82,9 @@ function ProfileSelection() {
     }
 
     return (
-        <div>
+        <>
+        <Grid item xs={2}></Grid>
+        <Grid item xs={8}>
             {selectCategoryArray.map(cat => (
                 <SelectCategoryList key={cat.id} cat={cat}/>
             ))}
@@ -104,7 +100,8 @@ function ProfileSelection() {
             <button onClick={onSubmitClick}>
                 Submit Selections
             </button>
-        </div>
+        </Grid>
+        </>
     );
 }
     

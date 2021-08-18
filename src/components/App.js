@@ -44,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '40vh',
     minWidth: '100vw',
     marginTop: '50px',
+    alignItems: "center",
+    textAlign: 'center',
   },
   mainPageButtons: {
     margin: '20px',
@@ -66,12 +68,31 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '0',
   },
   signupButton: {
-    alignItems: "center",
     marginTop: '20px',
     marginBottom: '20px',
   },
   accountBoxes: {
     alignItems: "center",
+    textAlign: 'center',
+    border: '1px solid black',
+    borderRadius: '5px',
+    marginLeft: '10px',
+    marginRight: '10px'
+  },
+  viewCategoryContainer: {
+    alignItems: "center",
+    // textAlign: 'center',
+    // justify: "center",
+  },
+  categoryView: {
+    height: '70px',
+    width: '100%',
+    justify: 'center',
+    alignItems: "center",
+    textAlign: 'center',
+    marginLeft: '10px',
+    marginRight: '10px',
+    backgroundColor: '#fcf3d3',
   }
 }));
 
