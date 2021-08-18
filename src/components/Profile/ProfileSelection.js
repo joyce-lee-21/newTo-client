@@ -7,6 +7,35 @@ import SelectCategoryList from './SelectCategoryList';
 
 import Grid from '@material-ui/core/Grid';
 
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const LoadButtons = withStyles({
+    root: {
+      boxShadow: 'none',
+      fontSize: 14,
+      border: '1px solid',
+      lineHeight: 1.5,
+      backgroundColor: '#9fcbb4',
+      borderColor: '#9fcbb4',
+      padding: '6px 15px',
+      margin: '10px',
+      '&:hover': {
+        backgroundColor: '#9fcbb4',
+        borderColor: '#9fcbb4',
+        boxShadow: 'none',
+      },
+      '&:active': {
+        boxShadow: 'none',
+        backgroundColor: '#9fcbb4',
+        borderColor: '#9fcbb4',
+      },
+      '&:focused': {
+        boxShadow: '0 0 0 0.2rem #9fcbb4',
+      },
+    },
+  })(Button);
+
 function ProfileSelection() {
     const dispatch = useDispatch();
     const selectCategoryArray = useSelector(state => state.selectCategoryArray);
@@ -83,23 +112,27 @@ function ProfileSelection() {
 
     return (
         <>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={8}>
+        <Grid item xs={1}></Grid>
+        <Grid item xs={10}>
+            <div>
             {selectCategoryArray.map(cat => (
                 <SelectCategoryList key={cat.id} cat={cat}/>
             ))}
+            </div>
+            <div>
             {categoryArrFirst > 0 
-                ? (<button onClick={()=> {
+                ? (<LoadButtons onClick={()=> {
                     dispatch(changeCategoryArrFirst(categoryArrFirst - 10))
-                }}>Back</button>)
+                }}>Back</LoadButtons>)
                 : null
             }
-            <button onClick={()=> {
+            <LoadButtons onClick={()=> {
                 dispatch(changeCategoryArrFirst(categoryArrFirst + 10))
-            }}>Load More</button>
-            <button onClick={onSubmitClick}>
+            }}>Load More</LoadButtons>
+            <LoadButtons onClick={onSubmitClick}>
                 Submit Selections
-            </button>
+            </LoadButtons>
+            </div>
         </Grid>
         </>
     );

@@ -3,6 +3,8 @@ import {useState, useEffect} from 'react'
 import {changeVenuesResultsArray} from '../../usersSlice';
 import VenueList from './VenueList';
 
+import Grid from '@material-ui/core/Grid';
+
 function Results() {
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
@@ -51,12 +53,12 @@ function Results() {
     }
 
     return (
-        <div>
+        <Grid container>
             {venuesResultsArray.length >= 1
                 ? (<VenueList venuesResultsArray={venuesResultsArray}/>)
                 : null
             }
-        </div>
+        </Grid>
     );
 }
     

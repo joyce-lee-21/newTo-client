@@ -93,6 +93,16 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '10px',
     marginRight: '10px',
     backgroundColor: '#fcf3d3',
+  },
+  resultsList: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    // margin: '5px',
+    // padding: '5px',
+    height: '150px',
+    borderBottom: '1px black dotted',
+    backgroundColor: '#fcf3d3',
   }
 }));
 

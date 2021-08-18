@@ -1,12 +1,25 @@
 import {useDispatch, useSelector} from 'react-redux';
+import {useState} from 'react'
 import {changeSavedVenuesArray} from '../../usersSlice';
+
+import { withStyles } from '@material-ui/core/styles';
+
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+
+import Grid from '@material-ui/core/Grid';
+
 
 function VenueItem({venue}) {
     const dispatch = useDispatch();
+    const classes = useSelector(state => state.classes);
     const savedVenuesArray = useSelector(state => state.savedVenuesArray);
     const citySelection = useSelector(state => state.citySelection);
+    const [hearted, setHearted] = useState(false);
 
     const onHeart = (e, venue) => {
+        setHearted(true)
         const v = {
             city_profile_id: citySelection.id,
             name: venue.name,
@@ -53,14 +66,24 @@ function VenueItem({venue}) {
     }
 
     return (
-        <div className="venue-tile">
-            <h5>{venue.name}</h5>
-            <p>{`Category: ${venue.categories[0].name}`}</p>
-            <p>{`Rating: ${venue.rating}`}</p>
-            <p>{venue.location.address}</p>
-            <p>{venue.url}</p>
-            <button onClick={(e)=>onHeart(e, venue)}>Heart Icon</button>
-        </div>
+        <Grid container className={classes.resultsList}>
+            <Grid item xs={6}>
+                <div>
+                    <p style={{fontWeight: 'bold'}}>{venue.name}</p>
+                    <p>{venue.location.address}</p>
+                    <p>{venue.url}</p>
+                </div>
+            </Grid>
+            <Grid item xs={4}>
+                <div>
+                    <p>{`Category: ${venue.categories[0].name}`}</p>
+                    <p>{`Rating: ${venue.rating}`}</p>
+                    <IconButton aria-label="fav" onClick={(e)=>onHeart(e, venue)}>
+                        {hearted ? <FavoriteIcon /> :<FavoriteBorderIcon />}
+                    </IconButton>
+                </div>
+            </Grid>
+        </Grid>
     );
 }
     

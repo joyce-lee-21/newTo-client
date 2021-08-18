@@ -1,8 +1,6 @@
 import {useSelector} from 'react-redux';
-
 import ViewVenueItem from './ViewVenueItem';
 
-import Grid from '@material-ui/core/Grid';
 
 
 function ViewVenuesList() {

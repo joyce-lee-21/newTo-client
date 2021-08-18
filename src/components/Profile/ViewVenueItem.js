@@ -1,7 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {changeSavedVenuesArray} from '../../usersSlice';
-import {useHistory} from 'react-router-dom';
-import {useState} from 'react'
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -36,7 +34,6 @@ const VenueViewButton = withStyles({
 function ViewVenueItem({venue}) {
     const dispatch = useDispatch();
     const savedVenuesArray = useSelector(state => state.savedVenuesArray);
-    const [errors, setErrors] = useState([])
 
     // console.log(venue === [] ? `${venue.id}: this is true` : `${venue.id}: this is false`)
 
@@ -45,7 +42,6 @@ function ViewVenueItem({venue}) {
         fetch(`http://localhost:3000/saved_venues/${venue.id}`, { 
             method: "DELETE" 
         })
-        // .then((r) => console.log(r))
     }
 
     return (

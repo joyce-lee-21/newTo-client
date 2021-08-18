@@ -4,6 +4,8 @@ import {changeVenuesDetailsArray, changeFilteredVenueResults} from '../../usersS
 
 import VenueItem from './VenueItem';
 
+import Grid from '@material-ui/core/Grid';
+
 function VenueList({venuesResultsArray}) {
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
@@ -76,7 +78,10 @@ function VenueList({venuesResultsArray}) {
     }
 
     return (
-        <div>
+        <>
+        <Grid item xs={1}></Grid>
+        <Grid item xs={10}>
+            <h5>Search by Name:</h5>
             <input type="text" label="Search" onChange={(e)=>onQuery(e)}></input>
             {/* STRETCH GOAL AFTER SECONDARY CATEGORIES BROUGHT IN */}
             {/* <select id="category" name="category" onChange={(e)=>onCategoryFilter(e)}>
@@ -89,7 +94,8 @@ function VenueList({venuesResultsArray}) {
                 <VenueItem key={v.id} venue={v}/>
                 // <VenueItem key={v.venue.id} venue={v.venue}/>
             )}
-        </div>
+        </Grid>
+        </>
     );
 }
     
