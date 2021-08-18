@@ -48,6 +48,9 @@ const usersSlice = createSlice({
         categoryArrFirst: 0,
         categoryArrLength: 10,
 
+        // CSS class
+        classes: "",
+
         // private - external API credentials
         clientId: "TMPN4FQH3UGB0NX5JBBA0B4WBWRYMK51MTOO0YN10JDLDKDQ",
         clientSecret: "2DBBU5NEY4QZF2DYPXVRUZ5CZJALBQ3QMLNBSWE4V403UFL4",
@@ -115,6 +118,9 @@ const usersSlice = createSlice({
         changeVenuesDetailsArray(state, action) {
             state.venuesDetailsArray = action.payload
         },
+        changeClasses(state, action) {
+            state.classes = action.payload
+        }
 
     },
     // extraReducers: {
@@ -151,6 +157,7 @@ const {
     changeEditStatus,
     changeAddCity,
     changeCityProfiles,
+    changeClasses,
 
 } = usersSlice.actions; 
 
@@ -177,6 +184,7 @@ export {
     changeEditStatus,
     changeAddCity,
     changeCityProfiles,
+    changeClasses,
 }
 
 export default usersSlice.reducer;

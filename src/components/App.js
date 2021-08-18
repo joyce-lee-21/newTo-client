@@ -5,7 +5,11 @@ import {
 import Header from './Header';
 import Content from './Content';
 import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
 // ***---V2 CODE---***
 // import {changeUser, changeIsLoggedIn} from '.././usersSlice';
 
@@ -17,11 +21,36 @@ import {
   changeSavedVenuesArray, 
   changeIsLoggedIn,
   changeCityProfiles,
+  changeClasses,
 } from '../usersSlice';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+  headerMargin: {
+    marginTop: '5px',
+    marginRight: '30px',
+  },
+  mainpage: {
+    width: '500px'
+  },
+  logo: {
+    marginLeft: '20px',
+  }
+}));
 
 
 function App() {
   const dispatch = useDispatch();
+  const classes = useStyles();
+
+  dispatch(changeClasses(classes))
 
   // ***---CODE FOR WIP SESSION PERSIST SOLUTION (V2)---***
 
@@ -67,7 +96,7 @@ function App() {
       if (r.ok) {
         r.json()
         .then((user) => {
-          console.log('App useEffect fetch:', user)
+          // console.log('App useEffect fetch:', user)
           dispatch(changeUser(user))
           dispatch(changeIsLoggedIn(true))
           if (user.cities.length === 1) {
@@ -87,12 +116,14 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="app-container">
       <Router>
-        <Header />
-        <Content />
+        <Grid container>
+          <Header />
+          <Content />
+        </Grid>
       </Router>
-    </>
+    </div>
     
   );
 }

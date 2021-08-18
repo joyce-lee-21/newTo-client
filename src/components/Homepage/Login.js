@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 // ***---V2 CODE---***
 // import {changePasswordInput, changeUsernameInput, changeUser, changeIsLoggedIn, changeCitySelection, changeCategoryArray, changeSavedVenuesArray} from '../../usersSlice';
 // ***---V1 CODE---***
-import {changePasswordInput, changeUsernameInput, changeNameInput, changeUser, changeCityInput, changeCitySelection, changeCategoryArray, changeSavedVenuesArray, changeIsLoggedIn, changeCityProfiles} from '../../usersSlice';
+import {changePasswordInput, changeUsernameInput, changeNameInput, changeUser, changeCitySelection, changeCategoryArray, changeSavedVenuesArray, changeIsLoggedIn, changeCityProfiles} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 
