@@ -38,11 +38,11 @@
 }
 
 .footer {
-  position: fixed;
+  position: relative;
   left: 0;
   bottom: 0;
-  width: 100%;
-  background-color: white;
+  /* width: 100%; */
+  /* background-color: white; */
   background-image: url("./skyline.jpg");
   height: 350px;
   opacity: 0.5;
@@ -53,10 +53,10 @@
   display: flex;
 }
 
-.nav-left{
+/* .nav-left{
   margin-left: 50px;
   margin-top: 10px;
-}
+} */
 
 .nav-right{
   display: flex;
@@ -65,21 +65,26 @@
 }
 
 /* Login */
-.content-container {
+/* .content-container {
   display: flex;
   justify-content: center;
-  /* background-color: white;
-  opacity: 0.5; */
-  /* width: 90%; */
-  /* height: 100%; */
-}
+  width: auto;
+  height: 100%;
+} */
 
-.login-container, .signup-container, .account-edit-container, .city-edit-container {
+.account-edit-container, .city-edit-container {
   display: flex;
   flex-direction: column;
   /* width: 30%; */
   border: 1px black solid;
   margin: 20px;
+}
+
+/* Main Page */
+.mainpage-desc {
+  background-color: #ffeca9;
+  opacity: 0.7;
+  padding: 20px;
 }
 
 /* Profile Tiles */

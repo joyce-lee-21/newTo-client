@@ -6,9 +6,9 @@ import Header from './Header';
 import Content from './Content';
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-
-import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 // ***---V2 CODE---***
 // import {changeUser, changeIsLoggedIn} from '.././usersSlice';
@@ -37,11 +37,41 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '5px',
     marginRight: '30px',
   },
-  mainpage: {
-    width: '500px'
-  },
   logo: {
     marginLeft: '20px',
+  },
+  contentContainer: {
+    minHeight: '40vh',
+    minWidth: '100vw',
+    marginTop: '50px',
+  },
+  mainPageButtons: {
+    margin: '20px',
+  },
+  mainpage: {
+    textAlign: 'center',
+  },
+  login: {
+    flexDirection: 'column',
+    alignItems: "center",
+    justify: "center",
+    marginLeft: '33vw',
+    border: '1px solid black',
+    borderRadius: '5px',
+    width: '33vw',
+    backgroundColor: '#9fcbb4',
+  },
+  loginBox:{
+    padding: '40px',
+    paddingTop: '0',
+  },
+  signupButton: {
+    alignItems: "center",
+    marginTop: '20px',
+    marginBottom: '20px',
+  },
+  accountBoxes: {
+    alignItems: "center",
   }
 }));
 

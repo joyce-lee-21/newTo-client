@@ -120,7 +120,7 @@ const usersSlice = createSlice({
         },
         changeClasses(state, action) {
             state.classes = action.payload
-        }
+        },
 
     },
     // extraReducers: {

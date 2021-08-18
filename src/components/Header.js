@@ -6,7 +6,7 @@ import {NavLink, useHistory} from 'react-router-dom';
 // ***---V1 CODE---***
 import {changeUser} from '../usersSlice';
 
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
@@ -103,11 +103,9 @@ function Header() {
                     : <Grid item xs={6} className="nav-right">
                         <NavLink to="/login" className="nav-link" style={{ textDecoration: 'none' }}>
                             <HeaderButton variant="outlined" className={classes.headerMargin}>LOGIN</HeaderButton>
-                            {/* <button>Login</button> */}
                         </NavLink>
                         <NavLink to="/signup" className="nav-link" style={{ textDecoration: 'none' }}>
                             <HeaderButton variant="outlined" className={classes.headerMargin}>SIGN UP</HeaderButton>
-                            {/* <button>Sign Up</button> */}
                         </NavLink>
                     </Grid>
                 }

@@ -5,14 +5,16 @@ import Results from './Results/Results';
 import Account from './Account';
 import Login from './Homepage/Login';
 import SignUp from './Homepage/SignUp';
+import {useSelector} from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 
 function Content() {
+    const classes = useSelector(state => state.classes);
 
     return (
-        <div className="content-container">
-            <Grid container>
+        <div>
+            <Grid container className={classes.contentContainer}>
                 <Switch>
                     <Route exact path="/">
                         <MainPage />

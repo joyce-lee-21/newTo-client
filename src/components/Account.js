@@ -9,11 +9,12 @@ import {
     changeAddCity,
     changeCityProfiles,
 } from '../usersSlice';
-import {useHistory} from 'react-router-dom';
-import {useState} from 'react'
+import {useState} from 'react';
+import Grid from '@material-ui/core/Grid';
 
 function Account() {
     const dispatch = useDispatch();
+    const classes = useSelector(state => state.classes);
     const usernameInput = useSelector(state => state.usernameInput);
     const passwordInput = useSelector(state => state.passwordInput);
     const nameInput = useSelector(state => state.nameInput);
@@ -23,7 +24,6 @@ function Account() {
     const addCity = useSelector(state => state.addCity);
     const cityProfiles = useSelector(state => state.cityProfiles);
     const [errors, setErrors] = useState([]);
-
 
 
     const handleSubmit = (e) => {
@@ -43,7 +43,7 @@ function Account() {
             })
             if(res.ok){
                 const user = await res.json()
-                // dispatch(changeUser(user))
+                dispatch(changeUser(user))
             } else {
                 const err = await res.json()
                 // console.log(err.errors)
@@ -88,12 +88,10 @@ function Account() {
                     user_id: newCity.user_id
                 }
                 // console.log(newCity)
-                // console.log([...cityProfiles, formatNewCity])
                 dispatch(changeCityProfiles([...cityProfiles, formatNewCity]))
                 dispatch(changeAddCity(false))
             } else {
                 const err = await res.json()
-                // console.log(err.errors)
                 setErrors(err.errors)
             }
         };
@@ -101,8 +99,9 @@ function Account() {
     }
 
     return (
-        <>
-            <div className="account-edit-container">
+        <Grid container>
+            <Grid item xs={2} className={classes.accountBoxes}></Grid>
+            <Grid item xs={4}>
                 <h1>Account Details</h1>
                 {editStatus === false
                 ? 
@@ -131,8 +130,8 @@ function Account() {
                 </form>
                 </>
                 }
-            </div>
-            <div className="city-edit-container">
+            </Grid>
+            <Grid>
                 <h1>Cities</h1>
                 {cityProfiles.map(city=>
                     (<>
@@ -148,8 +147,8 @@ function Account() {
                     </>
                     : <button onClick={()=>dispatch(changeAddCity(true))}>Add New City</button>
                 }
-            </div>
-        </>
+            </Grid>
+        </Grid>
     );
 }
     
