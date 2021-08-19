@@ -32,7 +32,7 @@ function Results() {
     const venueFetch = () => {
         async function fsVenue(cat){
             // console.log(cat.fs_category_id)
-            const res = await fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=5&categoryId=${cat.fs_category_id}`, {
+            const res = await fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=3&categoryId=${cat.fs_category_id}`, {
                 method: "GET"
             })
             if(res.ok){
@@ -40,22 +40,26 @@ function Results() {
                 const vArr = arr.response.groups[0].items
                 vArr.map(v=> venueArray.push(v.venue))
                 // console.log(`formatted array from venue recommendations API: ${vArr}`)
-                dispatch(changeVenuesResultsArray(venueArray))
+                // console.log([...venueArray])
+                dispatch(changeVenuesResultsArray([...venueArray]))
+                // console.log(venuesResultsArray)
             } else {
                 const err = await res.json()
                 console.log(err.errors)
             }
         };
         // limiting category to one, change to categoryArray after fetches work:
-        fsVenue(categoryArray[0])
+        // fsVenue(categoryArray[0])
         // console.log(categoryArray[0])
-        // categoryArray.forEach(cat => fsVenue(cat))
+
+        // PRODUCTION CHANGE:
+        categoryArray.forEach(cat => fsVenue(cat))
     }
 
     return (
         <Grid container>
             {venuesResultsArray.length >= 1
-                ? (<VenueList venuesResultsArray={venuesResultsArray}/>)
+                ? (<VenueList />)
                 : null
             }
         </Grid>

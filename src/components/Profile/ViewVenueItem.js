@@ -1,8 +1,22 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {changeSavedVenuesArray} from '../../usersSlice';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+
+
+const useStyles = makeStyles({
+    root: {
+      width: 300,
+      height: 160,
+      textAlign: 'center',
+      alignItems: 'center',
+      backgroundColor: '#fcf3d3',
+      display: 'inline-block',
+      padding: '5px',
+    },
+  });
 
 const VenueViewButton = withStyles({
     root: {
@@ -33,6 +47,7 @@ const VenueViewButton = withStyles({
 
 function ViewVenueItem({venue}) {
     const dispatch = useDispatch();
+    const classes = useStyles();
     const savedVenuesArray = useSelector(state => state.savedVenuesArray);
 
     // console.log(venue === [] ? `${venue.id}: this is true` : `${venue.id}: this is false`)
@@ -45,13 +60,16 @@ function ViewVenueItem({venue}) {
     }
 
     return (
-        <div className="venue-tile">
-            <p style={{fontWeight: "bold"}}>{venue.name}</p>
-            <p>{venue.rating}</p>
-            <p>{venue.address}</p>
-            <p>{venue.url}</p>
-            <VenueViewButton onClick={(e)=>onCompleted(e, venue)}>Completed</VenueViewButton>
-        </div>
+        <>
+            <Card className={classes.root} variant="outlined">
+                <p style={{fontWeight: "bold"}}>{venue.name}</p>
+                {/* <p>{venue.rating}</p> */}
+                <p>{venue.address}</p>
+                <a href={venue.url}>{`Visit Website`}</a>
+                <br></br>
+                <VenueViewButton onClick={(e)=>onCompleted(e, venue)}>Completed</VenueViewButton>
+            </Card>
+        </>
     );
 }
     

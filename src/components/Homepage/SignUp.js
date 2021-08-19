@@ -1,10 +1,11 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changePasswordInput, changeUsernameInput, changeCityInput, changeNameInput, changeUser} from '../../usersSlice';
+import {changePasswordInput, changeUsernameInput, changeCityInput, changeNameInput, changeUser, changeCitySelection, changeCityProfiles} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const HeaderButton = withStyles({
     root: {
@@ -62,6 +63,10 @@ function SignUp() {
             if(res.ok){
                 const user = await res.json()
                 dispatch(changeUser(user))
+                dispatch(changeCitySelection(user.city_profiles[0]))
+                dispatch(changeNameInput(user.name))
+                dispatch(changeUsernameInput(user.username))
+                dispatch(changeCityProfiles(user.city_profiles))
                 history.push('/profile')
             } else {
                 const err = await res.json()
@@ -79,22 +84,50 @@ function SignUp() {
             <Grid item xs={10}>
                 <h1>Sign Up</h1>
                 <form onSubmit={(e)=>handleSubmit(e)}>
-                    <p>Name</p>
-                    <input type="text" name="name" onChange={(e)=>dispatch(changeNameInput(e.target.value))}></input>
-                    <p>City</p>
-                    <input type="text" name="city" onChange={(e)=>dispatch(changeCityInput(e.target.value))}></input>
-                    <p>Username</p>
-                    <input type="text" name="username" onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}></input>
-                    <p>Password</p>
-                    <input type="text" name="password" onChange={(e)=>dispatch(changePasswordInput(e.target.value))}></input>
+                    {/* <p>Name</p> */}
+                    {/* <input type="text" name="name" onChange={(e)=>dispatch(changeNameInput(e.target.value))}></input> */}
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Name" 
+                        variant="outlined" 
+                        style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}}
+                        onChange={(e)=>dispatch(changeNameInput(e.target.value))}
+                    />
+                    {/* <p>City</p> */}
+                    {/* <input type="text" name="city" onChange={(e)=>dispatch(changeCityInput(e.target.value))}></input> */}
+                    <TextField 
+                        id="outlined-basic" 
+                        label="City" 
+                        variant="outlined" 
+                        style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}} 
+                        onChange={(e)=>dispatch(changeCityInput(e.target.value))}
+                    />
+                    {/* <p>Username</p> */}
+                    {/* <input type="text" name="username" onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}></input> */}
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Username" 
+                        variant="outlined" 
+                        style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}}
+                        onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}
+                    />
+                    {/* <p>Password</p> */}
+                    {/* <input type="text" name="password" onChange={(e)=>dispatch(changePasswordInput(e.target.value))}></input> */}
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Password" 
+                        variant="outlined" 
+                        style={{backgroundColor: 'white', borderRadius: '5px', width: '80%'}}
+                        onChange={(e)=>dispatch(changePasswordInput(e.target.value))}
+                    />
                     <br></br>
                     <HeaderButton 
                         type="submit" 
                         variant="outlined" 
                         className={classes.signupButton} 
-                        onClick={()=>history.push("/login")}
+                        // onClick={()=>history.push("/login")}
                     >
-                        SIGN IN
+                        SIGN UP
                     </HeaderButton>
                 </form>
                 {errors ? errors.map(error => (<p>{`${error}`}</p>)) : null}

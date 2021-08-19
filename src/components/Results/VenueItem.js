@@ -4,9 +4,10 @@ import {changeSavedVenuesArray} from '../../usersSlice';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import Avatar from '@material-ui/core/Avatar';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -67,22 +68,28 @@ function VenueItem({venue}) {
 
     return (
         <Grid container className={classes.resultsList}>
-            <Grid item xs={6}>
+            <Grid item sm={6}>
                 <div>
                     <p style={{fontWeight: 'bold'}}>{venue.name}</p>
                     <p>{venue.location.address}</p>
-                    <p>{venue.url}</p>
+                    <a href={venue.url}>{`Visit Website`}</a>
                 </div>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={4} className={classes.results2List}>
                 <div>
                     <p>{`Category: ${venue.categories[0].name}`}</p>
-                    <p>{`Rating: ${venue.rating}`}</p>
-                    <IconButton aria-label="fav" onClick={(e)=>onHeart(e, venue)}>
-                        {hearted ? <FavoriteIcon /> :<FavoriteBorderIcon />}
-                    </IconButton>
+                    <p>{`Rating: `}</p>
+                    <Avatar variant="square" className={classes.square}>{venue.rating}</Avatar>
                 </div>
             </Grid>
+            <Grid item xs={2}>
+                <div>
+                    <Button onClick={(e)=>onHeart(e, venue)}>
+                        {hearted ? <FavoriteIcon /> :<FavoriteBorderIcon />}
+                    </Button>
+                </div>
+            </Grid>
+            {/* <Grid item xs={2}></Grid> */}
         </Grid>
     );
 }

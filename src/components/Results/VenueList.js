@@ -5,14 +5,16 @@ import {changeVenuesDetailsArray, changeFilteredVenueResults} from '../../usersS
 import VenueItem from './VenueItem';
 
 import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 
-function VenueList({venuesResultsArray}) {
+function VenueList() {
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
 
     const client_id = useSelector(state => state.clientId);
     const client_secret = useSelector(state => state.clientSecret);
     const version = useSelector(state => state.version);
+    const venuesResultsArray = useSelector(state => state.venuesResultsArray);
     const venuesDetailsArray = useSelector(state => state.venuesDetailsArray);
     const filteredVenueResults = useSelector(state => state.filteredVenueResults);
     const categoryArray = useSelector(state => state.categoryArray);
@@ -20,11 +22,10 @@ function VenueList({venuesResultsArray}) {
 
     // console.log(venuesResultsArray)
 
-  
-
     // grab fs_venue_ids from resultsArray
     useEffect(() => {
         detailsFetch();
+        // console.log(venuesResultsArray)
     }, [user.category_selections])
 
     const detailsFetch = () => {
@@ -36,7 +37,7 @@ function VenueList({venuesResultsArray}) {
             // *---PRODUCTION CHANGE:
             // `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`, 
             {method: "GET"}
-        )
+        ) 
         if(res.ok){
             const arr = await res.json()
             const v = arr.response.response.venue
@@ -81,8 +82,7 @@ function VenueList({venuesResultsArray}) {
         <>
         <Grid item xs={1}></Grid>
         <Grid item xs={10}>
-            <h5>Search by Name:</h5>
-            <input type="text" label="Search" onChange={(e)=>onQuery(e)}></input>
+            <TextField id="outlined-basic" label="Search Results by Name:" variant="outlined" style={{width: '300px'}} onChange={(e)=>onQuery(e)}/>
             {/* STRETCH GOAL AFTER SECONDARY CATEGORIES BROUGHT IN */}
             {/* <select id="category" name="category" onChange={(e)=>onCategoryFilter(e)}>
                 <option value="">All</option>

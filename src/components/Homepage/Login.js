@@ -8,6 +8,7 @@ import {useState} from 'react'
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const HeaderButton = withStyles({
     root: {
@@ -15,7 +16,7 @@ const HeaderButton = withStyles({
       textTransform: 'none',
       fontSize: 14,
       padding: '6px 15px',
-      marginTop: '20px',
+    //   marginTop: '20px',
       border: '1px solid',
       lineHeight: 1.5,
       backgroundColor: 'white',
@@ -120,13 +121,13 @@ function Login() {
                 dispatch(changeIsLoggedIn(true))
                 // set city selection if user only has 1 city profile
                 if (user.cities.length === 1) {
-                    dispatch(changeCitySelection(user.cities[0]))
+                    dispatch(changeCitySelection(user.city_profiles[0]))
                     dispatch(changeCategoryArray(user.category_selections))
                     dispatch(changeSavedVenuesArray(user.venue_selections))
                     dispatch(changeNameInput(user.name))
                     dispatch(changeUsernameInput(user.username))
+                    // may not be necessary if user only has 1 city profile:
                     dispatch(changeCityProfiles(user.city_profiles))
-                    // dispatch(changeCityInput(user.cities))
                 }
                 else {
                     dispatch(changeCategoryArray(user.category_selections))
@@ -134,7 +135,6 @@ function Login() {
                     dispatch(changeNameInput(user.name))
                     dispatch(changeUsernameInput(user.username))
                     dispatch(changeCityProfiles(user.city_profiles))
-                    // dispatch(changeCityInput(user.cities))
                 }
                 history.push('/profile')
             } else {
@@ -153,22 +153,36 @@ function Login() {
             <Grid item xs={10} className={classes.loginBox}>
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit}>
-                    <p>Username</p>
-                    <input 
+                    {/* <p>Username</p> */}
+                    {/* <input 
                         type="text" 
                         name="username" 
                         onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}
-                    ></input>
-                    <p>Password</p>
-                    <input 
+                    ></input> */}
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Username" 
+                        variant="outlined" 
+                        style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}} 
+                        onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}
+                    />
+                    {/* <p>Password</p> */}
+                    {/* <input 
                         type="text" 
                         name="password" 
                         onChange={(e)=>dispatch(changePasswordInput(e.target.value))}
-                    ></input>
+                    ></input> */}
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Password" 
+                        variant="outlined" 
+                        style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}} 
+                        onChange={(e)=>dispatch(changePasswordInput(e.target.value))}
+                    />
+                    <br></br>
                     <HeaderButton 
                         type="submit" 
                         variant="outlined" 
-                        className={classes.loginButton} 
                         onClick={()=>history.push("/login")}
                     >
                         SIGN IN

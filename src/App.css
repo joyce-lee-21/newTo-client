@@ -96,6 +96,29 @@
   background-color: #fcf3d3;
 }
 
+.category-container {
+  /* display: inline; */
+  min-height: 20vh;
+  margin-top: 20px;
+}
+
+.category-tile {
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
+  margin: 20px;
+  margin-right: 20px;
+  height: 100px;
+  width: 150px;
+  background-color: #fcf3d3;
+  font-size: 14;
+  font-weight: bold;
+  border: '1px solid';
+  line-height: 1.5;
+  border-color: '#ffeca9';
+}
+
 .venue-tile {
   display: flex;
   justify-content: center;

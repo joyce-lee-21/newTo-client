@@ -2,10 +2,21 @@ import {useDispatch, useSelector} from 'react-redux';
 import {changeCategoryArray, changeSelectedCategoryArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 
-
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+
+const useStyles = makeStyles({
+    root: {
+      width: 300,
+      height: 160,
+      textAlign: 'center',
+      alignItems: 'center',
+      backgroundColor: '#fcf3d3',
+      display: 'inline-block',
+      padding: '5px',
+    },
+  });
 
 const ProfileViewButton = withStyles({
     root: {
@@ -36,7 +47,7 @@ const ProfileViewButton = withStyles({
 function ViewCategoryList() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const classes = useSelector(state => state.classes);
+    const classes = useStyles();
     const categoryArray = useSelector(state => state.categoryArray);
     const citySelection = useSelector(state => state.citySelection);
 
@@ -48,18 +59,17 @@ function ViewCategoryList() {
         })
     }
     
-
     return (
         <>
-            {categoryArray.map(cat => (
-                <>
-                {/* <Grid item xs={3} key={cat.id} className={classes.categoryView}> */}
-                <span className="tile">
-                    <p>{cat.name}</p>
-                </span>
-                {/* </Grid> */}
-                </>
-            ))}
+            <div className="category-container">
+                {categoryArray.map(cat => (
+                    <Card className={classes.root} variant="outlined">
+                    {/* <span className="category-tile"> */}
+                        <p>{cat.name}</p>
+                    {/* </span> */}
+                    </Card>
+                ))}
+            </div>
             <ProfileViewButton onClick={()=>history.push("/results")}>Go to Results</ProfileViewButton>
             <ProfileViewButton onClick={onReset}>Reset Selections</ProfileViewButton>
         </>

@@ -34,7 +34,6 @@ const usersSlice = createSlice({
         profileView: "categories",
 
         // used for Results components
-
         venuesResultsArray: [],
         venuesDetailsArray: [],
         filteredVenueResults: [],
@@ -46,7 +45,7 @@ const usersSlice = createSlice({
         // categories selected from selectCategoryArray, not yet saved to the user city_profile
         selectedCategoryArray: [],
         categoryArrFirst: 0,
-        categoryArrLength: 10,
+        categoryArrLength: 12,
 
         // CSS class
         classes: "",
@@ -121,6 +120,28 @@ const usersSlice = createSlice({
         changeClasses(state, action) {
             state.classes = action.payload
         },
+        // changeLogout(state) {
+        //     state.usernameInput = ""
+        //     state.passwordInput = "",
+        //     state.nameInput = "",
+        //     state.cityInput = "",
+        //     state.editStatus = false,
+        //     state.addCity = false,
+        //     state.cityProfiles = null,
+        //     state.user = null,
+        //     state.isLoggedIn = false,
+        //     state.citySelection = "",
+        //     state.savedVenuesArray = [],
+        //     state.profileView = "categories",
+        //     state.venuesResultsArray = [],
+        //     state.venuesDetailsArray = [],
+        //     state.filteredVenueResults = [],
+        //     state.categoryArray = null,
+        //     state.selectCategoryArray = [],
+        //     state.selectedCategoryArray = [],
+        //     state.categoryArrFirst = 0,
+        //     state.categoryArrLength = 12,
+        // },
 
     },
     // extraReducers: {

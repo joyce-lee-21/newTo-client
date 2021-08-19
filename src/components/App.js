@@ -57,10 +57,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: "center",
     justify: "center",
-    marginLeft: '33vw',
+    marginLeft: '30vw',
     border: '1px solid black',
     borderRadius: '5px',
-    width: '33vw',
+    width: '40vw',
     backgroundColor: '#9fcbb4',
   },
   loginBox:{
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '0',
   },
   signupButton: {
-    marginTop: '20px',
+    // marginTop: '20px',
     marginBottom: '20px',
   },
   accountBoxes: {
@@ -81,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
   viewCategoryContainer: {
     alignItems: "center",
+    minHeight: '20vh',
     // textAlign: 'center',
     // justify: "center",
   },
@@ -97,12 +98,24 @@ const useStyles = makeStyles((theme) => ({
   resultsList: {
     display: 'flex',
     justifyContent: 'center',
-    flexDirection: 'column',
+    alignItems: "center",
+    flexDirection: 'row',
     // margin: '5px',
     // padding: '5px',
     height: '150px',
     borderBottom: '1px black dotted',
     backgroundColor: '#fcf3d3',
+  },
+  results2List: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: "center",
+    textAlign: 'center',
+    flexDirection: 'column',
+  },
+  square: {
+    backgroundColor: '#68166c',
+    borderRadius: '5px',
   }
 }));
 

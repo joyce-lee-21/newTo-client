@@ -41,10 +41,12 @@ function ProfileView() {
 
     return (
         <>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={8} className={classes.viewCategoryContainer}>
-            <ProfileViewButton onClick={()=>dispatch(changeProfileView("categories"))}>Categories</ProfileViewButton>
-            <ProfileViewButton onClick={()=>dispatch(changeProfileView("venues"))}>Venues</ProfileViewButton>
+        <Grid item xs={1}></Grid>
+        <Grid item xs={10} className={classes.viewCategoryContainer}>
+            <div>
+                <ProfileViewButton onClick={()=>dispatch(changeProfileView("categories"))}>Categories</ProfileViewButton>
+                <ProfileViewButton onClick={()=>dispatch(changeProfileView("venues"))}>Venues</ProfileViewButton>
+            </div>
             {profileView === "categories"
                 ? <ViewCategoryList />
                 : <ViewVenuesList />
