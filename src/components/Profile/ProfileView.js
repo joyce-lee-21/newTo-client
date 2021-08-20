@@ -4,6 +4,7 @@ import {changeProfileView, changeCitySelection} from '../../usersSlice';
 
 import ViewVenuesList from './ViewVenuesList';
 import ViewCategoryList from './ViewCategoryList';
+import ViewCompleted from './ViewCompleted';
 
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
@@ -53,9 +54,12 @@ function ProfileView() {
             <div className="category-container">
                 <ProfileViewButton onClick={()=>dispatch(changeProfileView("categories"))}>Categories</ProfileViewButton>
                 <ProfileViewButton onClick={()=>dispatch(changeProfileView("venues"))}>Venues</ProfileViewButton>
+                <ProfileViewButton onClick={()=>dispatch(changeProfileView("completed"))}>Completed</ProfileViewButton>
             {profileView === "categories"
-                ? <ViewCategoryList />
-                : <ViewVenuesList />
+                ? (<ViewCategoryList />)
+                : profileView === "venues"
+                    ? (<ViewVenuesList />)
+                    : (<ViewCompleted />)
             }
             </div>
             <ProfileViewButton onClick={()=>onChangeCity()}><strong>Change City</strong></ProfileViewButton>

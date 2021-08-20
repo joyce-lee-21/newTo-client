@@ -39,9 +39,9 @@ function VenueList() {
         async function venueDetails(venue){
         // console.log(venue.venue.id)
         const res = await fetch(
-            // `http://localhost:4000/venue_details/${venue.id}`,
+            `http://localhost:4000/venue_details/${venue.id}`,
             // *---PRODUCTION CHANGE:
-            `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`, 
+            // `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`, 
             {method: "GET"}
         ) 
         if(res.ok){
@@ -79,6 +79,7 @@ function VenueList() {
                     return v
                 }
             })
+            filterVenue.sort((a, b) => {return b.rating - a.rating})
             // console.log(filterVenue)
             dispatch(changeFilteredVenueResults(filterVenue))
         }

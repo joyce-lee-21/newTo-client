@@ -34,6 +34,7 @@ const usersSlice = createSlice({
         // used for Profile > child components
         citySelection: "",
         savedVenuesArray: [],
+        completedVenuesArray: [],
         profileView: "categories",
 
         // used for Results components
@@ -130,6 +131,9 @@ const usersSlice = createSlice({
         },
         changeTrendingResultsArray(state, action) {
             state.trendingResultsArray = action.payload
+        },
+        changeCompletedVenuesArray(state, action) {
+            state.completedVenuesArray = action.payload
         }
         // changeLogout(state) {
         //     state.usernameInput = ""
@@ -192,6 +196,7 @@ const {
     changeClasses,
     changeFilterByPrimaryCategory,
     changeTrendingResultsArray,
+    changeCompletedVenuesArray,
 
 } = usersSlice.actions; 
 
@@ -221,6 +226,7 @@ export {
     changeClasses,
     changeFilterByPrimaryCategory,
     changeTrendingResultsArray,
+    changeCompletedVenuesArray,
 }
 
 export default usersSlice.reducer;

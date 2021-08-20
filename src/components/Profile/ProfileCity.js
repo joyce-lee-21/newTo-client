@@ -1,6 +1,14 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react'
-import {changeCitySelection, changeCategoryArray, changeSavedVenuesArray, changeCityInput, changeCityProfiles, changeAddCity} from '../../usersSlice';
+import {
+    changeCitySelection, 
+    changeCategoryArray, 
+    changeSavedVenuesArray, 
+    changeCityInput, 
+    changeCityProfiles, 
+    changeAddCity,
+    changeCompletedVenuesArray,
+} from '../../usersSlice';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -82,10 +90,11 @@ function ProfileCity() {
             })
             if(res.ok){
                 const selections = await res.json()
-                // console.log(selections)
+                console.log(selections)
                 dispatch(changeCategoryArray(selections.category_selections))
-                dispatch(changeSavedVenuesArray(selections.saved_venues))
+                dispatch(changeSavedVenuesArray(selections.saved_venues.filter(venue => venue.is_completed !== true)))
                 dispatch(changeCitySelection(profile))
+                dispatch(changeCompletedVenuesArray(selections.saved_venues.filter(venue => venue.is_completed === true)))
             } else {
                 const err = await res.json()
                 // console.log(err.errors)

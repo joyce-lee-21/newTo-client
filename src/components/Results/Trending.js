@@ -34,7 +34,7 @@ function Trending() {
             })
             if(res.ok){
                 const arr = await res.json()
-                console.log(arr)
+                console.log(arr.response.venues)
                 // const vArr = arr.response.venues
                 // vArr.map(v=> trendingArray.push(v.venue))
                 // console.log(`formatted array from venue recommendations API: ${vArr}`)
@@ -119,35 +119,38 @@ function Trending() {
                             </Select>
                         </FormControl>
                     </Grid> */}
-                    {trendingResultsArray.map(v => (
-                        <Grid container>
-                            <Grid item xs={5}>
-                                <div>
-                                    <p style={{fontWeight: 'bold'}}>{v.name}</p>
-                                    <p>{v.location.address}</p>
-                                    {/* <a href={venue.url}>{`Visit Website`}</a> */}
-                                </div>
-                            </Grid>
-                            <Grid item xs={4} className={classes.results2List}>
-                                <div>
+                    {trendingResultsArray.length > 0
+                        ? trendingResultsArray.map(v => (
+                            <Grid container>
+                                <Grid item xs={5}>
                                     <div>
-                                        {'Rating: '}
-                                        <span className={classes.ratingSquare}>
-                                            {/* {v.rating ? venue.rating.toFixed(1) : "N/A"} */}
-                                        </span>
-                                        <Button onClick={(e)=>onHeart(e, v)}>
-                                        {hearted ? <FavoriteIcon /> :<FavoriteBorderIcon />}
-                                    </Button>
+                                        <p style={{fontWeight: 'bold'}}>{v.name}</p>
+                                        <p>{v.location.address}</p>
+                                        {/* <a href={venue.url}>{`Visit Website`}</a> */}
                                     </div>
-                                </div>
+                                </Grid>
+                                <Grid item xs={4} className={classes.results2List}>
+                                    <div>
+                                        <div>
+                                            {'Rating: '}
+                                            <span className={classes.ratingSquare}>
+                                                {/* {v.rating ? venue.rating.toFixed(1) : "N/A"} */}
+                                            </span>
+                                            <Button onClick={(e)=>onHeart(e, v)}>
+                                            {hearted ? <FavoriteIcon /> :<FavoriteBorderIcon />}
+                                        </Button>
+                                        </div>
+                                    </div>
+                                </Grid>
+                                <Grid item xs={3}>
+                                    <div>
+                                        {v.categories.map(cat => (<p key={cat.id} className={classes.catSquare}>{cat.name}</p>))}
+                                    </div>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={3}>
-                                <div>
-                                    {v.categories.map(cat => (<p key={cat.id} className={classes.catSquare}>{cat.name}</p>))}
-                                </div>
-                            </Grid>
-                        </Grid>
-                    ))}
+                        ))
+                        : "Nothing trending yet, check back in later!"
+                    }
             </Grid>
         </Grid>
     );

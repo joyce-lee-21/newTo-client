@@ -7,6 +7,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import FacebookIcon from '@material-ui/icons/Facebook';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -52,7 +55,8 @@ function VenueItem({venue}) {
                     fs_venue_id: venue.fs_venue_id,
                     lat: venue.lat,
                     long: venue.long,
-                    category: venue.category
+                    category: venue.category,
+                    is_completed: false,
                 }]))
             } else {
                 const err = await res.json()
@@ -67,11 +71,21 @@ function VenueItem({venue}) {
 
     return (
         <Grid container className={classes.resultsList}>
-            <Grid item xs={5}>
+            <Grid item xs={1}>
+                <Button onClick={(e)=>onHeart(e, venue)}>
+                    {hearted ? <FavoriteIcon style={{fontSize: '36px'}}/> :<FavoriteBorderIcon style={{fontSize: '36px'}}/>}
+                </Button>
+            </Grid>
+            <Grid item xs={3}>
                 <div>
                     <p style={{fontWeight: 'bold'}}>{venue.name}</p>
-                    <p>{venue.location.address}</p>
-                    <a href={venue.url}>{`Visit Website`}</a>
+                    <p>
+                        {venue.location.address}
+                        <br></br>
+                        {venue.contact.formattedPhone}
+                        <br></br>
+                        {venue.url ? (<a href={venue.url}>{`Visit Website`}</a>) : null}
+                    </p>
                 </div>
             </Grid>
             <Grid item xs={4} className={classes.results2List}>
@@ -81,9 +95,33 @@ function VenueItem({venue}) {
                         <span className={classes.ratingSquare}>
                             {venue.rating ? venue.rating.toFixed(1) : "N/A"}
                         </span>
-                        <Button onClick={(e)=>onHeart(e, venue)}>
-                        {hearted ? <FavoriteIcon /> :<FavoriteBorderIcon />}
-                    </Button>
+                        
+                        <div className="social-icons">
+                            {venue.contact.twitter 
+                                ? (<a href={`https://twitter.com/${venue.contact.twitter}`} target="_blank" rel="noreferrer noopener">
+                                    <Button>
+                                        <TwitterIcon />
+                                    </Button>
+                                </a>) 
+                                : null
+                            }
+                            {venue.contact.instagram 
+                                ? (<a href={`https://www.instagram.com/${venue.contact.instagram}`} target="_blank" rel="noreferrer noopener">
+                                    <Button>
+                                        <InstagramIcon />
+                                    </Button>
+                                </a>) 
+                                : null
+                            }
+                            {venue.contact.facebook 
+                                ? (<a href={`https://www.facebook.com/${venue.contact.facebook}`} target="_blank" rel="noreferrer noopener">
+                                    <Button>
+                                        <FacebookIcon />
+                                    </Button>
+                                </a>) 
+                                : null
+                            }
+                        </div>
                     </div>
                 </div>
             </Grid>
