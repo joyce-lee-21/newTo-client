@@ -42,7 +42,7 @@ const usersSlice = createSlice({
         filteredVenueResults: [],
 
         // category selections saved to the user city_profile
-        categoryArray: null,
+        categoryArray: [],
         // categories to be selected from seed data (foursquare's primary and secondary categories)
         selectCategoryArray: [],
         filterByPrimaryCategory: 0,

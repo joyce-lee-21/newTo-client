@@ -39,12 +39,10 @@ function ProfileCity() {
     const [errors, setErrors] = useState([])
 
     const getCityProfile = (e, profile) => {
-        dispatch(changeCitySelection(profile))
-        // console.log(e.target.id)
         // console.log(profile)
         async function select(){
             // fetch category_selection based on city_profile id from button id
-            const res = await fetch(`http://localhost:3000/city_profiles/${e.target.id}`, {
+            const res = await fetch(`http://localhost:3000/city_profiles/${profile.id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -55,6 +53,7 @@ function ProfileCity() {
                 // console.log(selections)
                 dispatch(changeCategoryArray(selections.category_selections))
                 dispatch(changeSavedVenuesArray(selections.saved_venues))
+                dispatch(changeCitySelection(profile))
             } else {
                 const err = await res.json()
                 // console.log(err.errors)

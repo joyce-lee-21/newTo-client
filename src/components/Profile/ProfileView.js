@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {changeProfileView} from '../../usersSlice';
+import {changeProfileView, changeCitySelection} from '../../usersSlice';
 
 import ViewVenuesList from './ViewVenuesList';
 import ViewCategoryList from './ViewCategoryList';
@@ -42,6 +42,7 @@ function ProfileView() {
     const profileView = useSelector(state => state.profileView);
 
     const onChangeCity = () => {
+        dispatch(changeCitySelection(""))
         history.push('/profile')
     }
 
