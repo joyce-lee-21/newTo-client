@@ -36,6 +36,22 @@ const HeaderButton = withStyles({
     },
   })(Button);
 
+  const TrendyButton = withStyles({
+    root: {
+        minWidth: 120,
+        transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
+        background: 'linear-gradient(to right, #FFC371, #FF5F6D)',
+        color: 'white',
+        fontWeight: 'bold',
+        marginTop: '5px',
+        marginRight: '30px',
+        // textTransform: 'none',
+        '&:hover': {
+          transform: 'scale(1.1)',
+        },
+    },
+  })(Button);
+
 
 function Header() {
     const dispatch = useDispatch();
@@ -86,25 +102,28 @@ function Header() {
                 {user
                     ? <>
                         <Grid item xs={6} className="nav-right">
-                            <NavLink to="/account" className="nav-link" style={{ textDecoration: 'none' }}>
+                            <NavLink to="/account" style={{ textDecoration: 'none' }}>
                                 <HeaderButton variant="outlined" className={classes.headerMargin}>ACCOUNT</HeaderButton>
                             </NavLink>
-                            <NavLink to="/profile" className="nav-link" style={{ textDecoration: 'none' }}>
+                            <NavLink to="/profile" style={{ textDecoration: 'none' }}>
                                 <HeaderButton variant="outlined" className={classes.headerMargin}>PROFILE</HeaderButton>
                             </NavLink>
-                            <NavLink to="/results" className="nav-link" style={{ textDecoration: 'none' }}>
+                            <NavLink to="/results" style={{ textDecoration: 'none' }}>
                                 <HeaderButton variant="outlined" className={classes.headerMargin}>RESULTS</HeaderButton>
                             </NavLink>
-                            <NavLink to="/logout" className="nav-link" style={{ textDecoration: 'none' }}>
+                            <NavLink to="/trending" style={{ textDecoration: 'none' }}>
+                                <TrendyButton >TRENDING</TrendyButton>
+                            </NavLink>
+                            <NavLink to="/logout" style={{ textDecoration: 'none' }}>
                                 <HeaderButton variant="outlined" className={classes.headerMargin} onClick={()=>onLogout()}>LOGOUT</HeaderButton>
                             </NavLink>
                         </Grid>
                     </>
                     : <Grid item xs={6} className="nav-right">
-                        <NavLink to="/login" className="nav-link" style={{ textDecoration: 'none' }}>
+                        <NavLink to="/login" style={{ textDecoration: 'none' }}>
                             <HeaderButton variant="outlined" className={classes.headerMargin}>LOGIN</HeaderButton>
                         </NavLink>
-                        <NavLink to="/signup" className="nav-link" style={{ textDecoration: 'none' }}>
+                        <NavLink to="/signup" style={{ textDecoration: 'none' }}>
                             <HeaderButton variant="outlined" className={classes.headerMargin}>SIGN UP</HeaderButton>
                         </NavLink>
                     </Grid>

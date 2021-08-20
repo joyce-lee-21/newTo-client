@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   headerMargin: {
     marginTop: '5px',
     marginRight: '30px',
+    width: '120px',
   },
   logo: {
     marginLeft: '20px',

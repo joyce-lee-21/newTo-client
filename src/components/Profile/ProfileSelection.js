@@ -164,14 +164,13 @@ function ProfileSelection() {
                     }}>Back</LoadButtons>)
                     : null
                 }
-                <LoadButtons 
-                    onClick={()=> {dispatch(changeCategoryArrFirst(categoryArrFirst + 12))}}
-                >
-                    Load More
-                </LoadButtons>
-                <LoadButtons 
-                    onClick={onSubmitClick}
-                >
+                {selectCategoryArray.length === 12 
+                    ? (<LoadButtons onClick={()=> {
+                        dispatch(changeCategoryArrFirst(categoryArrFirst + 12))
+                    }}>Load More</LoadButtons>)
+                    : null
+                }
+                <LoadButtons onClick={onSubmitClick}>
                     Submit Selections
                 </LoadButtons>
             </div>

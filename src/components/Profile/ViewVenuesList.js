@@ -66,7 +66,7 @@ function ViewVenuesList() {
                     <p>{venue.address}</p>
                     <a href={venue.url}>{`Visit Website`}</a>
                     <br></br>
-                    <VenueViewButton onClick={(e)=>onCompleted(e, venue)}>Completed</VenueViewButton>
+                    <VenueViewButton onClick={(e)=>onCompleted(e, venue)}>Remove</VenueViewButton>
                 </Card>)
                 )
             : "No venues are added to your profile. View your results to add venues to your profile!"

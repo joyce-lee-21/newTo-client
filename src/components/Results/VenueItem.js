@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import Avatar from '@material-ui/core/Avatar';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -42,7 +41,7 @@ function VenueItem({venue}) {
             })
             if(res.ok){
                 const venue = await res.json()
-                console.log(venue)
+                // console.log(venue)
                 dispatch(changeSavedVenuesArray([...savedVenuesArray, {
                     id: venue.id,
                     city_profile_id: venue.city_profile_id,
