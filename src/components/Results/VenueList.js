@@ -6,11 +6,16 @@ import VenueItem from './VenueItem';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 function VenueList() {
     const dispatch = useDispatch();
+    const classes = useSelector(state => state.classes);
     const [errors, setErrors] = useState([]);
-
+    const [category, setCategory] = useState("All");
     const client_id = useSelector(state => state.clientId);
     const client_secret = useSelector(state => state.clientSecret);
     const version = useSelector(state => state.version);
@@ -19,6 +24,7 @@ function VenueList() {
     const filteredVenueResults = useSelector(state => state.filteredVenueResults);
     const categoryArray = useSelector(state => state.categoryArray);
     const user = useSelector(state => state.user);
+    
 
     // console.log(venuesResultsArray)
 
@@ -40,9 +46,9 @@ function VenueList() {
         ) 
         if(res.ok){
             const arr = await res.json()
-            const v = arr.response.response.venue
+            // const v = arr.response.response.venue
             // *---PRODUCTION CHANGE:
-            // const v = arr.response.venue
+            const v = arr.response.venue
             detailsArray.push(v)
             // console.log(detailsArray)
             dispatch(changeVenuesDetailsArray([...detailsArray])) 
@@ -61,14 +67,21 @@ function VenueList() {
         venuesResultsArray.map(venue=>venueDetails(venue));
     }
     // STRETCH GOAL AFTER SECONDARY CATEGORIES BROUGHT IN
-    // const onCategoryFilter = (e) => {
-    //     console.log(e.target.value)
-    //     if (e.target.value !== "") {
-    //         // const filtered = venuesDetailsArray.filter(v=> v.categories[0] === e.target.value)
-    //         console.log(venuesDetailsArray.filter(v=> v.categories[0].name === e.target.value))
-    // //      dispatch(changeFilteredVenueResults(filtered))
-    //     }
-    // }
+    const onCategoryFilter = (e) => {
+        // console.log(e.target.value)
+        setCategory(e.target.value);
+        if (e.target.value !== "All") {
+            // let results = venuesDetailsArray.map(v => v.categories.filter((cat) => cat.name === e.target.value)).filter(v => v.length > 0)
+            const filterVenue = venuesDetailsArray.filter(v => {
+                let catMatch = v.categories.filter(cat => cat.name === e.target.value)
+                if (catMatch.length > 0) {
+                    return v
+                }
+            })
+            // console.log(filterVenue)
+            dispatch(changeFilteredVenueResults(filterVenue))
+        }
+    }
 
     const onQuery = (e) => {
         console.log(e.target.value)
@@ -81,21 +94,35 @@ function VenueList() {
     return (
         <>
         <Grid item xs={1}></Grid>
-        <Grid item xs={10}>
-            <TextField id="outlined-basic" label="Search Results by Name:" variant="outlined" style={{width: '300px'}} onChange={(e)=>onQuery(e)}/>
-            {/* STRETCH GOAL AFTER SECONDARY CATEGORIES BROUGHT IN */}
-            {/* <select id="category" name="category" onChange={(e)=>onCategoryFilter(e)}>
-                <option value="">All</option>
-                {categoryArray.map(cat=> 
-                    (<option key={`${cat.id}`} value={`${cat.name}`}>{cat.name}</option>)
-                )}
-            </select> */}
+        <Grid item xs={10} style={{display: 'inline'}}>
+            <Grid container>
+                <Grid item xs={6}>
+                    <TextField id="outlined-basic" label="Search Results by Name:" variant="outlined" style={{width: '300px', marginBottom: '20px'}} onChange={(e)=>onQuery(e)}/>
+                </Grid>    
+                <Grid item xs={6}>
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            onChange={(e)=>onCategoryFilter(e)}
+                            label="Category"
+                            value={category}
+                        >
+                            <MenuItem value="All">All</MenuItem>
+                            {categoryArray.map(cat=> 
+                                (<MenuItem key={`${cat.id}`} value={`${cat.name}`}>{cat.name}</MenuItem>)
+                            )}
+                        </Select>
+                    </FormControl>
+                </Grid>
+            </Grid>
             {filteredVenueResults.map(v=>
                 <VenueItem key={v.id} venue={v}/>
-                // <VenueItem key={v.venue.id} venue={v.venue}/>
             )}
         </Grid>
         </>
+        
     );
 }
     

@@ -122,8 +122,8 @@ function Login() {
                 // set city selection if user only has 1 city profile
                 if (user.cities.length === 1) {
                     dispatch(changeCitySelection(user.city_profiles[0]))
-                    dispatch(changeCategoryArray(user.category_selections))
-                    dispatch(changeSavedVenuesArray(user.venue_selections))
+                    dispatch(changeCategoryArray(user.category_selections[0]))
+                    dispatch(changeSavedVenuesArray(user.venue_selections[0]))
                     dispatch(changeNameInput(user.name))
                     dispatch(changeUsernameInput(user.username))
                     // may not be necessary if user only has 1 city profile:

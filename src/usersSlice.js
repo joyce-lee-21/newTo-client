@@ -3,18 +3,21 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 // Action Creators
 
 // async actions
-// export const fetchUsers = createAsyncThunk("users/fetchUsers", () => {
-//     // return a Promise containing the data we want
-//     return fetch("https://localhost:3001/users")
-//       .then((response) => response.json())
-//       .then((data) => data);
-//   }); 
+export const fetchPrimaryCats = createAsyncThunk("auth/fetchPrimaryCats", () => {
+    // return a Promise containing the data we want
+    return fetch("http://localhost:3000/primary_categories")
+      .then((response) => response.json())
+      .then((data) => data);
+}); 
 
 // Reducer
 
 const usersSlice = createSlice({
     name: "auth",
     initialState: {
+        primaryCategories: [], // array of secondary_categories
+        status: "idle", // loading state
+
         // used for SignUp / Login / Account components
         usernameInput: "",
         passwordInput: "",
@@ -42,6 +45,7 @@ const usersSlice = createSlice({
         categoryArray: null,
         // categories to be selected from seed data (foursquare's primary and secondary categories)
         selectCategoryArray: [],
+        filterByPrimaryCategory: 0,
         // categories selected from selectCategoryArray, not yet saved to the user city_profile
         selectedCategoryArray: [],
         categoryArrFirst: 0,
@@ -120,6 +124,9 @@ const usersSlice = createSlice({
         changeClasses(state, action) {
             state.classes = action.payload
         },
+        changeFilterByPrimaryCategory(state, action) {
+            state.filterByPrimaryCategory = action.payload
+        },
         // changeLogout(state) {
         //     state.usernameInput = ""
         //     state.passwordInput = "",
@@ -144,16 +151,16 @@ const usersSlice = createSlice({
         // },
 
     },
-    // extraReducers: {
-    //     // handle async action types
-    //     [fetchUsers.pending](state) {
-    //     state.status = "loading";
-    //     },
-    //     [fetchUsers.fulfilled](state, action) {
-    //     state.entities = action.payload;
-    //     state.status = "idle";
-    //     },
-    // },
+    extraReducers: {
+        // handle async action types
+        [fetchPrimaryCats.pending](state) {
+        state.status = "loading";
+        },
+        [fetchPrimaryCats.fulfilled](state, action) {
+        state.primaryCategories = action.payload;
+        state.status = "idle";
+        },
+    },
     })
 
 // actions
@@ -179,6 +186,7 @@ const {
     changeAddCity,
     changeCityProfiles,
     changeClasses,
+    changeFilterByPrimaryCategory,
 
 } = usersSlice.actions; 
 
@@ -206,6 +214,7 @@ export {
     changeAddCity,
     changeCityProfiles,
     changeClasses,
+    changeFilterByPrimaryCategory,
 }
 
 export default usersSlice.reducer;

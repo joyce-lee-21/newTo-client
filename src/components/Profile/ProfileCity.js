@@ -40,6 +40,7 @@ function ProfileCity() {
 
     const getCityProfile = (e, profile) => {
         dispatch(changeCitySelection(profile))
+        // console.log(e.target.id)
         // console.log(profile)
         async function select(){
             // fetch category_selection based on city_profile id from button id
@@ -51,6 +52,7 @@ function ProfileCity() {
             })
             if(res.ok){
                 const selections = await res.json()
+                // console.log(selections)
                 dispatch(changeCategoryArray(selections.category_selections))
                 dispatch(changeSavedVenuesArray(selections.saved_venues))
             } else {

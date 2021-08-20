@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '20px',
   },
   contentContainer: {
-    minHeight: '40vh',
+    minHeight: '50vh',
     minWidth: '100vw',
-    marginTop: '50px',
+    // marginTop: '50px',
     alignItems: "center",
     textAlign: 'center',
   },
@@ -95,28 +95,50 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '10px',
     backgroundColor: '#fcf3d3',
   },
+  resultsContainer: {
+    marginTop: '10px',
+  },
   resultsList: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: "center",
     flexDirection: 'row',
-    // margin: '5px',
+    // marginTop: '20px',
     // padding: '5px',
     height: '150px',
     borderBottom: '1px black dotted',
-    backgroundColor: '#fcf3d3',
+    backgroundColor: '#f2fce9',
   },
   results2List: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: "center",
     textAlign: 'center',
-    flexDirection: 'column',
+    // flexDirection: 'column',
+    padding: '10px',
   },
-  square: {
+  ratingSquare: {
     backgroundColor: '#68166c',
     borderRadius: '5px',
-  }
+    fontSize: 16,
+    color: 'white',
+    fontWeight: 'bold',
+    padding: '7px',
+    margin: '5px',
+  },
+  catSquare: {
+    backgroundColor: '#fcf3d3',
+    color: 'black',
+    borderRadius: '5px',
+    width: '80%',
+    fontSize: 14,
+    padding: '5px',
+    // margin: '20px',
+  },
+  formControl: {
+    // margin: theme.spacing(1),
+    minWidth: 300,
+  },
 }));
 
 

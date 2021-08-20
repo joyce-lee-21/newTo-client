@@ -1,4 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import {changeProfileView} from '../../usersSlice';
 
 import ViewVenuesList from './ViewVenuesList';
@@ -36,21 +37,27 @@ const ProfileViewButton = withStyles({
 
 function ProfileView() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const classes = useSelector(state => state.classes);
     const profileView = useSelector(state => state.profileView);
+
+    const onChangeCity = () => {
+        history.push('/profile')
+    }
 
     return (
         <>
         <Grid item xs={1}></Grid>
         <Grid item xs={10} className={classes.viewCategoryContainer}>
-            <div>
+            <div className="category-container">
                 <ProfileViewButton onClick={()=>dispatch(changeProfileView("categories"))}>Categories</ProfileViewButton>
                 <ProfileViewButton onClick={()=>dispatch(changeProfileView("venues"))}>Venues</ProfileViewButton>
-            </div>
             {profileView === "categories"
                 ? <ViewCategoryList />
                 : <ViewVenuesList />
             }
+            </div>
+            <ProfileViewButton onClick={()=>onChangeCity()}><strong>Change City</strong></ProfileViewButton>
         </Grid>
         </>
     );

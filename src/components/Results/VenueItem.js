@@ -68,7 +68,7 @@ function VenueItem({venue}) {
 
     return (
         <Grid container className={classes.resultsList}>
-            <Grid item sm={6}>
+            <Grid item xs={5}>
                 <div>
                     <p style={{fontWeight: 'bold'}}>{venue.name}</p>
                     <p>{venue.location.address}</p>
@@ -77,16 +77,18 @@ function VenueItem({venue}) {
             </Grid>
             <Grid item xs={4} className={classes.results2List}>
                 <div>
-                    <p>{`Category: ${venue.categories[0].name}`}</p>
-                    <p>{`Rating: `}</p>
-                    <Avatar variant="square" className={classes.square}>{venue.rating}</Avatar>
-                </div>
-            </Grid>
-            <Grid item xs={2}>
-                <div>
-                    <Button onClick={(e)=>onHeart(e, venue)}>
+                    <div>
+                        {'Rating: '}
+                        <span className={classes.ratingSquare}>{venue.rating}</span>
+                        <Button onClick={(e)=>onHeart(e, venue)}>
                         {hearted ? <FavoriteIcon /> :<FavoriteBorderIcon />}
                     </Button>
+                    </div>
+                </div>
+            </Grid>
+            <Grid item xs={3}>
+                <div>
+                    {venue.categories.map(cat => (<p className={classes.catSquare}>{cat.name}</p>))}
                 </div>
             </Grid>
             {/* <Grid item xs={2}></Grid> */}

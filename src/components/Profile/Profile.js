@@ -14,12 +14,13 @@ function Profile() {
 
     return (
         <Grid container>
-            {/* if there are more than one city, and a citySelection === "" */}
+            {/* if there is more than one city profile, and one has not been selected */}
             {cityProfiles && cityProfiles.length > 1 && !citySelection
                 ? <ProfileCity />
-                // since all category_selections under each user instance has empty arrays, we have to go into the first array and see if there are any categories selected. categoryArray is declared at the Login component after signing in
+                // if a city profile is selected, and there are category selections saved
                 : categoryArray && categoryArray.length >= 1
                     ? <ProfileView />
+                    // otherwise, user will select categories for that selected city profile
                     : <ProfileSelection />
             }
         </Grid>

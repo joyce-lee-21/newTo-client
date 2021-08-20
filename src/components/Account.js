@@ -159,11 +159,11 @@ function Account() {
             <Grid item xs={4} className={classes.accountBoxes}>
                 <h1>Cities</h1>
                 {cityProfiles.map(city=>
-                    (<>
+                    (<div key={city.id}>
                     <p style={{width: "50%", marginRight: '20px', display: 'inline'}}>{city.city}</p>
                     <AccountButton onClick={(e)=>onDeleteCity(e, city)}>Delete</AccountButton>
                     <br></br>
-                    </>
+                    </div>
                     )
                 )}
                 {addCity 

@@ -61,9 +61,9 @@ function ViewCategoryList() {
     
     return (
         <>
-            <div className="category-container">
+            <div>
                 {categoryArray.map(cat => (
-                    <Card className={classes.root} variant="outlined">
+                    <Card key={cat.id} className={classes.root} variant="outlined">
                     {/* <span className="category-tile"> */}
                         <p>{cat.name}</p>
                     {/* </span> */}

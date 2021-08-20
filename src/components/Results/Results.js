@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 function Results() {
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
-
     const categoryArray = useSelector(state => state.categoryArray);
     const citySelection = useSelector(state => state.citySelection);
     const venuesResultsArray = useSelector(state => state.venuesResultsArray);
