@@ -31,7 +31,7 @@ function Results() {
     const venueFetch = () => {
         async function fsVenue(cat){
             // console.log(cat.fs_category_id)
-            const res = await fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=3&categoryId=${cat.fs_category_id}`, {
+            const res = await fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=5&categoryId=${cat.fs_category_id}`, {
                 method: "GET"
             })
             if(res.ok){

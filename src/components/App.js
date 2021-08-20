@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     marginLeft: '20px',
+    textTransform: 'capitalize',
   },
   contentContainer: {
     minHeight: '50vh',
@@ -71,6 +72,10 @@ const useStyles = makeStyles((theme) => ({
     // marginTop: '20px',
     marginBottom: '20px',
   },
+  addCity: {
+    width: '50%',
+    paddingBottom: '20px',
+  },
   accountBoxes: {
     alignItems: "center",
     textAlign: 'center',
@@ -82,8 +87,6 @@ const useStyles = makeStyles((theme) => ({
   viewCategoryContainer: {
     alignItems: "center",
     minHeight: '20vh',
-    // textAlign: 'center',
-    // justify: "center",
   },
   categoryView: {
     height: '70px',
@@ -136,7 +139,6 @@ const useStyles = makeStyles((theme) => ({
     // margin: '20px',
   },
   formControl: {
-    // margin: theme.spacing(1),
     minWidth: 300,
   },
 }));

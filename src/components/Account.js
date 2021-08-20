@@ -73,6 +73,7 @@ function Account() {
             if(res.ok){
                 const user = await res.json()
                 dispatch(changeUser(user))
+                dispatch(changeEditStatus(false))
             } else {
                 const err = await res.json()
                 // console.log(err.errors)
@@ -94,38 +95,38 @@ function Account() {
         deleteCity();
     }
 
-    const onAddCity = (e) => {
-        console.log(e)
-        const c = {
-            user_id: user.id, 
-            city: cityInput
-        }
-        async function addCity(){
-            // fetch category_selection based on city_profile id from button id
-            const res = await fetch(`http://localhost:3000/city_profiles/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({profile: c})
-            })
-            if(res.ok){
-                const newCity = await res.json()
-                const formatNewCity = {
-                    id: newCity.id,
-                    city: newCity.city,
-                    user_id: newCity.user_id
-                }
-                // console.log(newCity)
-                dispatch(changeCityProfiles([...cityProfiles, formatNewCity]))
-                dispatch(changeAddCity(false))
-            } else {
-                const err = await res.json()
-                setErrors(err.errors)
-            }
-        };
-        addCity();
-    }
+    // const onAddCity = (e) => {
+    //     console.log(e)
+    //     const c = {
+    //         user_id: user.id, 
+    //         city: cityInput
+    //     }
+    //     async function addCity(){
+    //         // fetch category_selection based on city_profile id from button id
+    //         const res = await fetch(`http://localhost:3000/city_profiles/`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({profile: c})
+    //         })
+    //         if(res.ok){
+    //             const newCity = await res.json()
+    //             const formatNewCity = {
+    //                 id: newCity.id,
+    //                 city: newCity.city,
+    //                 user_id: newCity.user_id
+    //             }
+    //             // console.log(newCity)
+    //             dispatch(changeCityProfiles([...cityProfiles, formatNewCity]))
+    //             dispatch(changeAddCity(false))
+    //         } else {
+    //             const err = await res.json()
+    //             setErrors(err.errors)
+    //         }
+    //     };
+    //     addCity();
+    // }
 
     return (
         <Grid container>
@@ -166,13 +167,6 @@ function Account() {
                     </div>
                     )
                 )}
-                {addCity 
-                    ? <>
-                        <input type="text" name="city" style={{width: '80%'}} onChange={(e)=>dispatch(changeCityInput(e.target.value))}></input>
-                        <AccountButton onClick={(e)=>onAddCity(e)}>Add</AccountButton>
-                    </>
-                    : <AccountButton onClick={()=>dispatch(changeAddCity(true))}>Add New City</AccountButton>
-                }
             </Grid>
         </Grid>
     );

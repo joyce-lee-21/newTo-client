@@ -79,7 +79,9 @@ function VenueItem({venue}) {
                 <div>
                     <div>
                         {'Rating: '}
-                        <span className={classes.ratingSquare}>{venue.rating}</span>
+                        <span className={classes.ratingSquare}>
+                            {venue.rating ? venue.rating.toFixed(1) : "N/A"}
+                        </span>
                         <Button onClick={(e)=>onHeart(e, venue)}>
                         {hearted ? <FavoriteIcon /> :<FavoriteBorderIcon />}
                     </Button>
@@ -88,7 +90,7 @@ function VenueItem({venue}) {
             </Grid>
             <Grid item xs={3}>
                 <div>
-                    {venue.categories.map(cat => (<p className={classes.catSquare}>{cat.name}</p>))}
+                    {venue.categories.map(cat => (<p key={cat.id} className={classes.catSquare}>{cat.name}</p>))}
                 </div>
             </Grid>
             {/* <Grid item xs={2}></Grid> */}

@@ -99,6 +99,7 @@
 .category-container {
   min-height: 50vh;
   margin-top: 10px;
+  border: 1px solid black;
 }
 
 .category-tile {
@@ -132,4 +133,13 @@
 
 .venue-tile p{
   margin: 2px;
+}
+
+.add-city-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 }

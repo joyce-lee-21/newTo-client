@@ -32,16 +32,16 @@ function VenueList() {
     useEffect(() => {
         detailsFetch();
         // console.log(venuesResultsArray)
-    }, [user.category_selections])
+    }, [venuesResultsArray])
 
     const detailsFetch = () => {
         const detailsArray = [];
         async function venueDetails(venue){
         // console.log(venue.venue.id)
         const res = await fetch(
-            `http://localhost:4000/venue_details/${venue.id}`,
+            // `http://localhost:4000/venue_details/${venue.id}`,
             // *---PRODUCTION CHANGE:
-            // `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`, 
+            `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`, 
             {method: "GET"}
         ) 
         if(res.ok){
@@ -51,6 +51,7 @@ function VenueList() {
             const v = arr.response.venue
             detailsArray.push(v)
             // console.log(detailsArray)
+            detailsArray.sort((a, b) => {return b.rating - a.rating})
             dispatch(changeVenuesDetailsArray([...detailsArray])) 
             dispatch(changeFilteredVenueResults([...detailsArray]))
             // !! update VenueItem array source after successfully dispatching
@@ -90,6 +91,8 @@ function VenueList() {
             // console.log(venuesDetailsArray.filter(v=> v.name.toLowerCase().includes(query.toLowerCase())))
         dispatch(changeFilteredVenueResults(filtered))
     }
+
+    // console.log(filteredVenueResults.sort((a, b) => {return b.rating - a.rating}))
 
     return (
         <>
