@@ -90,7 +90,7 @@ function ProfileCity() {
             })
             if(res.ok){
                 const selections = await res.json()
-                console.log(selections)
+                // console.log(selections)
                 dispatch(changeCategoryArray(selections.category_selections))
                 dispatch(changeSavedVenuesArray(selections.saved_venues.filter(venue => venue.is_completed !== true)))
                 dispatch(changeCitySelection(profile))

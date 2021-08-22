@@ -100,7 +100,7 @@ function ViewVenueItem({venue}) {
                 : null
               }
               <br></br>
-              <VenueViewButton onClick={(e)=>onRemove(e, venue)}>Completed</VenueViewButton>
+              <VenueViewButton onClick={(e)=>onRemove(e, venue)}>Remove</VenueViewButton>
               <Button onClick={(e)=>onCompleted(e, venue)}>
                 {checked ? <CheckCircleIcon/> : <CheckCircleOutlineIcon/>}
               </Button>

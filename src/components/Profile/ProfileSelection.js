@@ -120,9 +120,9 @@ function ProfileSelection() {
             })
             if(res.ok){
                 const selected = await res.json()
-                console.log(selected)
+                // console.log(selected)
                 console.log("category_selection added")
-                console.log(categoryArray)
+                // console.log(categoryArray)
                 // set city selection if user only has 1 city profile
             } else {
                 const err = await res.json()

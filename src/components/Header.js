@@ -112,7 +112,7 @@ function Header() {
                                 <HeaderButton variant="outlined" className={classes.headerMargin}>RESULTS</HeaderButton>
                             </NavLink>
                             <NavLink to="/trending" style={{ textDecoration: 'none' }}>
-                                <TrendyButton >TRENDING</TrendyButton>
+                                <TrendyButton >RANDOMIZE</TrendyButton>
                             </NavLink>
                             <NavLink to="/logout" style={{ textDecoration: 'none' }}>
                                 <HeaderButton variant="outlined" className={classes.headerMargin} onClick={()=>onLogout()}>LOGOUT</HeaderButton>

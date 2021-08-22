@@ -214,6 +214,8 @@ function App() {
     })
   }, []);
 
+  // console.log(process.env.REACT_APP_FOURSQUARE_CLIENT_SECRET)
+
   return (
     <div className="app-container">
       <Router>

@@ -6,6 +6,7 @@ import Account from './Account';
 import Login from './Homepage/Login';
 import SignUp from './Homepage/SignUp';
 import Trending from './Results/Trending';
+import VenuesMapContainer from './Maps/VenuesMapContainer';
 import {useSelector} from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
@@ -37,6 +38,9 @@ function Content() {
                     </Route>
                     <Route path="/trending">
                         <Trending />
+                    </Route>
+                    <Route path="/map">
+                        <VenuesMapContainer />
                     </Route>
                 </Switch>
             </Grid>

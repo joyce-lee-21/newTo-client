@@ -5,9 +5,6 @@ import ViewVenueItem from './ViewVenueItem';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 
 const useStyles = makeStyles({
@@ -22,32 +19,6 @@ const useStyles = makeStyles({
     },
   });
 
-const VenueViewButton = withStyles({
-    root: {
-      boxShadow: 'none',
-      fontSize: 14,
-      border: '1px solid',
-      lineHeight: 1.5,
-      backgroundColor: '#b2d6ef',
-      borderColor: '#b2d6ef',
-      borderRadius: '20px',
-      padding: '6px 15px',
-      margin: '10px',
-      '&:hover': {
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
-        boxShadow: 'none',
-      },
-      '&:active': {
-        boxShadow: 'none',
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
-      },
-      '&:focused': {
-        boxShadow: '0 0 0 0.2rem #9fcbb4',
-      },
-    },
-  })(Button);
 
 function ViewVenuesList() {
     const dispatch = useDispatch();

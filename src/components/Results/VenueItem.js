@@ -100,7 +100,7 @@ function VenueItem({venue}) {
                             {venue.contact.twitter 
                                 ? (<a href={`https://twitter.com/${venue.contact.twitter}`} target="_blank" rel="noreferrer noopener">
                                     <Button>
-                                        <TwitterIcon />
+                                        <TwitterIcon style={{fontSize: '28px'}}/>
                                     </Button>
                                 </a>) 
                                 : null
@@ -108,7 +108,7 @@ function VenueItem({venue}) {
                             {venue.contact.instagram 
                                 ? (<a href={`https://www.instagram.com/${venue.contact.instagram}`} target="_blank" rel="noreferrer noopener">
                                     <Button>
-                                        <InstagramIcon />
+                                        <InstagramIcon style={{fontSize: '28px'}}/>
                                     </Button>
                                 </a>) 
                                 : null
@@ -116,7 +116,7 @@ function VenueItem({venue}) {
                             {venue.contact.facebook 
                                 ? (<a href={`https://www.facebook.com/${venue.contact.facebook}`} target="_blank" rel="noreferrer noopener">
                                     <Button>
-                                        <FacebookIcon />
+                                        <FacebookIcon style={{fontSize: '28px'}}/>
                                     </Button>
                                 </a>) 
                                 : null

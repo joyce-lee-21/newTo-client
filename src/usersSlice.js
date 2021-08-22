@@ -57,8 +57,8 @@ const usersSlice = createSlice({
         classes: "",
 
         // private - external API credentials
-        clientId: "TMPN4FQH3UGB0NX5JBBA0B4WBWRYMK51MTOO0YN10JDLDKDQ",
-        clientSecret: "2DBBU5NEY4QZF2DYPXVRUZ5CZJALBQ3QMLNBSWE4V403UFL4",
+        clientId: process.env.REACT_APP_FOURSQUARE_CLIENT_ID,
+        clientSecret: process.env.REACT_APP_FOURSQUARE_CLIENT_SECRET,
         version: "20210801"
     },
 

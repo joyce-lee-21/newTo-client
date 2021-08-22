@@ -1,8 +1,10 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useState, useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 import {changeVenuesDetailsArray, changeFilteredVenueResults} from '../../usersSlice';
 
 import VenueItem from './VenueItem';
+import VenuesMapContainer from '../Maps/VenuesMapContainer';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -10,12 +12,16 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Button from '@material-ui/core/Button';
+import MapIcon from '@material-ui/icons/Map';
 
 function VenueList() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const classes = useSelector(state => state.classes);
     const [errors, setErrors] = useState([]);
     const [category, setCategory] = useState("All");
+    const [map, setMap] = useState(false);
     const client_id = useSelector(state => state.clientId);
     const client_secret = useSelector(state => state.clientSecret);
     const version = useSelector(state => state.version);
@@ -30,43 +36,46 @@ function VenueList() {
 
     // grab fs_venue_ids from resultsArray
     useEffect(() => {
-        detailsFetch();
-        // console.log(venuesResultsArray)
+        // detailsFetch();
+        dispatch(changeFilteredVenueResults(venuesResultsArray))
     }, [venuesResultsArray])
 
-    const detailsFetch = () => {
-        const detailsArray = [];
-        async function venueDetails(venue){
-        // console.log(venue.venue.id)
-        const res = await fetch(
-            `http://localhost:4000/venue_details/${venue.id}`,
-            // *---PRODUCTION CHANGE:
-            // `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`, 
-            {method: "GET"}
-        ) 
-        if(res.ok){
-            const arr = await res.json()
-            // const v = arr.response.response.venue
-            // *---PRODUCTION CHANGE:
-            const v = arr.response.venue
-            detailsArray.push(v)
-            // console.log(detailsArray)
-            detailsArray.sort((a, b) => {return b.rating - a.rating})
-            dispatch(changeVenuesDetailsArray([...detailsArray])) 
-            dispatch(changeFilteredVenueResults([...detailsArray]))
-            // !! update VenueItem array source after successfully dispatching
-        } else {
-            const err = await res.json()
-            // console.log(err.errors)
-            setErrors(err.errors)
-        }
-        };
-        // use this to test one venue detail fetch:
-        // venueDetails(venuesResultsArray[0]);
+    // const detailsFetch = () => {
+    //     const detailsArray = [];
+    //     async function venueDetails(venue){
+    //     // console.log(venue.venue.id)
+    //         const res = await fetch(
+    //             `http://localhost:4000/venue_details/${venue.id}`,
+    //             // *---PRODUCTION CHANGE:
+    //             // `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`, 
+    //             {method: "GET"}
+    //         ) 
+    //         // .then(res => res.json())
+    //         // .then(data => {
+    //         //     const v = data.response.venue
+    //         //     detailsArray.push(v)
+    //         //     // console.log(detailsArray)
+    //         //     const fArr = detailsArray.sort((a, b) => {return b.rating - a.rating})
+    //         //     dispatch(changeVenuesDetailsArray([...detailsArray]))
+    //         //     dispatch(changeFilteredVenueResults([...detailsArray]))
+    //         //     return fArr
+    //         // })
+    //         if(res.ok){
+    //             const arr = await res.json()
+    //             const v = arr.response.venue
+    //             detailsArray.push(v)
+    //             // console.log(detailsArray)
+    //             detailsArray.sort((a, b) => {return b.rating - a.rating})
+    //             dispatch(changeVenuesDetailsArray([...detailsArray]))
+    //             dispatch(changeFilteredVenueResults([...detailsArray]))
+    //         }
+    //     };
+    //     // use this to test one venue detail fetch:
+    //     // venueDetails(venuesResultsArray[0]);
 
-    //  use this to fetch details for all venues in array:
-        venuesResultsArray.map(venue=>venueDetails(venue));
-    }
+    // //  use this to fetch details for all venues in array:
+    //     venuesResultsArray.map(venue=>venueDetails(venue));
+    // }
     // STRETCH GOAL AFTER SECONDARY CATEGORIES BROUGHT IN
     const onCategoryFilter = (e) => {
         // console.log(e.target.value)
@@ -100,10 +109,10 @@ function VenueList() {
         <Grid item xs={1}></Grid>
         <Grid item xs={10} style={{display: 'inline'}}>
             <Grid container>
-                <Grid item xs={6}>
+                <Grid item xs={5}>
                     <TextField id="outlined-basic" label="Search Results by Name:" variant="outlined" style={{width: '300px', marginBottom: '20px'}} onChange={(e)=>onQuery(e)}/>
                 </Grid>    
-                <Grid item xs={6}>
+                <Grid item xs={5}>
                     <FormControl variant="outlined" className={classes.formControl}>
                         <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
                         <Select
@@ -120,6 +129,17 @@ function VenueList() {
                         </Select>
                     </FormControl>
                 </Grid>
+                <Grid item xs={2}>
+                    <Button onClick={()=>setMap(!map)}>
+                        <MapIcon style={{fontSize: '36px', backgroundColor: '#b6e5dc', borderRadius: '30px', padding: '10px'}}/>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid className="results-map">
+                {map 
+                    ? <VenuesMapContainer /> 
+                    : null
+                }
             </Grid>
             {filteredVenueResults.map(v=>
                 <VenueItem key={v.id} venue={v}/>
