@@ -134,7 +134,7 @@ const usersSlice = createSlice({
         },
         changeCompletedVenuesArray(state, action) {
             state.completedVenuesArray = action.payload
-        }
+        },
         // changeLogout(state) {
         //     state.usernameInput = ""
         //     state.passwordInput = "",

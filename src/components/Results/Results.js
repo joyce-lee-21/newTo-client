@@ -60,6 +60,8 @@ function Results() {
                     await Promise.all(venueArray.map(venue => {
                         // console.log(venue)
                         return fetch(`http://localhost:4000/venue_details/${venue.id}`)
+                        // *---PRODUCTION CHANGE:
+                        // fetch(`https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`) 
                         // if(details.ok){
                         //     const arr = details.json()
                         //     const v = arr.response.venue

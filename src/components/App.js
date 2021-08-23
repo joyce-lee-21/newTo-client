@@ -7,7 +7,8 @@ import Content from './Content';
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 // ***---V2 CODE---***
@@ -22,7 +23,16 @@ import {
   changeIsLoggedIn,
   changeCityProfiles,
   changeClasses,
+  changeTheme,
 } from '../usersSlice';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Work Sans', 
+      'sans-serif'
+    ].join(','),
+  },});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,16 +48,26 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '30px',
     width: '120px',
   },
+  navbar: {
+    // flexGrow: 1,
+    backgroundColor: 'white',
+    position: "fixed",
+    width: "100%",
+    height: '60px',
+    paddingTop: '5px',
+    zIndex: 1000,
+  },
   logo: {
     marginLeft: '20px',
     textTransform: 'capitalize',
+    margin: '5px',
   },
   contentContainer: {
     minHeight: '50vh',
     minWidth: '100vw',
-    // marginTop: '50px',
     alignItems: "center",
     textAlign: 'center',
+    marginTop: '100px',
   },
   mainPageButtons: {
     margin: '20px',
@@ -99,51 +119,32 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '10px',
     backgroundColor: '#fcf3d3',
   },
-  resultsContainer: {
-    marginTop: '10px',
-  },
-  resultsList: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: "center",
-    flexDirection: 'row',
-    // marginTop: '20px',
-    // padding: '5px',
-    height: '150px',
-    borderBottom: '1px black dotted',
-    backgroundColor: '#f2fce9',
-  },
-  results2List: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: "center",
-    textAlign: 'center',
-    // flexDirection: 'column',
-    padding: '10px',
-  },
-  ratingSquare: {
-    backgroundColor: '#68166c',
-    borderRadius: '5px',
-    fontSize: 16,
-    color: 'white',
-    fontWeight: 'bold',
-    padding: '7px',
-    margin: '5px',
-  },
-  catSquare: {
-    backgroundColor: '#fcf3d3',
-    color: 'black',
-    borderRadius: '5px',
-    width: '80%',
-    fontSize: 14,
-    padding: '5px',
-    // margin: '20px',
-  },
+  // resultsContainer: {
+  //   marginTop: '10px',
+  // },
+  // resultsList: {
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   alignItems: "center",
+  //   flexDirection: 'row',
+  //   // marginTop: '20px',
+  //   // padding: '5px',
+  //   height: '150px',
+  //   borderBottom: '1px black dotted',
+  //   backgroundColor: '#f2fce9',
+  // },
+  // results2List: {
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   alignItems: "center",
+  //   textAlign: 'center',
+  //   // flexDirection: 'column',
+  //   padding: '10px',
+  // },
   formControl: {
     minWidth: 300,
   },
 }));
-
 
 function App() {
   const dispatch = useDispatch();
@@ -217,14 +218,18 @@ function App() {
   // console.log(process.env.REACT_APP_FOURSQUARE_CLIENT_SECRET)
 
   return (
-    <div className="app-container">
-      <Router>
-        <Grid container>
-          <Header />
-          <Content />
-        </Grid>
-      </Router>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="app-container">
+        <Router>
+          <Grid container>
+            <Typography>
+              <Header />
+              <Content />
+            </Typography>
+          </Grid>
+        </Router>
+      </div>
+    </ThemeProvider>
     
   );
 }

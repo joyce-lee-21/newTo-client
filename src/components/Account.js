@@ -35,7 +35,7 @@ const AccountButton = withStyles({
         backgroundColor: '#9fcbb4',
         borderColor: '#9fcbb4',
       },
-      '&:focused': {
+      '&:focus': {
         boxShadow: '0 0 0 0.2rem #9fcbb4',
       },
     },
@@ -145,13 +145,13 @@ function Account() {
                 <>
                 <form onSubmit={(e)=>handleSubmit(e)}>
                     <h5>Name</h5>
-                    <input type="text" name="name" style={{width: '80%'}} value={nameInput} onChange={(e)=>dispatch(changeNameInput(e.target.value))}></input>
+                    <input type="text" name="name" style={{width: '70%'}} value={nameInput} onChange={(e)=>dispatch(changeNameInput(e.target.value))}></input>
                     <h5>Username</h5>
-                    <input type="text" name="username" style={{width: '80%'}} value={usernameInput} onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}></input>
+                    <input type="text" name="username" style={{width: '70%'}} value={usernameInput} onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}></input>
                     <h5>Password</h5>
-                    <input type="text" name="password" style={{width: '80%'}} onChange={(e)=>dispatch(changePasswordInput(e.target.value))}></input>
+                    <input type="text" name="password" style={{width: '70%', marginBottom: '10px'}} onChange={(e)=>dispatch(changePasswordInput(e.target.value))}></input>
                     <br></br>
-                    <input type="submit" value="Save Changes"></input>
+                    <AccountButton type="submit" value="Save Changes">Submit</AccountButton>
                     <AccountButton onClick={()=>dispatch(changeEditStatus(false))}>Cancel</AccountButton>
                 </form>
                 </>

@@ -82,7 +82,7 @@ function VenueList() {
         setCategory(e.target.value);
         if (e.target.value !== "All") {
             // let results = venuesDetailsArray.map(v => v.categories.filter((cat) => cat.name === e.target.value)).filter(v => v.length > 0)
-            const filterVenue = venuesDetailsArray.filter(v => {
+            const filterVenue = venuesResultsArray.filter(v => {
                 let catMatch = v.categories.filter(cat => cat.name === e.target.value)
                 if (catMatch.length > 0) {
                     return v
@@ -91,13 +91,15 @@ function VenueList() {
             filterVenue.sort((a, b) => {return b.rating - a.rating})
             // console.log(filterVenue)
             dispatch(changeFilteredVenueResults(filterVenue))
+        } else {
+            dispatch(changeFilteredVenueResults(venuesResultsArray))
         }
     }
 
     const onQuery = (e) => {
         console.log(e.target.value)
         const query = e.target.value
-        const filtered = venuesDetailsArray.filter(v=> v.name.toLowerCase().includes(query.toLowerCase()))
+        const filtered = venuesResultsArray.filter(v=> v.name.toLowerCase().includes(query.toLowerCase()))
             // console.log(venuesDetailsArray.filter(v=> v.name.toLowerCase().includes(query.toLowerCase())))
         dispatch(changeFilteredVenueResults(filtered))
     }
@@ -131,7 +133,7 @@ function VenueList() {
                 </Grid>
                 <Grid item xs={2}>
                     <Button onClick={()=>setMap(!map)}>
-                        <MapIcon style={{fontSize: '36px', backgroundColor: '#b6e5dc', borderRadius: '30px', padding: '10px'}}/>
+                        <MapIcon style={{fontSize: '36px', backgroundColor: '#b6e5dc', borderRadius: '5px', padding: '10px'}}/>
                     </Button>
                 </Grid>
             </Grid>
@@ -141,9 +143,11 @@ function VenueList() {
                     : null
                 }
             </Grid>
-            {filteredVenueResults.map(v=>
-                <VenueItem key={v.id} venue={v}/>
-            )}
+            <Grid container spacing={3}>
+                {filteredVenueResults.map(v=>
+                    <VenueItem key={v.id} venue={v}/>
+                )}
+            </Grid>
         </Grid>
         </>
         
