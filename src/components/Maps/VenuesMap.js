@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux';
 
 const VenuesMap = withScriptjs(withGoogleMap(() => {
     const filteredVenueResults = useSelector(state => state.filteredVenueResults)
+    const mapCenter = useSelector(state => state.mapCenter);
 
     // const markers = filteredVenueResults.map(v => 
     //     (<VenuesMarker
@@ -16,25 +17,27 @@ const VenuesMap = withScriptjs(withGoogleMap(() => {
     //     />)
     // );
 
+    console.log(mapCenter[0]);
+
     return (
         <GoogleMap
             defaultZoom={12}
-            center={ { lat:  30.26715, lng: -97.74306 } }
+            center={mapCenter[0]}
         >
             {/* DEVELOPMENT: */}
             {/* <VenuesMarker
-                key={filteredVenueResults[0].id}
-                venue={filteredVenueResults[0]}
-                location={{lat: filteredVenueResults[0].location.lat, lng: filteredVenueResults[0].location.lng}}
+                key={filteredVenueResults[1].id}
+                venue={filteredVenueResults[1]}
+                location={{lat: filteredVenueResults[1].location.lat, lng: filteredVenueResults[1].location.lng}}
             /> */}
             {/* PRODUCTION: */}
-            {/* {filteredVenueResults.map(v => 
+            {filteredVenueResults.map(v => 
                     (<VenuesMarker
                         key={v.id}
-                        venue={filteredVenueResults[0]}
-                        location={{lat: filteredVenueResults[0].location.lat, lng: filteredVenueResults[0].location.lng}}
+                        venue={v}
+                        location={{lat: v.location.lat, lng: v.location.lng}}
                     />)
-                } */}
+            )}
       </GoogleMap>
     );
 

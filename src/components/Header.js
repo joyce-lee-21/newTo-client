@@ -11,11 +11,9 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Tab from '@material-ui/core/Tab';
 import { NavMenu, NavItem } from '@mui-treasury/components/menu/navigation';
 import { usePointNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/point';
 import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
 
 
   const TrendyButton = withStyles({
@@ -102,16 +100,20 @@ function Header() {
                                     <Typography>Profile</Typography>
                                 </NavLink>
                             </NavItem>
-                            <NavItem as={'div'} active={index === 2} onClick={handleClick(2)}>
-                                <NavLink to="/results" style={{ textDecoration: 'none' }}>
-                                    <Typography>Results</Typography>
-                                </NavLink>
-                            </NavItem>
-                            <NavItem as={'div'} active={index === 3} onClick={handleClick(3)}>
-                                <NavLink to="/trending" style={{ textDecoration: 'none' }}>
-                                    <TrendyButton>RANDOMIZE</TrendyButton>
-                                </NavLink>
-                            </NavItem>
+                            {citySelection &&
+                            <>
+                                <NavItem as={'div'} active={index === 2} onClick={handleClick(2)}>
+                                    <NavLink to="/results" style={{ textDecoration: 'none' }}>
+                                        <Typography>Results</Typography>
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem as={'div'} active={index === 3} onClick={handleClick(3)}>
+                                    <NavLink to="/trending" style={{ textDecoration: 'none' }}>
+                                        <TrendyButton>RANDOMIZE</TrendyButton>
+                                    </NavLink>
+                                </NavItem>
+                            </>
+                            }
                             <NavItem as={'div'} active={index === 4} onClick={handleClick(4)}>
                                 <NavLink to="/logout" style={{ textDecoration: 'none' }}>
                                     <Typography onClick={()=>onLogout()}>Logout</Typography>

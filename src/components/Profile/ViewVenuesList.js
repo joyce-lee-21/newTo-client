@@ -5,6 +5,7 @@ import ViewVenueItem from './ViewVenueItem';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 
 const useStyles = makeStyles({
@@ -17,6 +18,12 @@ const useStyles = makeStyles({
       display: 'inline-block',
       padding: '5px',
     },
+    venueList: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+    }
   });
 
 
@@ -63,28 +70,32 @@ function ViewVenuesList() {
 
 
     return (
-        <div>
-            {savedVenuesArray && savedVenuesArray.length >= 1 
-            ? savedVenuesArray.filter(venue=> venue.is_completed !== true).map(venue => 
-                // (<Card key={venue.id} className={classes.root} variant="outlined">
-                //     <p style={{fontWeight: "bold"}}>{venue.name}</p>
-                //     <p>{venue.rating}</p>
-                //     <p>{venue.address}</p>
-                //     {venue.url 
-                //         ? (<a href={venue.url}>{`Visit Website`}</a>)
-                //         : null
-                //     }
-                //     <br></br>
-                //     <VenueViewButton onClick={(e)=>onRemove(e, venue)}>Remove</VenueViewButton>
-                //     <Button onClick={(e)=>onCompleted(e, venue)}>
-                //         {checked ? <CheckCircleIcon/> : <CheckCircleOutlineIcon/>}
-                //     </Button>
-                // </Card>)
-                <ViewVenueItem key={venue.id} venue={venue}/>
-                )
-            : "No venues are added to your profile. View your results to add venues to your profile!"
-            }
-        </div>
+        <>
+        <h5>Saved Venue Selections:</h5>
+            <Grid container classname={classes.venueList}>
+                
+                {savedVenuesArray && savedVenuesArray.length >= 1 
+                ? savedVenuesArray.filter(venue=> venue.is_completed !== true).map(venue => 
+                    // (<Card key={venue.id} className={classes.root} variant="outlined">
+                    //     <p style={{fontWeight: "bold"}}>{venue.name}</p>
+                    //     <p>{venue.rating}</p>
+                    //     <p>{venue.address}</p>
+                    //     {venue.url 
+                    //         ? (<a href={venue.url}>{`Visit Website`}</a>)
+                    //         : null
+                    //     }
+                    //     <br></br>
+                    //     <VenueViewButton onClick={(e)=>onRemove(e, venue)}>Remove</VenueViewButton>
+                    //     <Button onClick={(e)=>onCompleted(e, venue)}>
+                    //         {checked ? <CheckCircleIcon/> : <CheckCircleOutlineIcon/>}
+                    //     </Button>
+                    // </Card>)
+                    <ViewVenueItem key={venue.id} venue={venue}/>
+                    )
+                : "No venues are added to your profile. View your results to add venues to your profile!"
+                }
+            </Grid>
+        </>
     );
 }
     

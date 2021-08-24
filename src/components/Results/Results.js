@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useState, useEffect} from 'react'
-import {changeVenuesResultsArray} from '../../usersSlice';
+import {changeVenuesResultsArray, changeMapCenter} from '../../usersSlice';
 import VenueList from './VenueList';
 
 import Grid from '@material-ui/core/Grid';
@@ -50,18 +50,20 @@ function Results() {
                 .then(res => res.json())
                 .then(data => {
                     const vArr = data.response.groups[0].items
+                    const mapCenter = data.response.geocode.center
+                    dispatch(changeMapCenter([mapCenter]))
                     vArr.map(v=> venueArray.push(v.venue))
                     // dispatch(changeVenuesResultsArray([...venueArray]))
-                    console.log(venueArray)
+                    // console.log(venueArray)
                     return venueArray
                 })
                 .then(async venueArray => {
                     const detailsArray = [];
                     await Promise.all(venueArray.map(venue => {
                         // console.log(venue)
-                        return fetch(`http://localhost:4000/venue_details/${venue.id}`)
+                        // return fetch(`http://localhost:4000/venue_details/${venue.id}`)
                         // *---PRODUCTION CHANGE:
-                        // fetch(`https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`) 
+                        return fetch(`https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`) 
                         // if(details.ok){
                         //     const arr = details.json()
                         //     const v = arr.response.venue

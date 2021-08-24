@@ -101,7 +101,7 @@
 .category-container {
   min-height: 50vh;
   margin-top: 10px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .category-tile {

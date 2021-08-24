@@ -5,16 +5,39 @@ import {useHistory} from 'react-router-dom';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
     root: {
-      width: 300,
-      height: 160,
-      textAlign: 'center',
-      alignItems: 'center',
-      backgroundColor: '#fcf3d3',
-      display: 'inline-block',
-      padding: '5px',
+        fontSize: 14,
+        fontWeight: 'bold',
+        backgroundColor: '#ffeca9',
+        display: 'flex',
+        padding: '10px',
+        margin: '20px',
+        width: '120px',
+        height: '50px',
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        '&:hover': {
+          backgroundColor: '#ffeca9',
+          borderColor: 'black',
+          boxShadow: 'none',
+        },
+        '&:active': {
+          boxShadow: 'none',
+          backgroundColor: '#ffeca9',
+          borderColor: '#ffeca9',
+        },
+        '&:focused': {
+          boxShadow: '0 0 0 0.2rem #ffeca9',
+        },
+    },
+    savedCatArray: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'row',
     },
   });
 
@@ -61,15 +84,14 @@ function ViewCategoryList() {
     
     return (
         <>
-            <div>
+            {/* <Paper classname={classes.savedCatArray}> */}
+            <h5>Saved Category Selections:</h5>
                 {categoryArray.map(cat => (
-                    <Card key={cat.id} className={classes.root} variant="outlined">
-                    {/* <span className="category-tile"> */}
-                        <p>{cat.name}</p>
-                    {/* </span> */}
-                    </Card>
+                    <Paper  key={cat.id} className={classes.root} elevation={2}>
+                        {cat.name}
+                    </Paper>
                 ))}
-            </div>
+            {/* </Paper> */}
             <ProfileViewButton onClick={()=>history.push("/results")}>Go to Results</ProfileViewButton>
             <ProfileViewButton onClick={onReset}>Reset Selections</ProfileViewButton>
         </>

@@ -41,7 +41,9 @@ const usersSlice = createSlice({
         venuesResultsArray: [],
         venuesDetailsArray: [],
         filteredVenueResults: [],
+        trendingCatArray: [],
         trendingResultsArray: [],
+        mapCenter: [],
 
         // category selections saved to the user city_profile
         categoryArray: [],
@@ -135,6 +137,12 @@ const usersSlice = createSlice({
         changeCompletedVenuesArray(state, action) {
             state.completedVenuesArray = action.payload
         },
+        changeMapCenter(state, action) {
+            state.mapCenter = action.payload
+        },
+        changeTrendingCatArray(state, action) {
+            state.trendingCatArray = action.payload
+        }
         // changeLogout(state) {
         //     state.usernameInput = ""
         //     state.passwordInput = "",
@@ -197,6 +205,8 @@ const {
     changeFilterByPrimaryCategory,
     changeTrendingResultsArray,
     changeCompletedVenuesArray,
+    changeMapCenter,
+    changeTrendingCatArray,
 
 } = usersSlice.actions; 
 
@@ -227,6 +237,8 @@ export {
     changeFilterByPrimaryCategory,
     changeTrendingResultsArray,
     changeCompletedVenuesArray,
+    changeMapCenter,
+    changeTrendingCatArray,
 }
 
 export default usersSlice.reducer;

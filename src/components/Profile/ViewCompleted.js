@@ -53,6 +53,7 @@ function ViewCompleted() {
     return (
         <>
             <div>
+                <h5>Venue Selections Visited:</h5>
                 {completedVenuesArray.map(v => (
                     <Card key={v.id} className={classes.root} variant="outlined">
                         <p style={{fontWeight: "bold"}}>{v.name}</p>

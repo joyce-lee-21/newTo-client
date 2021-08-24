@@ -12,27 +12,28 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ToggleButton from '@material-ui/lab/ToggleButton';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(() => ({
     toggle: {
       boxShadow: 'none',
       fontSize: 14,
-      border: '1px solid',
-      lineHeight: 1.5,
       backgroundColor: '#ffeca9',
-      borderColor: '#ffeca9',
-      padding: '6px 15px',
-      margin: '10px',
-    //   '&:hover', '&:active': {
-    //     boxShadow: 'none',
-    //     backgroundColor: '#9fcbb4',
-    //     borderColor: '#9fcbb4',
-    //   },
-    //   '&:focused': {
-    //     boxShadow: '0 0 0 0.2rem #9fcbb4',
-    //     backgroundColor: '#9fcbb4',
-    //     borderColor: '#9fcbb4',
-    //   },
+      '&:hover': {
+        boxShadow: 'none',
+        backgroundColor: '#9fcbb4',
+        borderColor: '#9fcbb4',
+      },
+      '&:active': {
+        boxShadow: 'none',
+        backgroundColor: '#9fcbb4',
+        borderColor: '#9fcbb4',
+      },
+      '&:focused': {
+        boxShadow: '0 0 0 0.2rem #9fcbb4',
+        backgroundColor: '#9fcbb4',
+        borderColor: '#9fcbb4',
+      },
     },
   }));
 
@@ -86,27 +87,27 @@ function ProfileView() {
         <>
         <Grid item xs={1}></Grid>
         <Grid item xs={10} className={classes.viewCategoryContainer}>
-            <div className="category-container">
-            {/* <ToggleButtonGroup
-                value={alignment}
-                exclusive
-                onChange={handleAlignment}
-                aria-label="text alignment"
-                >
-                <ToggleButton className={buttons.toggle} value="left" onClick={()=>dispatch(changeProfileView("categories"))}>Categories</ToggleButton>
-                <ToggleButton className={buttons.toggle} value="center" onClick={()=>dispatch(changeProfileView("venues"))}>Venues</ToggleButton>
-                <ToggleButton className={buttons.toggle} value="right" onClick={()=>dispatch(changeProfileView("completed"))}>Completed</ToggleButton>
-            </ToggleButtonGroup>  */}
-                <ProfileViewButton value="left" onClick={()=>dispatch(changeProfileView("categories"))}>Categories</ProfileViewButton>
+            <Paper className="category-container">
+                <ToggleButtonGroup
+                    value={alignment}
+                    exclusive
+                    onChange={handleAlignment}
+                    aria-label="text alignment"
+                    >
+                    <ToggleButton className={buttons.toggle} value="left" onClick={()=>dispatch(changeProfileView("categories"))}>Categories</ToggleButton>
+                    <ToggleButton className={buttons.toggle} value="center" onClick={()=>dispatch(changeProfileView("venues"))}>Venues</ToggleButton>
+                    <ToggleButton className={buttons.toggle} value="right" onClick={()=>dispatch(changeProfileView("completed"))}>Completed</ToggleButton>
+                </ToggleButtonGroup> 
+                {/* <ProfileViewButton value="left" onClick={()=>dispatch(changeProfileView("categories"))}>Categories</ProfileViewButton>
                 <ProfileViewButton value="center" onClick={()=>dispatch(changeProfileView("venues"))}>Venues</ProfileViewButton>
-                <ProfileViewButton value="right" onClick={()=>dispatch(changeProfileView("completed"))}>Completed</ProfileViewButton>
-            {profileView === "categories"
-                ? (<ViewCategoryList />)
-                : profileView === "venues"
-                    ? (<ViewVenuesList />)
-                    : (<ViewCompleted />)
-            }
-            </div>
+                <ProfileViewButton value="right" onClick={()=>dispatch(changeProfileView("completed"))}>Completed</ProfileViewButton> */}
+                {profileView === "categories"
+                    ? (<ViewCategoryList />)
+                    : profileView === "venues"
+                        ? (<ViewVenuesList />)
+                        : (<ViewCompleted />)
+                }
+            </Paper>
             <ProfileViewButton onClick={()=>onChangeCity()}><strong>Change City</strong></ProfileViewButton>
         </Grid>
         </>

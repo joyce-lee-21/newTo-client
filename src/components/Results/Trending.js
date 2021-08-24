@@ -1,18 +1,120 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useState, useEffect} from 'react'
-import {changeTrendingResultsArray, changeSavedVenuesArray} from '../../usersSlice';
-import VenueList from './VenueList';
-
+import {changeTrendingResultsArray, changeTrendingCatArray, changeSavedVenuesArray} from '../../usersSlice';
+import TrendingResults from './TrendingResults';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import FacebookIcon from '@material-ui/icons/Facebook';
+
+const useStyles = makeStyles(() => ({
+    root: {
+        minWidth: 275,
+        minHeight: 420,
+    },
+    buttons: {
+        boxShadow: 'none',
+        fontSize: 14,
+        backgroundColor: '#ffeca9',
+        borderColor: '#ffeca9',
+        padding: '6px 15px',
+        margin: '10px',
+        width: '200px',
+    },
+    catSquare: {
+        backgroundColor: '#fcf3d3',
+        color: 'black',
+        borderRadius: '5px',
+        fontSize: 14,
+        margin: '10px',
+        padding: '3px',
+    },
+    catContainer: {
+        display: 'flex',
+        // alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        padding: '20px',
+        minHeight: '500px',
+        width: '100%'
+    },
+    catDiv: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        backgroundColor: '#ffeca9',
+        display: 'flex',
+        padding: '10px',
+        margin: '20px',
+        width: '150px',
+        height: '50px',
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    catArray: {
+        display: 'flex',
+        // alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        padding: '20px',
+        width: '100%'
+    },
+    cardSocial: {
+        bottom: 0,
+        position: 'relative',
+        justifyContent: 'center',
+        marginTop: '20px',
+    },
+    cardRoot: {
+        minWidth: 275,
+        minHeight: 420,
+    },
+    cardContent: {
+        fontSize: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    cardRatingSquare: {
+        backgroundColor: '#68166c',
+        borderRadius: '5px',
+        fontSize: 16,
+        color: 'white',
+        fontWeight: 'bold',
+        padding: '7px',
+        margin: '5px',
+    },
+    cardCatSquare: {
+        backgroundColor: '#fcf3d3',
+        color: 'black',
+        borderRadius: '5px',
+        fontSize: 14,
+        margin: '10px',
+        padding: '3px',
+    },
+    cardCatDiv: {
+        justifyContent: 'center',
+        alignItems: "center",
+        textAlign: 'center',
+        marginTop: '25px',
+    },
+  }));
 
 function Trending() {
     const dispatch = useDispatch();
-    const classes = useSelector(state => state.classes);
+    const classes = useStyles();
     const citySelection = useSelector(state => state.citySelection);
     const trendingResultsArray = useSelector(state => state.trendingResultsArray);
+    const trendingCatArray = useSelector(state => state.trendingCatArray);
+    const [venueArray, setVenueArray] = useState([]);
     const savedVenuesArray = useSelector(state => state.savedVenuesArray);
     const client_id = useSelector(state => state.clientId);
     const client_secret = useSelector(state => state.clientSecret);
@@ -20,43 +122,84 @@ function Trending() {
     const near = citySelection.city;
     const [hearted, setHearted] = useState(false);
 
-    const trendingArray = [];
+    const catArray = [];
 
+    // useEffect(() => {
+    //     trendingFetch()
+    // }, [])
+
+    // get 3 randomly selected secondary categories from rails server 
+    // fetch 3 places from each category from FS API
+    // fetch details of each place (9 total)
+    
     useEffect(() => {
-        trendingFetch()
+        randomCatFetch()
     }, [])
 
-    const trendingFetch = () => {
-        async function trendingVenues(cat){
-            // console.log(cat.fs_category_id)
-            const res = await fetch(`https://api.foursquare.com/v2/venues/trending?&near=${near}&limit=10&radius=2000&client_id=${client_id}&client_secret=${client_secret}&v=${version}`, {
-                method: "GET"
+    const randomCatFetch = () => {
+        async function fsVenue(){
+            await fetch('http://localhost:3000/secondary_categories/randomize')
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data)
+                data.map(c => catArray.push(c))
+                // console.log(trendingCatArray)
+                dispatch(changeTrendingCatArray(catArray)) 
             })
-            if(res.ok){
-                const arr = await res.json()
-                console.log(arr.response.venues)
-                // const vArr = arr.response.venues
-                // vArr.map(v=> trendingArray.push(v.venue))
-                // console.log(`formatted array from venue recommendations API: ${vArr}`)
-                // console.log([...venueArray])
-                // dispatch(changeTrendingResultsArray([...trendingArray]))
-                // console.log(venuesResultsArray)
-            } else {
-                const err = await res.json()
-                console.log(err.errors)
-            }
+        }
+        fsVenue();
+    }
+
+    // console.log(venueArray)
+
+    const trendingFetch = () => {
+        async function trendingVenues(){
+            // console.log(cat.fs_category_id)
+            await Promise.all(trendingCatArray.map(cat=> {
+                fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=3&categoryId=${cat.fs_category_id}`)
+                .then(res => res.json())
+                .then(data => {
+                    const vArr = data.response.groups[0].items
+                    vArr.map(v=> venueArray.push(v.venue))
+                    // console.log(venueArray)
+                    return venueArray.slice(0,4)
+                })
+                .then(async venueArray => {
+                    const detailsArray = [];
+                    await Promise.all(venueArray.map(venue => {
+                        // *---PRODUCTION CHANGE:
+                        return fetch(`https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`) 
+                            .then(res => {
+                                if (res.ok) {
+                                    return res.json()
+                                }
+                            })
+                            .then(data => {
+                                if (data) {
+                                    const v = data.response.venue
+                                    detailsArray.push(v)
+                                    detailsArray.sort((a, b) => {return b.rating - a.rating})
+                                    // console.log(detailsArray)
+                                }
+                            })
+                            .then(()=> {
+                                dispatch(changeTrendingResultsArray([...detailsArray]))
+                            })
+                    }))
+                })
+            }))
         };
         trendingVenues()
     }
 
-    const onHeart = (e, venue) => {
+    const onHeart = (e, v) => {
         setHearted(true)
-        const v = {
+        const venue = {
             city_profile_id: citySelection.id,
             name: v.name,
             address: v.location.address,
-            // url: venue.url,
-            // rating: venue.rating,
+            url: v.url, 
+            rating: v.rating,
             fs_venue_id: v.id,
             lat: v.location.lat,
             long: v.location.lng,
@@ -99,58 +242,34 @@ function Trending() {
         <Grid container>
             <Grid item xs={1}></Grid>
             <Grid item xs={10} style={{display: 'inline'}}>
-                    {/* <Grid item xs={6}>
-                        <TextField id="outlined-basic" label="Search Results by Name:" variant="outlined" style={{width: '300px', marginBottom: '20px'}} onChange={(e)=>onQuery(e)}/>
-                    </Grid>    
-                    <Grid item xs={6}>
-                        <FormControl variant="outlined" className={classes.formControl}>
-                            <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                onChange={(e)=>onCategoryFilter(e)}
-                                label="Category"
-                                value={category}
-                            >
-                                <MenuItem value="All">All</MenuItem>
-                                {categoryArray.map(cat=> 
-                                    (<MenuItem key={`${cat.id}`} value={`${cat.name}`}>{cat.name}</MenuItem>)
-                                )}
-                            </Select>
-                        </FormControl>
-                    </Grid> */}
-                    {trendingResultsArray.length > 0
-                        ? trendingResultsArray.map(v => (
-                            <Grid container>
-                                <Grid item xs={5}>
-                                    <div>
-                                        <p style={{fontWeight: 'bold'}}>{v.name}</p>
-                                        <p>{v.location.address}</p>
-                                        {/* <a href={venue.url}>{`Visit Website`}</a> */}
-                                    </div>
-                                </Grid>
-                                <Grid item xs={4} className={classes.results2List}>
-                                    <div>
-                                        <div>
-                                            {'Rating: '}
-                                            <span className={classes.ratingSquare}>
-                                                {/* {v.rating ? venue.rating.toFixed(1) : "N/A"} */}
-                                            </span>
-                                            <Button onClick={(e)=>onHeart(e, v)}>
-                                            {hearted ? <FavoriteIcon /> :<FavoriteBorderIcon />}
-                                        </Button>
-                                        </div>
-                                    </div>
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <div>
-                                        {v.categories.map(cat => (<p key={cat.id} className={classes.catSquare}>{cat.name}</p>))}
-                                    </div>
-                                </Grid>
-                            </Grid>
-                        ))
-                        : "Nothing trending yet, check back in later!"
-                    }
+                <Grid container>
+                    <Paper elevation={3} className={classes.catContainer}>
+                        <h5>Here are 3 randomly generated categories:</h5>
+                        <Grid container className={classes.catArray}>
+                            {trendingCatArray.map(cat => (
+                                <Paper elevation={2} className={classes.catDiv} key={cat.id}>
+                                    {cat.name}
+                                </Paper>
+                            ))}
+                        </Grid>
+                        <div>
+                            <Button onClick={randomCatFetch} className={classes.buttons}>
+                                Randomize Again
+                            </Button>
+                            <Button onClick={trendingFetch} className={classes.buttons}>
+                                Generate Results
+                            </Button>
+                        </div>
+                        <Grid container spacing={3} className={classes.catArray}>
+                        {trendingResultsArray.length > 0
+                            ? trendingResultsArray.map(venue => (
+                                <TrendingResults key={venue.id} venue={venue}/>
+                            ))
+                            : null
+                        }
+                        </Grid>
+                    </Paper>
+                </Grid>
             </Grid>
         </Grid>
     );

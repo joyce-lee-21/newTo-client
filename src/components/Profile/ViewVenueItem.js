@@ -4,20 +4,54 @@ import {changeSavedVenuesArray, changeCompletedVenuesArray} from '../../usersSli
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 
 const useStyles = makeStyles({
-    root: {
-      width: 300,
-      height: 160,
-      textAlign: 'center',
+  root: {
+    fontSize: 14,
+    backgroundColor: '#ffeca9',
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '10px',
+    margin: '20px',
+    width: '250px',
+    height: '150px',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    },
+    content: {
+      fontSize: 14,
       alignItems: 'center',
+      justifyContent: 'center',
+    },
+    venue: {
+        backgroundColor: '#fcf3d3',
+        color: 'black',
+        borderRadius: '5px',
+        fontSize: 14,
+        margin: '10px',
+        padding: '3px',
+    },
+    social: {
+      bottom: 0,
+      position: 'relative',
+      justifyContent: 'center',
+    },
+    cardCatSquare: {
       backgroundColor: '#fcf3d3',
-      display: 'inline-block',
-      padding: '5px',
+      color: 'black',
+      borderRadius: '5px',
+      fontSize: 14,
+      margin: '10px',
+      padding: '3px',
     },
   });
 
@@ -25,12 +59,9 @@ const VenueViewButton = withStyles({
     root: {
       boxShadow: 'none',
       fontSize: 14,
-      border: '1px solid',
-      lineHeight: 1.5,
       backgroundColor: '#b2d6ef',
       borderColor: '#b2d6ef',
       borderRadius: '20px',
-      padding: '6px 15px',
       margin: '10px',
       '&:hover': {
         backgroundColor: '#9fcbb4',
@@ -91,10 +122,12 @@ function ViewVenueItem({venue}) {
 
     return (
         <>
-            <Card className={classes.root} variant="outlined">
-              <p style={{fontWeight: "bold"}}>{venue.name}</p>
-              <p>{venue.rating}</p>
-              <p>{venue.address}</p>
+            {/* <Paper elevation={2} className={classes.root}>
+              <p style={{fontWeight: "bold"}}>{venue.name}
+              <br></br>
+              {venue.rating}
+              <br></br>
+              {venue.address}</p>
               {venue.url 
                 ? (<a href={venue.url}>{`Visit Website`}</a>)
                 : null
@@ -104,6 +137,33 @@ function ViewVenueItem({venue}) {
               <Button onClick={(e)=>onCompleted(e, venue)}>
                 {checked ? <CheckCircleIcon/> : <CheckCircleOutlineIcon/>}
               </Button>
+            </Paper> */}
+            <Card className={classes.root}>
+                <CardContent>
+                  <Typography className={classes.content} color="textSecondary">
+                      <div>
+                          <p style={{fontWeight: 'bold'}}>{venue.name}</p>
+                          <p>
+                              {venue.address}
+                              <br></br>
+                              {venue.url ? (<a href={venue.url} target="_blank" rel="noreferrer noopener">{`Visit Website`}</a>) : null}
+                              <br></br>
+                              {venue.category 
+                                ? venue.category.map(cat => 
+                                  (<Card key={cat.id} className={classes.cardCatSquare}>{cat.name}</Card>)) 
+                                : null}
+                          </p> 
+                      </div>
+                  </Typography>
+                </CardContent>
+                <CardActions className={classes.social}>
+                  <div>
+                    <VenueViewButton onClick={(e)=>onRemove(e, venue)}>Remove</VenueViewButton>
+                    <Button onClick={(e)=>onCompleted(e, venue)}>
+                      {checked ? <CheckCircleIcon/> : <CheckCircleOutlineIcon/>}
+                    </Button>
+                  </div>
+                </CardActions>
             </Card>
         </>
     );
