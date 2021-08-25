@@ -23,6 +23,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
+        flexDirection: 'row',
     }
   });
 
@@ -71,9 +72,8 @@ function ViewVenuesList() {
 
     return (
         <>
-        <h5>Saved Venue Selections:</h5>
+        <h4>Saved Venues</h4>
             <Grid container classname={classes.venueList}>
-                
                 {savedVenuesArray && savedVenuesArray.length >= 1 
                 ? savedVenuesArray.filter(venue=> venue.is_completed !== true).map(venue => 
                     // (<Card key={venue.id} className={classes.root} variant="outlined">
@@ -92,7 +92,7 @@ function ViewVenuesList() {
                     // </Card>)
                     <ViewVenueItem key={venue.id} venue={venue}/>
                     )
-                : "No venues are added to your profile. View your results to add venues to your profile!"
+                : <p>No venues are saved to your profile. View your results to ❤️ and add venues to your profile!</p>
                 }
             </Grid>
         </>

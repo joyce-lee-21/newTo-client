@@ -1,10 +1,11 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
-import {changeSelectedCategoryArray} from '../../usersSlice';
+import {changeSelectedCategoryArray, changeSelectCategoryArray} from '../../usersSlice';
 
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import ClearIcon from '@material-ui/icons/Clear';
 
 // const ProfileSelectButton = withStyles({
 const useStyles = makeStyles({
@@ -34,12 +35,18 @@ const useStyles = makeStyles({
           boxShadow: '0 0 0 0.2rem #ffeca9',
         },
     },
+    remove: {
+        display: 'flex',
+        marginLeft: '5px',
+        fontSize: 20,
+    }
   });
 
 function SelectedCategoryList({selection}) {
     const dispatch = useDispatch();
     const classes = useStyles();
     const selectedCategoryArray = useSelector(state => state.selectedCategoryArray);
+    const selectCategoryArray = useSelector(state => state.selectCategoryArray);
 
     // console.log("SelectedCategoryList is here!")
     // console.log(selectedCategoryArray)
@@ -48,9 +55,13 @@ function SelectedCategoryList({selection}) {
         <>
             {selectedCategoryArray.map(selection => 
                 (<Paper elevation={2} className={classes.root} id={selection.id}
-                // onClick={()=>dispatch(changeSelectedCategoryArray([...selectedCategoryArray, selection]))}
+                    onClick={()=>{
+                        dispatch(changeSelectedCategoryArray(selectedCategoryArray.filter(cat=> cat.id !== selection.id)))
+                        dispatch(changeSelectCategoryArray([...selectCategoryArray, selection]))
+                    }}
                 >
-                    {selection.name}
+                {selection.name}
+                <ClearIcon className={classes.remove}/> 
                 </Paper>)
             )}
             {/* <ProfileSelectButton 

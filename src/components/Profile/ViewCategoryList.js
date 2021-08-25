@@ -6,6 +6,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
     root: {
@@ -84,14 +85,14 @@ function ViewCategoryList() {
     
     return (
         <>
-            {/* <Paper classname={classes.savedCatArray}> */}
-            <h5>Saved Category Selections:</h5>
+            <h4>Saved Categories</h4>
+            <Grid container classname={classes.savedCatArray} style={{height: '250px', justifyContent: 'center'}}>
                 {categoryArray.map(cat => (
-                    <Paper  key={cat.id} className={classes.root} elevation={2}>
+                    <Paper key={cat.id} className={classes.root} elevation={2}>
                         {cat.name}
                     </Paper>
                 ))}
-            {/* </Paper> */}
+            </Grid>
             <ProfileViewButton onClick={()=>history.push("/results")}>Go to Results</ProfileViewButton>
             <ProfileViewButton onClick={onReset}>Reset Selections</ProfileViewButton>
         </>

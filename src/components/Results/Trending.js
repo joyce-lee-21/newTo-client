@@ -244,7 +244,7 @@ function Trending() {
             <Grid item xs={10} style={{display: 'inline'}}>
                 <Grid container>
                     <Paper elevation={3} className={classes.catContainer}>
-                        <h5>Here are 3 randomly generated categories:</h5>
+                        <h4>Here are 3 randomly generated categories:</h4>
                         <Grid container className={classes.catArray}>
                             {trendingCatArray.map(cat => (
                                 <Paper elevation={2} className={classes.catDiv} key={cat.id}>
@@ -256,6 +256,7 @@ function Trending() {
                             <Button onClick={randomCatFetch} className={classes.buttons}>
                                 Randomize Again
                             </Button>
+                            <h4>Once you're satisfied with the categories, click generate below!</h4>
                             <Button onClick={trendingFetch} className={classes.buttons}>
                                 Generate Results
                             </Button>

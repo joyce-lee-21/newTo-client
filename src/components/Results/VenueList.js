@@ -14,6 +14,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import MapIcon from '@material-ui/icons/Map';
+// import { loadAnimation } from "lottie-web";
+// import { defineLordIconElement } from "lord-icon-element";
 
 function VenueList() {
     const dispatch = useDispatch();
@@ -105,14 +107,22 @@ function VenueList() {
     }
 
     // console.log(filteredVenueResults.sort((a, b) => {return b.rating - a.rating}))
+    // defineLordIconElement(loadAnimation);
 
     return (
         <>
         <Grid item xs={1}></Grid>
         <Grid item xs={10} style={{display: 'inline'}}>
+            <div style={{height: '100px', width: '65%', margin: 'auto', textAlign: 'center'}}>
+                <h3>
+                    Based on your selected categories, these are the top rated places.
+                    <br></br>
+                    ❤️ to save venues to your profile!
+                </h3>
+            </div>
             <Grid container>
                 <Grid item xs={5}>
-                    <TextField id="outlined-basic" label="Search Results by Name:" variant="outlined" style={{width: '300px', marginBottom: '20px'}} onChange={(e)=>onQuery(e)}/>
+                    <TextField id="outlined-basic" label="Filter Results by Name:" variant="outlined" style={{width: '300px', marginBottom: '20px'}} onChange={(e)=>onQuery(e)}/>
                 </Grid>    
                 <Grid item xs={5}>
                     <FormControl variant="outlined" className={classes.formControl}>
@@ -121,7 +131,7 @@ function VenueList() {
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
                             onChange={(e)=>onCategoryFilter(e)}
-                            label="Category"
+                            label="Filter Results by Category"
                             value={category}
                         >
                             <MenuItem value="All">All</MenuItem>

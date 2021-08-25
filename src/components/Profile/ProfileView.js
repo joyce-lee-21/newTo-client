@@ -21,18 +21,18 @@ const useStyles = makeStyles(() => ({
       backgroundColor: '#ffeca9',
       '&:hover': {
         boxShadow: 'none',
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
+        // backgroundColor: '#9fcbb4',
+        // borderColor: '#9fcbb4',
       },
       '&:active': {
         boxShadow: 'none',
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
+        // backgroundColor: '#9fcbb4',
+        // borderColor: '#9fcbb4',
       },
       '&:focused': {
         boxShadow: '0 0 0 0.2rem #9fcbb4',
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
+        // backgroundColor: '#9fcbb4',
+        // borderColor: '#9fcbb4',
       },
     },
   }));

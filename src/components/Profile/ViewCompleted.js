@@ -5,16 +5,22 @@ import {useHistory} from 'react-router-dom';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     root: {
-      width: 300,
-      height: 160,
-      textAlign: 'center',
-      alignItems: 'center',
-      backgroundColor: '#d9d1b2',
-      display: 'inline-block',
-      padding: '5px',
+        width: 200,
+        height: 150,
+        textAlign: 'center',
+        alignItems: 'center',
+        backgroundColor: '#d9d1b2',
+        display: 'inline-block',
+        padding: '5px',
+    },
+    content: {
+        fontSize: 14,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
   });
 
@@ -53,15 +59,17 @@ function ViewCompleted() {
     return (
         <>
             <div>
-                <h5>Venue Selections Visited:</h5>
+                <h4>Venues Visited</h4>
                 {completedVenuesArray.map(v => (
-                    <Card key={v.id} className={classes.root} variant="outlined">
-                        <p style={{fontWeight: "bold"}}>{v.name}</p>
-                        <p>{v.address}</p>
-                        {v.url 
-                            ? (<a href={v.url}>{`Visit Website`}</a>)
-                            : null
-                        }
+                    <Card key={v.id} className={classes.root}>
+                        <Typography className={classes.content}>
+                            <p style={{fontWeight: "bold"}}>{v.name}</p>
+                            <p>{v.address}</p>
+                            {v.url 
+                                ? (<a href={v.url}>{`Visit Website`}</a>)
+                                : null
+                            }
+                        </Typography>
                     </Card>
                 ))}
             </div>

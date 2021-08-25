@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-image: url("./skyline.png");
 }
 
 .App-logo {
@@ -43,10 +44,11 @@
   left: 0;
   bottom: 0;
   width: 100vw;
-  background-image: url("./skyline.png");
+  /* background-image: url("./skyline.png"); */
   background-size: cover;
   height: 300px;
   opacity: 0.5;
+  z-index: 0;
 }
 
 /* Header */
@@ -100,7 +102,8 @@
 
 .category-container {
   min-height: 50vh;
-  margin-top: 10px;
+  margin: 10px;
+  padding: 20px;
   /* border: 1px solid black; */
 }
 

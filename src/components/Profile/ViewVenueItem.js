@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     padding: '10px',
     margin: '20px',
-    width: '250px',
+    width: '200px',
     height: '150px',
     textAlign: 'center',
     justifyContent: 'center',
@@ -38,7 +38,7 @@ const useStyles = makeStyles({
         borderRadius: '5px',
         fontSize: 14,
         margin: '10px',
-        padding: '3px',
+        // padding: '3px',
     },
     social: {
       bottom: 0,
@@ -51,7 +51,7 @@ const useStyles = makeStyles({
       borderRadius: '5px',
       fontSize: 14,
       margin: '10px',
-      padding: '3px',
+      // padding: '3px',
     },
   });
 
@@ -139,9 +139,9 @@ function ViewVenueItem({venue}) {
               </Button>
             </Paper> */}
             <Card className={classes.root}>
-                <CardContent>
-                  <Typography className={classes.content} color="textSecondary">
-                      <div>
+                <CardContent style={{height: '100px'}}>
+                  <Typography className={classes.content}>
+                      <div style={{marginTop: '15px'}}>
                           <p style={{fontWeight: 'bold'}}>{venue.name}</p>
                           <p>
                               {venue.address}

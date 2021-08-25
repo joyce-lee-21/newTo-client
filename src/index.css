@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url(./skyline.png);
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 
 code {

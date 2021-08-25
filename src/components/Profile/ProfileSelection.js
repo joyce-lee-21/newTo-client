@@ -1,5 +1,12 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changeCategoryArrFirst, changeSelectCategoryArray, changeCategoryArray, fetchPrimaryCats, changeFilterByPrimaryCategory} from '../../usersSlice';
+import {
+    changeCategoryArrFirst, 
+    changeSelectCategoryArray, 
+    changeResCategoryArray,
+    changeCategoryArray, 
+    fetchPrimaryCats, 
+    changeFilterByPrimaryCategory
+} from '../../usersSlice';
 import {useState, useEffect} from 'react'
 
 import SelectCategoryList from './SelectCategoryList';
@@ -22,6 +29,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
+import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles({
     root: {
@@ -76,7 +84,15 @@ const useStyles = makeStyles({
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
         minHeight: '200px',
-    }
+    },
+    modal: {
+        position: 'absolute',
+        width: 400,
+        backgroundColor: "white",
+        border: '2px solid #000',
+        boxShadow: [5],
+        padding: '10px',
+    },
 });
 
 const LoadButtons = withStyles({
@@ -133,13 +149,17 @@ function ProfileSelection() {
     const primaryCategories = useSelector(state => state.primaryCategories);
     const filterByPrimaryCategory = useSelector(state => state.filterByPrimaryCategory);
     const categoryArray = useSelector(state => state.selectedCategoryArray);
+    const resCategoryArray = useSelector(state => state.resCategoryArray);
     const categoryArrFirst = useSelector(state => state.categoryArrFirst);
     const categoryArrLength = useSelector(state => state.categoryArrLength);
     const citySelection = useSelector(state => state.citySelection);
     const [errors, setErrors] = useState([]);
+    const [open, setOpen] = useState(false);
     const [index, setIndex] = useState(0);
     const classes = useStyles();
     const theme = useTheme();
+
+    const secondary_categories = [];
 
     useEffect(() => {
         dispatch(fetchPrimaryCats());
@@ -154,12 +174,12 @@ function ProfileSelection() {
             if(res.ok){
                 const arr = await res.json()
                 // console.log(arr)
-                const secondary_categories = [];
                 arr.forEach((cat) => {
                     secondary_categories.push(cat)
                 })
                 // console.log(secondary_categories)
                 dispatch(changeSelectCategoryArray(secondary_categories)) 
+                dispatch(changeResCategoryArray(secondary_categories))
             } else {
                 const err = await res.json()
                 // console.log(err.errors)
@@ -198,9 +218,6 @@ function ProfileSelection() {
                 setErrors(err.errors)
             }
         };
-        // function catArray(cat){
-        //     console.log(cat)
-        // }
         selectedCategoryArray.forEach(cat => catArray(cat))
     }
 
@@ -208,6 +225,7 @@ function ProfileSelection() {
     //     dispatch(changeFilterByPrimaryCategory(cat.id))
     //     dispatch(changeCategoryArrFirst(0))
     // }
+    
 
     const handleClick = (e, cat) => {
         e.preventDefault();
@@ -268,6 +286,7 @@ function ProfileSelection() {
                 </Grid>
                 <Grid item xs={9}>
                     <Paper elevation={3} className={classes.catArray}>
+                        <h4>Select up to 5 Categories</h4>
                         <Grid container>
                         {selectCategoryArray.map(cat => (
                             <SelectCategoryList key={cat.id} cat={cat}/>
@@ -283,7 +302,7 @@ function ProfileSelection() {
                                 </LoadButtons>)
                                 : null
                             }
-                            {selectCategoryArray.length === 12 
+                            {resCategoryArray.length === 12 
                                 ? (<LoadButtons onClick={()=> {
                                     dispatch(changeCategoryArrFirst(categoryArrFirst + 12))
                                 }}>
@@ -299,13 +318,11 @@ function ProfileSelection() {
             <Grid container>
                 <Grid item xs={12}>
                     <Paper elevation={3} className={classes.selections}>
-                        <h4>Category Selections:</h4>
+                        <h4>Category Selections</h4>
                         <Grid container>
                             <SelectedCategoryList />
                         </Grid>
-                        <LoadButtons onClick={onSubmitClick}>
-                            Save
-                        </LoadButtons>
+                        <LoadButtons onClick={()=>onSubmitClick()}>Save</LoadButtons>
                     </Paper>
                     {/* {selectedCategoryArray.map(selection => {
                         <SelectedCategoryList key={selection.id} selection={selection}/>

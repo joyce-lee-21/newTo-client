@@ -48,6 +48,7 @@ const usersSlice = createSlice({
         // category selections saved to the user city_profile
         categoryArray: [],
         // categories to be selected from seed data (foursquare's primary and secondary categories)
+        resCategoryArray: [],
         selectCategoryArray: [],
         filterByPrimaryCategory: 0,
         // categories selected from selectCategoryArray, not yet saved to the user city_profile
@@ -142,6 +143,9 @@ const usersSlice = createSlice({
         },
         changeTrendingCatArray(state, action) {
             state.trendingCatArray = action.payload
+        },
+        changeResCategoryArray(state, action) {
+            state.resCategoryArray = action.payload
         }
         // changeLogout(state) {
         //     state.usernameInput = ""
@@ -207,6 +211,7 @@ const {
     changeCompletedVenuesArray,
     changeMapCenter,
     changeTrendingCatArray,
+    changeResCategoryArray,
 
 } = usersSlice.actions; 
 
@@ -239,6 +244,7 @@ export {
     changeCompletedVenuesArray,
     changeMapCenter,
     changeTrendingCatArray,
+    changeResCategoryArray,
 }
 
 export default usersSlice.reducer;
