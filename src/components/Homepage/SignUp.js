@@ -70,8 +70,8 @@ function SignUp() {
                 history.push('/profile')
             } else {
                 const err = await res.json()
-                // console.log(err.errors)
-                setErrors(err.errors)
+                console.log(err.error)
+                setErrors(err.error)
             }
         };
         signup();
@@ -83,6 +83,7 @@ function SignUp() {
         >
             <Grid item xs={10}>
                 <h1>Sign Up</h1>
+                {errors ? errors.map(error => (<p style={{color: 'red'}}>{`${error}`}</p>)) : null}
                 <form onSubmit={(e)=>handleSubmit(e)}>
                     {/* <p>Name</p> */}
                     {/* <input type="text" name="name" onChange={(e)=>dispatch(changeNameInput(e.target.value))}></input> */}
@@ -130,7 +131,6 @@ function SignUp() {
                         SIGN UP
                     </HeaderButton>
                 </form>
-                {errors ? errors.map(error => (<p>{`${error}`}</p>)) : null}
             </Grid>
         </Grid>
     );

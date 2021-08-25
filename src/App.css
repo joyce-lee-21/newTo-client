@@ -80,6 +80,7 @@
 .city-edit-container {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 /* Main Page */
@@ -168,3 +169,12 @@
   justify-content: center;
   padding: 10px;
 }
+
+/* color scheme
+light yellow: '#fcf3d3', 
+normal yellow: '#ffeca9',
+light green: '#c8e4d6',
+normal green: '#9fcbb4',
+dark purple: '#68166c',
+light purple: '#955698',
+*/

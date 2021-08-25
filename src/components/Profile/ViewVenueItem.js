@@ -58,21 +58,19 @@ const VenueViewButton = withStyles({
     root: {
       boxShadow: 'none',
       fontSize: 14,
-      backgroundColor: '#68166c',
+      backgroundColor: '#955698',
       color: 'white',
       margin: '10px',
       '&:hover': {
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
+        backgroundColor: '#68166c',
         boxShadow: 'none',
       },
       '&:active': {
         boxShadow: 'none',
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
+        backgroundColor: '#68166c',
       },
       '&:focused': {
-        boxShadow: '0 0 0 0.2rem #9fcbb4',
+        boxShadow: '0 0 0 0.2rem #68166c',
       },
     },
   })(Button);

@@ -20,7 +20,7 @@ import Typography from '@material-ui/core/Typography';
     root: {
         minWidth: 120,
         transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
-        background: 'linear-gradient(to right, #ffeca9, #9fcbb4)',
+        background: 'linear-gradient(to right, #9fcbb4, #955698)',
         color: 'white',
         fontWeight: 'bold',
         '&:hover': {

@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
-import {changeProfileView, changeCitySelection} from '../../usersSlice';
+import {changeProfileView, changeCitySelection, changeAddSecondCity} from '../../usersSlice';
 
 import ViewVenuesList from './ViewVenuesList';
 import ViewCategoryList from './ViewCategoryList';
@@ -23,17 +23,14 @@ const useStyles = makeStyles(() => ({
       '&:hover': {
         boxShadow: 'none',
         // backgroundColor: '#9fcbb4',
-        // borderColor: '#9fcbb4',
       },
       '&:active': {
         boxShadow: 'none',
         // backgroundColor: '#9fcbb4',
-        // borderColor: '#9fcbb4',
       },
       '&:focused': {
         boxShadow: '0 0 0 0.2rem',
         backgroundColor: '#9fcbb4',
-        // borderColor: '#9fcbb4',
       },
     },
   }));
@@ -43,25 +40,22 @@ const useStyles = makeStyles(() => ({
       boxShadow: 'none',
       fontSize: 14,
       fontWeight: 'bold',
-      backgroundColor: '#68166c',
+      backgroundColor: '#955698',
       color: 'white',
       padding: '6px 15px',
       margin: '10px',
       '&:hover': {
         boxShadow: 'none',
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
+        backgroundColor: '#68166c',
       },
       '&:active': {
         boxShadow: 'none',
-        background: '#9fcbb4',
-        borderColor: '#9fcbb4',
+        background: '#68166c',
         color: 'white'
       },
       '&:focus': {
         boxShadow: 'none',
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
+        backgroundColor: '#68166c',
       },
     },
   })(Button);
@@ -80,6 +74,7 @@ function ProfileView() {
 
     const onChangeCity = () => {
         dispatch(changeCitySelection(""))
+        dispatch(changeAddSecondCity(true))
         history.push('/profile')
     }
 

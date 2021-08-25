@@ -68,7 +68,7 @@ function ViewCompleted() {
                             <p style={{fontWeight: "bold"}}>{v.name}</p>
                             <p>{v.address}</p>
                             {v.url 
-                                ? (<a href={v.url}>{`Visit Website`}</a>)
+                                ? (<a href={v.url} target="_blank" rel="noreferrer noopener">{`Visit Website`}</a>)
                                 : null
                             }
                         </Typography>

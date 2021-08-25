@@ -12,7 +12,7 @@ const HeaderButton = withStyles({
       textTransform: 'none',
       fontSize: 14,
       padding: '6px 12px',
-      backgroundColor: '#9fcbb4',
+      backgroundColor: '#c8e4d6',
       '&:hover': {
         backgroundColor: '#9fcbb4',
         borderColor: '#9fcbb4',
@@ -41,13 +41,13 @@ function MainPage() {
                 <Grid item xs={10}>
                     <div className="mainpage-desc">
                             <div style={{padding: '0px 150px'}}>
-                                <h2>Welcome to your new city! We're so glad you're here. Our goal is to recommend places for you to go so you can get to know your new city and start to feel at home.</h2>
+                                <h2>Welcome to your new city! We're so glad you're here. Our goal is to recommend places for you to go so you can quickly get to know your new city and start to feel at home.</h2>
                             </div>
                             <div className="mainpage-steps" style={{backgroundColor: 'white'}}>
                             <h3>How to use this site</h3>
                             <Grid container style={{display: 'flex', justifyContent: 'center'}}>
                                 <Grid item xs={3} style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-                                    <p>If you're a new user, sign up for an account. You'll be able to asked to provide the city you moved to and then be prompted to make your category selections to get started.</p>
+                                    <p>If you're a new user, sign up for an account. You'll be asked to provide the city you're in and then be prompted to make your category selections to get started.</p>
                                     <HeaderButton className={classes.mainPageButtons} onClick={()=>history.push("/signup")}>SIGN UP</HeaderButton>
                                 </Grid>
                                 <Grid item xs={1} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>

@@ -39,7 +39,7 @@ const CategoryViewResultsButton = withStyles({
       boxShadow: 'none',
       fontSize: 14,
       fontWeight: 'bold',
-      backgroundColor: '#9fcbb4',
+      backgroundColor: '#c8e4d6',
       padding: '6px 15px',
       margin: '10px',
       '&:hover': {
@@ -64,21 +64,21 @@ const CategoryViewResultsButton = withStyles({
         fontSize: 14,
         fontWeight: 'bold',
         color: "white",
-        backgroundColor: '#68166c',
+        backgroundColor: '#955698',
         padding: '6px 15px',
         margin: '10px',
         '&:hover': {
-            backgroundColor: '#9fcbb4',
+            backgroundColor: '#68166c',
             borderColor: '#9fcbb4',
             boxShadow: 'none',
         },
         '&:active': {
             boxShadow: 'none',
-            backgroundColor: '#9fcbb4',
+            backgroundColor: '#68166c',
             borderColor: '#9fcbb4',
         },
         '&:focused': {
-            boxShadow: '0 0 0 0.2rem #9fcbb4',
+            boxShadow: '0 0 0 0.2rem #68166c',
         },
         },
   })(Button);

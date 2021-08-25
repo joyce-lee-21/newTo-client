@@ -33,6 +33,7 @@ const usersSlice = createSlice({
 
         // used for Profile > child components
         citySelection: "",
+        addSecondCity: false,
         savedVenuesArray: [],
         completedVenuesArray: [],
         profileView: "categories",
@@ -146,6 +147,9 @@ const usersSlice = createSlice({
         },
         changeResCategoryArray(state, action) {
             state.resCategoryArray = action.payload
+        },
+        changeAddSecondCity(state, action) {
+            state.addSecondCity = action.payload
         }
         // changeLogout(state) {
         //     state.usernameInput = ""
@@ -212,6 +216,7 @@ const {
     changeMapCenter,
     changeTrendingCatArray,
     changeResCategoryArray,
+    changeAddSecondCity,
 
 } = usersSlice.actions; 
 
@@ -245,6 +250,7 @@ export {
     changeMapCenter,
     changeTrendingCatArray,
     changeResCategoryArray,
+    changeAddSecondCity,
 }
 
 export default usersSlice.reducer;

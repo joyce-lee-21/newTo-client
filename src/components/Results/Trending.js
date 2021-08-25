@@ -37,16 +37,27 @@ const useStyles = makeStyles(() => ({
             backgroundColor: '#ffeca9',
           },
           '&:focused': {
-            boxShadow: '0 0 0 0.2rem #9fcbb4',
+            boxShadow: '0 0 0 0.2rem #ffeca9',
           },
     },
-    buttons: {
+    resultButton: {
         boxShadow: 'none',
         fontSize: 14,
-        backgroundColor: '#9fcbb4',
+        backgroundColor: '#c8e4d6',
         padding: '6px 15px',
         margin: '10px',
         width: '200px',
+        '&:hover': {
+            backgroundColor: '#9fcbb4',
+            boxShadow: 'none',
+          },
+          '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#9fcbb4',
+          },
+          '&:focused': {
+            boxShadow: '0 0 0 0.2rem #9fcbb4',
+          },
     },
     catSquare: {
         backgroundColor: '#fcf3d3',
@@ -139,7 +150,7 @@ function Trending() {
     const near = citySelection.city;
     // const [hearted, setHearted] = useState(false);
 
-    const catArray = [];
+
 
     // useEffect(() => {
     //     trendingFetch()
@@ -154,7 +165,9 @@ function Trending() {
     }, [])
 
     const randomCatFetch = () => {
+        dispatch(changeTrendingResultsArray([]))
         async function fsVenue(){
+            const catArray = [];
             await fetch('http://localhost:3000/secondary_categories/randomize')
             .then(res => res.json())
             .then(data => {
@@ -179,8 +192,9 @@ function Trending() {
                     const vArr = data.response.groups[0].items
                     vArr.map(v=> venueArray.push(v.venue))
                     // console.log(venueArray)
+                    // return venueArray.slice(0,4)
                     // *---PRODUCTION CHANGE:
-                    return venueArray.slice(0,4)
+                    return venueArray
                 })
                 .then(async venueArray => {
                     const detailsArray = [];
@@ -273,8 +287,8 @@ function Trending() {
                             <Button onClick={randomCatFetch} className={classes.randomizeButton}>
                                 Randomize Again
                             </Button>
-                            <h3>Once you're satisfied with the categories, get results below!</h3>
-                            <Button onClick={trendingFetch} className={classes.buttons}>
+                            <h3>Once you're satisfied with the categories, click to get results below</h3>
+                            <Button onClick={trendingFetch} className={classes.resultButton}>
                                 Generate Results
                             </Button>
                         </div>

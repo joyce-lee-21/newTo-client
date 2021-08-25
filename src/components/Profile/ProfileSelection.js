@@ -8,12 +8,10 @@ import {
     changeFilterByPrimaryCategory
 } from '../../usersSlice';
 import {useState, useEffect} from 'react'
-
 import SelectCategoryList from './SelectCategoryList';
 import SelectedCategoryList from './SelectedCategoryList';
 
 import Grid from '@material-ui/core/Grid';
-
 import { withStyles, useTheme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {
@@ -277,7 +275,7 @@ function ProfileSelection() {
                 <Grid item xs={9}>
                     <Paper elevation={3} className={classes.catArray}>
                         <h4>Select up to 5 Categories</h4>
-                        <Grid container>
+                        <Grid container style={{justifyContent: 'center'}}>
                         {selectCategoryArray.map(cat => (
                             <SelectCategoryList key={cat.id} cat={cat}/>
                         ))}

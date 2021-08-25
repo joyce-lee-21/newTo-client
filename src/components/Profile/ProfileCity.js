@@ -7,6 +7,7 @@ import {
     changeCityProfiles, 
     changeAddCity,
     changeCompletedVenuesArray,
+    changeAddSecondCity,
 } from '../../usersSlice';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
@@ -18,10 +19,7 @@ const ProfileCityButton = withStyles({
       boxShadow: 'none',
       fontSize: 14,
       fontWeight: 'bold',
-      border: '1px solid',
-      lineHeight: 1.5,
-      backgroundColor: '#ffeca9',
-      borderColor: '#ffeca9',
+      backgroundColor: '#fcf3d3',
       padding: '6px 15px',
       margin: '20px',
       minWidth: '120px',
@@ -47,24 +45,21 @@ root: {
     boxShadow: 'none',
     textTransform: 'none',
     fontSize: 14,
+    fontWeight: 'bold',
     padding: '6px 15px',
     marginBottom: '20px',
-    border: '1px solid',
-    lineHeight: 1.5,
-    backgroundColor: 'white',
-    borderColor: 'gray',
+    backgroundColor: '#955698',
+    color: 'white',
     '&:hover': {
-    backgroundColor: '#9fcbb4',
-    borderColor: '#9fcbb4',
+    backgroundColor: '#68166c',
     boxShadow: 'none',
     },
     '&:active': {
     boxShadow: 'none',
-    backgroundColor: '#9fcbb4',
-    borderColor: '#9fcbb4',
+    backgroundColor: '#68166c',
     },
     '&:focused': {
-    boxShadow: '0 0 0 0.2rem #9fcbb4',
+    boxShadow: '0 0 0 0.2rem #68166c',
     },
 },
 })(Button);
@@ -93,6 +88,7 @@ function ProfileCity() {
                 dispatch(changeCategoryArray(selections.category_selections))
                 dispatch(changeSavedVenuesArray(selections.saved_venues.filter(venue => venue.is_completed !== true)))
                 dispatch(changeCitySelection(profile))
+                dispatch(changeAddSecondCity(false))
                 dispatch(changeCompletedVenuesArray(selections.saved_venues.filter(venue => venue.is_completed === true)))
             } else {
                 const err = await res.json()

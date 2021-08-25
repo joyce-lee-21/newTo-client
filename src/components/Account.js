@@ -14,28 +14,26 @@ import Paper from '@material-ui/core/Paper';
 
 const AccountButton = withStyles({
     root: {
-      boxShadow: 'none',
-      textTransform: 'none',
-      fontSize: 14,
-      padding: '6px 15px',
-      marginBottom: '20px',
-      border: '1px solid',
-      lineHeight: 1.5,
-      backgroundColor: 'white',
-      borderColor: 'gray',
-      '&:hover': {
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
         boxShadow: 'none',
-      },
-      '&:active': {
-        boxShadow: 'none',
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
-      },
-      '&:focus': {
-        boxShadow: '0 0 0 0.2rem #9fcbb4',
-      },
+        textTransform: 'none',
+        fontSize: 14,
+        padding: '6px 15px',
+        marginBottom: '20px',
+        border: '1px solid',
+        lineHeight: 1.5,
+        backgroundColor: '#955698',
+        color: 'white',
+        '&:hover': {
+            backgroundColor: '#68166c',
+            boxShadow: 'none',
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#68166c',
+        },
+        '&:focus': {
+            boxShadow: '0 0 0 0.2rem #9fcbb4',
+        },
     },
   })(Button);
 
@@ -45,18 +43,15 @@ const AccountButton = withStyles({
       textTransform: 'none',
       fontSize: 14,
       padding: '6px 15px',
-      marginBottom: '20px',
-      backgroundColor: '#68166c',
+      backgroundColor: '#955698',
       color: 'white',
       '&:hover': {
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
+        backgroundColor: '#68166c',
         boxShadow: 'none',
       },
       '&:active': {
         boxShadow: 'none',
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
+        backgroundColor: '#68166c',
       },
       '&:focus': {
         boxShadow: '0 0 0 0.2rem #9fcbb4',
@@ -184,7 +179,7 @@ function Account() {
                     {cityProfiles.length > 1 ? <h1>Cities</h1> : <h1>City</h1>}
                     {cityProfiles.map(city=>
                         (<div key={city.id} className="city-edit-container">
-                        <p style={{width: "50%", marginRight: '20px', display: 'inline'}}>{city.city}</p>
+                        <p style={{width: "50%", display: 'inline'}}>{city.city}</p>
                         <AccountCityDeleteButton onClick={(e)=>onDeleteCity(e, city)}>Delete</AccountCityDeleteButton>
                         <br></br>
                         </div>

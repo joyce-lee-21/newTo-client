@@ -140,7 +140,7 @@ function Login() {
                 history.push('/profile')
             } else {
                 const err = await res.json()
-                // console.log(err.errors)
+                console.log(err.errors)
                 setErrors(err.errors)
             }
         };
@@ -153,6 +153,7 @@ function Login() {
         >
             <Grid item xs={10} className={classes.loginBox}>
                 <h1>Login</h1>
+                {errors ? errors.map(error => (<p style={{color: 'red'}}>{`${error}`}</p>)) : null}
                 <form onSubmit={handleSubmit}>
                     {/* <p>Username</p> */}
                     {/* <input 
@@ -189,7 +190,6 @@ function Login() {
                         SIGN IN
                     </HeaderButton>
                 </form>
-                {errors ? errors.map(error => (<p>{`${error}`}</p>)) : null}
             </Grid>
         </Grid>
     );
