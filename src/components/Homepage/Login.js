@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 // ***---V2 CODE---***
 // import {changePasswordInput, changeUsernameInput, changeUser, changeIsLoggedIn, changeCitySelection, changeCategoryArray, changeSavedVenuesArray} from '../../usersSlice';
 // ***---V1 CODE---***
-import {changePasswordInput, changeUsernameInput, changeNameInput, changeUser, changeCitySelection, changeCategoryArray, changeSavedVenuesArray, changeIsLoggedIn, changeCityProfiles} from '../../usersSlice';
+import {changePasswordInput, changeUsernameInput, changeNameInput, changeUser, changeCitySelection, changeCategoryArray, changeSavedVenuesArray, changeIsLoggedIn, changeCityProfiles, changeCompletedVenuesArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 import Grid from '@material-ui/core/Grid';
@@ -123,7 +123,8 @@ function Login() {
                 if (user.cities.length === 1) {
                     dispatch(changeCitySelection(user.city_profiles[0]))
                     dispatch(changeCategoryArray(user.category_selections[0]))
-                    dispatch(changeSavedVenuesArray(user.venue_selections[0]))
+                    dispatch(changeSavedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed !== true)))
+                    dispatch(changeCompletedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed === true)))
                     dispatch(changeNameInput(user.name))
                     dispatch(changeUsernameInput(user.username))
                     // may not be necessary if user only has 1 city profile:

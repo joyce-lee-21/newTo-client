@@ -7,7 +7,7 @@ import {useState} from 'react';
 // ***---V1 CODE---***
 import {changeUser} from '../usersSlice';
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -77,7 +77,7 @@ function Header() {
             <Grid item xs={12}>
                 <Box boxShadow={3} className={classes.navbar}>
                 <NavMenu useStyles={usePointNavigationMenuStyles}>
-                    {/* <Grid item xs={4} className="nav-left"> */}
+                    <Grid item xs={4} className="nav-left">
                         <NavLink exact to="/" style={{color: 'inherit', textDecoration: 'none'}}>
                             <Box onClick={()=>handleClick(7)}>
                             {citySelection.city 
@@ -86,24 +86,24 @@ function Header() {
                             }
                             </Box>
                         </NavLink>
-                    {/* </Grid> */}
+                    </Grid>
                 {user
                     ? <>
                         <Grid item xs={8} className="nav-right">
-                            <NavItem as={'div'} active={index === 0} onClick={handleClick(0)}>
-                                <NavLink to="/account" style={{ textDecoration: 'none' }}>
+                            <NavItem as={'div'} active={index === 0} style={{color: 'black'}} onClick={handleClick(0)}>
+                                <NavLink to="/account" style={{ textDecoration: 'none', color: 'black' }}>
                                     <Typography>Account</Typography>
                                 </NavLink>
                             </NavItem>
                             <NavItem as={'div'} active={index === 1} onClick={handleClick(1)}>
-                                <NavLink to="/profile" style={{ textDecoration: 'none' }}>
+                                <NavLink to="/profile" style={{ textDecoration: 'none', color: 'black' }}>
                                     <Typography>Profile</Typography>
                                 </NavLink>
                             </NavItem>
                             {citySelection &&
                             <>
                                 <NavItem as={'div'} active={index === 2} onClick={handleClick(2)}>
-                                    <NavLink to="/results" style={{ textDecoration: 'none' }}>
+                                    <NavLink to="/results" style={{ textDecoration: 'none', color: 'black' }}>
                                         <Typography>Results</Typography>
                                     </NavLink>
                                 </NavItem>
@@ -115,7 +115,7 @@ function Header() {
                             </>
                             }
                             <NavItem as={'div'} active={index === 4} onClick={handleClick(4)}>
-                                <NavLink to="/logout" style={{ textDecoration: 'none' }}>
+                                <NavLink to="/logout" style={{ textDecoration: 'none', color: 'black' }}>
                                     <Typography onClick={()=>onLogout()}>Logout</Typography>
                                 </NavLink>
                             </NavItem>
@@ -123,12 +123,12 @@ function Header() {
                     </>
                     : <Grid item xs={8} className="nav-right">
                         <NavItem as={'div'} active={index === 5} onClick={handleClick(5)}>
-                            <NavLink to="/login" style={{ textDecoration: 'none' }}>
+                            <NavLink to="/login" style={{ textDecoration: 'none', color: 'black'}}>
                                 <Typography>Login</Typography>
                             </NavLink>
                         </NavItem>
                         <NavItem as={'div'} active={index === 6} onClick={handleClick(6)}>
-                            <NavLink to="/signup" style={{ textDecoration: 'none' }}>
+                            <NavLink to="/signup" style={{ textDecoration: 'none', color: 'black' }}>
                                 <Typography>Sign up</Typography>
                             </NavLink>
                         </NavItem>

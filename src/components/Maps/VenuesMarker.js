@@ -3,8 +3,6 @@ import { Marker, InfoWindow } from "react-google-maps";
 import RoomIcon from '@material-ui/icons/Room';
 
 function VenuesMarker({venue, location}) {
-    // const [selectedPlace, setSelectedPlace] = useState("")
-    // const [activeMarker, setActiveMarker] = useState("")
     const [toggleInfoWindow, setToggleInfoWindow] = useState(false)
 
 // const places = [
@@ -12,8 +10,6 @@ function VenuesMarker({venue, location}) {
 //     {id: 1, name: "Veracruz Taco's", lat: 30.23597576734187, lng: -97.79584124901226},
 //     {id: 2, name: "Uchiko", lat: 30.272920506352303, lng: -97.75722727459727}
 // ]
-const labelSize = { width: 220};
-const labelPadding = 8;
 
 // console.log(toggleInfoWindow)
 

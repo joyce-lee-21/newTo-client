@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => ({
       boxShadow: 'none',
       fontSize: 14,
       backgroundColor: '#ffeca9',
+      color: 'black',
       '&:hover': {
         boxShadow: 'none',
         // backgroundColor: '#9fcbb4',
@@ -30,21 +31,20 @@ const useStyles = makeStyles(() => ({
         // borderColor: '#9fcbb4',
       },
       '&:focused': {
-        boxShadow: '0 0 0 0.2rem #9fcbb4',
-        // backgroundColor: '#9fcbb4',
+        boxShadow: '0 0 0 0.2rem',
+        backgroundColor: '#9fcbb4',
         // borderColor: '#9fcbb4',
       },
     },
   }));
 
-  const ProfileViewButton = withStyles({
+  const ChangeCityButton = withStyles({
     root: {
       boxShadow: 'none',
       fontSize: 14,
-      border: '1px solid',
-      lineHeight: 1.5,
-      backgroundColor: '#ffeca9',
-      borderColor: '#ffeca9',
+      fontWeight: 'bold',
+      backgroundColor: '#68166c',
+      color: 'white',
       padding: '6px 15px',
       margin: '10px',
       '&:hover': {
@@ -87,7 +87,13 @@ function ProfileView() {
         <>
         <Grid item xs={1}></Grid>
         <Grid item xs={10} className={classes.viewCategoryContainer}>
-            <Paper className="category-container">
+            <Paper className="category-container" elevation={3}>
+                <ChangeCityButton 
+                    style={{display: 'flex', justifyContent: 'flex-start'}} 
+                    onClick={()=>onChangeCity()}
+                >
+                    <strong>Change City</strong>
+                </ChangeCityButton>
                 <ToggleButtonGroup
                     value={alignment}
                     exclusive
@@ -108,7 +114,7 @@ function ProfileView() {
                         : (<ViewCompleted />)
                 }
             </Paper>
-            <ProfileViewButton onClick={()=>onChangeCity()}><strong>Change City</strong></ProfileViewButton>
+            {/* <ProfileViewButton onClick={()=>onChangeCity()}><strong>Change City</strong></ProfileViewButton> */}
         </Grid>
         </>
     );

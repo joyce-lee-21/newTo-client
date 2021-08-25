@@ -21,35 +21,25 @@ const useStyles = makeStyles({
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        '&:hover': {
-          backgroundColor: '#ffeca9',
-          borderColor: 'black',
-          boxShadow: 'none',
-        },
-        '&:active': {
-          boxShadow: 'none',
-          backgroundColor: '#ffeca9',
-          borderColor: '#ffeca9',
-        },
-        '&:focused': {
-          boxShadow: '0 0 0 0.2rem #ffeca9',
-        },
     },
     savedCatArray: {
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'row',
     },
+    catButtons: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+    },
   });
 
-const ProfileViewButton = withStyles({
+const CategoryViewResultsButton = withStyles({
     root: {
       boxShadow: 'none',
       fontSize: 14,
-      border: '1px solid',
-      lineHeight: 1.5,
+      fontWeight: 'bold',
       backgroundColor: '#9fcbb4',
-      borderColor: '#9fcbb4',
       padding: '6px 15px',
       margin: '10px',
       '&:hover': {
@@ -66,6 +56,31 @@ const ProfileViewButton = withStyles({
         boxShadow: '0 0 0 0.2rem #9fcbb4',
       },
     },
+  })(Button);
+
+  const CatResetButton = withStyles({
+    root: {
+        boxShadow: 'none',
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: "white",
+        backgroundColor: '#68166c',
+        padding: '6px 15px',
+        margin: '10px',
+        '&:hover': {
+            backgroundColor: '#9fcbb4',
+            borderColor: '#9fcbb4',
+            boxShadow: 'none',
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#9fcbb4',
+            borderColor: '#9fcbb4',
+        },
+        '&:focused': {
+            boxShadow: '0 0 0 0.2rem #9fcbb4',
+        },
+        },
   })(Button);
 
 function ViewCategoryList() {
@@ -85,7 +100,7 @@ function ViewCategoryList() {
     
     return (
         <>
-            <h4>Saved Categories</h4>
+            <h4 style={{marginBottom: '5px'}}>Saved Categories</h4>
             <Grid container classname={classes.savedCatArray} style={{height: '250px', justifyContent: 'center'}}>
                 {categoryArray.map(cat => (
                     <Paper key={cat.id} className={classes.root} elevation={2}>
@@ -93,8 +108,10 @@ function ViewCategoryList() {
                     </Paper>
                 ))}
             </Grid>
-            <ProfileViewButton onClick={()=>history.push("/results")}>Go to Results</ProfileViewButton>
-            <ProfileViewButton onClick={onReset}>Reset Selections</ProfileViewButton>
+            {/* <Grid container classname={classes.catButtons}> */}
+                <CategoryViewResultsButton onClick={()=>history.push("/results")}>Go to Results</CategoryViewResultsButton>
+                <CatResetButton onClick={onReset}>Reset Selections</CatResetButton>
+            {/* </Grid> */}
         </>
     );
 }

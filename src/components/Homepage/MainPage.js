@@ -4,6 +4,7 @@ import {useHistory} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 
 const HeaderButton = withStyles({
     root: {
@@ -11,10 +12,7 @@ const HeaderButton = withStyles({
       textTransform: 'none',
       fontSize: 14,
       padding: '6px 12px',
-      border: '1px solid',
-      lineHeight: 1.5,
-      backgroundColor: 'none',
-      borderColor: 'gray',
+      backgroundColor: '#9fcbb4',
       '&:hover': {
         backgroundColor: '#9fcbb4',
         borderColor: '#9fcbb4',
@@ -41,12 +39,33 @@ function MainPage() {
             <Grid container className={classes.mainpage}>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={10}>
-                    <h1>Welcome!</h1>
                     <div className="mainpage-desc">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacinia porttitor laoreet. Fusce dui tellus, ornare id vehicula nec, elementum et ligula. Pellentesque felis arcu, aliquam at dolor vel, malesuada aliquet dui. Suspendisse varius vel nulla ac convallis. Donec auctor ligula in odio condimentum, non accumsan ligula mollis. Ut sed elit ut arcu tincidunt mattis. Nunc non bibendum mi. Phasellus diam nunc, dignissim quis laoreet eu, molestie et massa. Vestibulum id maximus dui. Ut et metus varius, malesuada neque id, condimentum nulla. Sed dapibus interdum suscipit. Duis mi odio, tristique in augue non, porttitor luctus ex. Nam dapibus convallis ipsum, vitae ullamcorper tellus pharetra et.</p>
+                            <div style={{padding: '0px 150px'}}>
+                                <h2>Welcome to your new city! We're so glad you're here. Our goal is to recommend places for you to go so you can get to know your new city and start to feel at home.</h2>
+                            </div>
+                            <div className="mainpage-steps" style={{backgroundColor: 'white'}}>
+                            <h3>How to use this site</h3>
+                            <Grid container style={{display: 'flex', justifyContent: 'center'}}>
+                                <Grid item xs={3} style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+                                    <p>If you're a new user, sign up for an account. You'll be able to asked to provide the city you moved to and then be prompted to make your category selections to get started.</p>
+                                    <HeaderButton className={classes.mainPageButtons} onClick={()=>history.push("/signup")}>SIGN UP</HeaderButton>
+                                </Grid>
+                                <Grid item xs={1} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                    <ArrowRightAltIcon style={{fontSize: 40}}/>
+                                </Grid>
+                                <Grid item xs={3} style={{display: 'flex', justifyContent: 'center'}}>
+                                    <p>You can filter by category type, then select up to 5 categories based on your interests. Once your categories are selected, it'll be saved to your Profile page. You can either reset your selections or view your results.</p>
+                                </Grid>
+                                <Grid item xs={1} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                    <ArrowRightAltIcon style={{fontSize: 40}}/>
+                                </Grid>
+                                <Grid item xs={3}>
+                                    <p>On the Results page, you'll see a list of venues recommended based on your category selections and sorted by rating (if available). You can view more information about each venue by visiting their website, or social channels. If you're interested in saving the venue to your profile, ❤️ the venue!</p>
+                                </Grid>
+                            </Grid>
+                            </div>
                     </div>
-                    <HeaderButton variant="outlined" className={classes.mainPageButtons} onClick={()=>history.push("/login")}>LOGIN</HeaderButton>
-                    <HeaderButton variant="outlined" className={classes.mainPageButtons} onClick={()=>history.push("/signup")}>SIGN UP</HeaderButton>
+                    {/* <HeaderButton variant="outlined" className={classes.mainPageButtons} onClick={()=>history.push("/login")}>LOGIN</HeaderButton> */}
                 </Grid>
             </Grid>
         </div>

@@ -13,9 +13,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import MapIcon from '@material-ui/icons/Map';
-// import { loadAnimation } from "lottie-web";
-// import { defineLordIconElement } from "lord-icon-element";
+import RoomIcon from '@material-ui/icons/Room';
 
 function VenueList() {
     const dispatch = useDispatch();
@@ -126,7 +126,7 @@ function VenueList() {
                 </Grid>    
                 <Grid item xs={5}>
                     <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
+                        <InputLabel id="demo-simple-select-outlined-label">Filter Results by Category</InputLabel>
                         <Select
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
@@ -142,9 +142,9 @@ function VenueList() {
                     </FormControl>
                 </Grid>
                 <Grid item xs={2}>
-                    <Button onClick={()=>setMap(!map)}>
-                        <MapIcon style={{fontSize: '36px', backgroundColor: '#b6e5dc', borderRadius: '5px', padding: '10px'}}/>
-                    </Button>
+                    <Fab onClick={()=>setMap(!map)}>
+                        <RoomIcon style={{fontSize: '48px', backgroundColor: '#9fcbb4', borderRadius: '30px', padding: '5px'}}/>
+                    </Fab>
                 </Grid>
             </Grid>
             <Grid className="results-map">

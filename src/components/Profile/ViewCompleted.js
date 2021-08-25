@@ -6,16 +6,18 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
     root: {
         width: 200,
-        height: 150,
+        height: 120,
         textAlign: 'center',
         alignItems: 'center',
         backgroundColor: '#d9d1b2',
         display: 'inline-block',
         padding: '5px',
+        margin: '10px',
     },
     content: {
         fontSize: 14,
@@ -58,8 +60,8 @@ function ViewCompleted() {
     
     return (
         <>
-            <div>
-                <h4>Venues Visited</h4>
+            <h4>Venues Visited</h4>
+            <Grid container style={{justifyContent: 'center'}}>
                 {completedVenuesArray.map(v => (
                     <Card key={v.id} className={classes.root}>
                         <Typography className={classes.content}>
@@ -72,7 +74,7 @@ function ViewCompleted() {
                         </Typography>
                     </Card>
                 ))}
-            </div>
+            </Grid>
             {/* <CompletedViewButton onClick={()=>history.push("/results")}>Go to Results</CompletedViewButton> */}
         </>
     );

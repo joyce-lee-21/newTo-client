@@ -38,12 +38,12 @@ const useStyles = makeStyles({
         borderRadius: '5px',
         fontSize: 14,
         margin: '10px',
-        // padding: '3px',
     },
     social: {
       bottom: 0,
       position: 'relative',
       justifyContent: 'center',
+      height: '60px',
     },
     cardCatSquare: {
       backgroundColor: '#fcf3d3',
@@ -51,7 +51,6 @@ const useStyles = makeStyles({
       borderRadius: '5px',
       fontSize: 14,
       margin: '10px',
-      // padding: '3px',
     },
   });
 
@@ -59,9 +58,8 @@ const VenueViewButton = withStyles({
     root: {
       boxShadow: 'none',
       fontSize: 14,
-      backgroundColor: '#b2d6ef',
-      borderColor: '#b2d6ef',
-      borderRadius: '20px',
+      backgroundColor: '#68166c',
+      color: 'white',
       margin: '10px',
       '&:hover': {
         backgroundColor: '#9fcbb4',
@@ -95,7 +93,7 @@ function ViewVenueItem({venue}) {
 
     const onCompleted = (e, venue) => {
       setChecked(true)
-      async function acctChange(){
+      async function completedVenue(){
           const res = await fetch(`http://localhost:3000/saved_venues/${venue.id}`, {
               method: "PATCH",
               headers: {
@@ -110,14 +108,14 @@ function ViewVenueItem({venue}) {
           if(res.ok){
               const venue = await res.json()
               console.log(venue)
-              dispatch(changeCompletedVenuesArray([venue]))
-              dispatch(changeSavedVenuesArray(savedVenuesArray.filter(v=>v.is_completed !== true)))
+              dispatch(changeCompletedVenuesArray([...completedVenuesArray, venue]))
+              dispatch(changeSavedVenuesArray(savedVenuesArray.filter(v=>v.id !== venue.id)))
           } else {
               const err = await res.json()
               console.log(err.errors)
           }
       };
-      acctChange();
+      completedVenue();
     }
 
     return (
@@ -139,7 +137,7 @@ function ViewVenueItem({venue}) {
               </Button>
             </Paper> */}
             <Card className={classes.root}>
-                <CardContent style={{height: '100px'}}>
+                <CardContent style={{height: '100px', padding: '5px'}}>
                   <Typography className={classes.content}>
                       <div style={{marginTop: '15px'}}>
                           <p style={{fontWeight: 'bold'}}>{venue.name}</p>
@@ -160,7 +158,7 @@ function ViewVenueItem({venue}) {
                   <div>
                     <VenueViewButton onClick={(e)=>onRemove(e, venue)}>Remove</VenueViewButton>
                     <Button onClick={(e)=>onCompleted(e, venue)}>
-                      {checked ? <CheckCircleIcon/> : <CheckCircleOutlineIcon/>}
+                      {checked ? <CheckCircleIcon style={{fontSize: 32}}/> : <CheckCircleOutlineIcon style={{fontSize: 32}}/>}
                     </Button>
                   </div>
                 </CardActions>

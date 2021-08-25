@@ -68,6 +68,7 @@ function VenueItem({venue}) {
     const [hearted, setHearted] = useState(false);
 
     const onHeart = (e, venue) => {
+        console.log(venue)
         setHearted(true)
         const v = {
             city_profile_id: citySelection.id,

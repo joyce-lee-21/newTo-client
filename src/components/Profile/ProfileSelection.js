@@ -18,18 +18,12 @@ import { withStyles, useTheme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {
     CategoryProvider,
-    CategoryTitle,
     CategoryItem,
   } from '@mui-treasury/components/menu/category';
 import { useNikiCategoryMenuStyles } from '@mui-treasury/styles/categoryMenu/niki';
-import MobileStepper from '@material-ui/core/MobileStepper';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
-import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles({
     root: {
@@ -71,7 +65,6 @@ const useStyles = makeStyles({
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0,
         minHeight: '500px',
-        justifyContent: 'center',
     },
     selections: {
         display: 'flex',
@@ -116,31 +109,31 @@ const LoadButtons = withStyles({
     },
   })(Button);
 
-  const CatButtons = withStyles({
-    root: {
-      boxShadow: 'none',
-      fontSize: 14,
-      border: '1px solid',
-      lineHeight: 1.5,
-      backgroundColor: '#9fcbb4',
-      borderColor: '#9fcbb4',
-      padding: '6px 15px',
-      margin: '10px',
-      '&:hover': {
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
-        boxShadow: 'none',
-      },
-      '&:active': {
-        boxShadow: 'none',
-        backgroundColor: '#9fcbb4',
-        borderColor: '#9fcbb4',
-      },
-      '&:focused': {
-        boxShadow: '0 0 0 0.2rem #9fcbb4',
-      },
-    },
-  })(Button);
+//   const CatButtons = withStyles({
+//     root: {
+//       boxShadow: 'none',
+//       fontSize: 14,
+//       border: '1px solid',
+//       lineHeight: 1.5,
+//       backgroundColor: '#9fcbb4',
+//       borderColor: '#9fcbb4',
+//       padding: '6px 15px',
+//       margin: '10px',
+//       '&:hover': {
+//         backgroundColor: '#9fcbb4',
+//         borderColor: '#9fcbb4',
+//         boxShadow: 'none',
+//       },
+//       '&:active': {
+//         boxShadow: 'none',
+//         backgroundColor: '#9fcbb4',
+//         borderColor: '#9fcbb4',
+//       },
+//       '&:focused': {
+//         boxShadow: '0 0 0 0.2rem #9fcbb4',
+//       },
+//     },
+//   })(Button);
 
 function ProfileSelection() {
     const dispatch = useDispatch();
@@ -154,10 +147,8 @@ function ProfileSelection() {
     const categoryArrLength = useSelector(state => state.categoryArrLength);
     const citySelection = useSelector(state => state.citySelection);
     const [errors, setErrors] = useState([]);
-    const [open, setOpen] = useState(false);
     const [index, setIndex] = useState(0);
     const classes = useStyles();
-    const theme = useTheme();
 
     const secondary_categories = [];
 
@@ -209,13 +200,12 @@ function ProfileSelection() {
             if(res.ok){
                 const selected = await res.json()
                 // console.log(selected)
-                console.log("category_selection added")
+                console.log(`category_selection added: ${selected}`)
                 // console.log(categoryArray)
                 // set city selection if user only has 1 city profile
             } else {
                 const err = await res.json()
                 console.log(err.errors)
-                setErrors(err.errors)
             }
         };
         selectedCategoryArray.forEach(cat => catArray(cat))

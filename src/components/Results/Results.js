@@ -46,7 +46,7 @@ function Results() {
             //     console.log(err.errors)
             // }
             await Promise.all(categoryArray.map(cat => {
-                return fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=5&categoryId=${cat.fs_category_id}`)
+                return fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=3&categoryId=${cat.fs_category_id}`)
                 .then(res => res.json())
                 .then(data => {
                     const vArr = data.response.groups[0].items

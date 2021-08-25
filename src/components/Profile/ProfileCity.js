@@ -1,5 +1,4 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {useState} from 'react'
 import {
     changeCitySelection, 
     changeCategoryArray, 
@@ -25,6 +24,7 @@ const ProfileCityButton = withStyles({
       borderColor: '#ffeca9',
       padding: '6px 15px',
       margin: '20px',
+      minWidth: '120px',
       height: '80px',
       '&:hover': {
         backgroundColor: '#ffeca9',
@@ -76,7 +76,6 @@ function ProfileCity() {
     const addCity = useSelector(state => state.addCity);
     const user = useSelector(state => state.user);
     const cityInput = useSelector(state => state.cityInput);
-    const [errors, setErrors] = useState([])
 
     const getCityProfile = (e, profile) => {
         // console.log(profile)
@@ -97,8 +96,7 @@ function ProfileCity() {
                 dispatch(changeCompletedVenuesArray(selections.saved_venues.filter(venue => venue.is_completed === true)))
             } else {
                 const err = await res.json()
-                // console.log(err.errors)
-                setErrors(err.errors)
+                console.log(err.errors)
             }
         };
         select();
@@ -131,7 +129,7 @@ function ProfileCity() {
                 dispatch(changeAddCity(false))
             } else {
                 const err = await res.json()
-                setErrors(err.errors)
+                console.log(err.errors)
             }
         };
         addCity();

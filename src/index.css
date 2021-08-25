@@ -8,6 +8,7 @@ body {
   background-image: url(./skyline.png);
   background-position: center bottom;
   background-repeat: no-repeat;
+  background-attachment:fixed;
 }
 
 code {

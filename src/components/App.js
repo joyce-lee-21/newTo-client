@@ -9,7 +9,6 @@ import {useDispatch} from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 
 // ***---V2 CODE---***
 // import {changeUser, changeIsLoggedIn} from '.././usersSlice';
@@ -23,7 +22,6 @@ import {
   changeIsLoggedIn,
   changeCityProfiles,
   changeClasses,
-  changeTheme,
 } from '../usersSlice';
 
 const theme = createMuiTheme({
@@ -103,11 +101,12 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid black',
     borderRadius: '5px',
     marginLeft: '10px',
-    marginRight: '10px'
+    marginRight: '10px',
+    backgroundColor: 'white',
   },
   viewCategoryContainer: {
     alignItems: "center",
-    minHeight: '20vh',
+    minHeight: '30vh',
   },
   categoryView: {
     height: '70px',
@@ -118,6 +117,16 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '10px',
     marginRight: '10px',
     backgroundColor: '#fcf3d3',
+  },
+  venueView: {
+    width: 300,
+    height: 160,
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    padding: '5px',
   },
   // resultsContainer: {
   //   marginTop: '10px',
