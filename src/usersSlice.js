@@ -3,23 +3,29 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 // Action Creators
 
 // async actions
-// export const fetchUsers = createAsyncThunk("users/fetchUsers", () => {
-//     // return a Promise containing the data we want
-//     return fetch("https://localhost:3001/users")
-//       .then((response) => response.json())
-//       .then((data) => data);
-//   }); 
+export const fetchPrimaryCats = createAsyncThunk("auth/fetchPrimaryCats", () => {
+    // return a Promise containing the data we want
+    return fetch("http://localhost:3000/primary_categories")
+      .then((response) => response.json())
+      .then((data) => data);
+}); 
 
 // Reducer
 
 const usersSlice = createSlice({
     name: "auth",
     initialState: {
+        primaryCategories: [], // array of secondary_categories
+        status: "idle", // loading state
+
         // used for SignUp / Login / Account components
         usernameInput: "",
         passwordInput: "",
         nameInput: "",
         cityInput: "",
+        editStatus: false,
+        addCity: false,
+        cityProfiles: null,
 
         // used for all components after Login/Sign Up steps
         user: null,
@@ -27,23 +33,36 @@ const usersSlice = createSlice({
 
         // used for Profile > child components
         citySelection: "",
+        addSecondCity: false,
+        savedVenuesArray: [],
+        completedVenuesArray: [],
+        profileView: "categories",
+
+        // used for Results components
         venuesResultsArray: [],
         venuesDetailsArray: [],
-        savedVenuesArray: [],
-        profileView: "categories",
+        filteredVenueResults: [],
+        trendingCatArray: [],
+        trendingResultsArray: [],
+        mapCenter: [],
 
         // category selections saved to the user city_profile
         categoryArray: [],
         // categories to be selected from seed data (foursquare's primary and secondary categories)
+        resCategoryArray: [],
         selectCategoryArray: [],
+        filterByPrimaryCategory: 0,
         // categories selected from selectCategoryArray, not yet saved to the user city_profile
         selectedCategoryArray: [],
         categoryArrFirst: 0,
-        categoryArrLast: 5,
+        categoryArrLength: 12,
+
+        // CSS class
+        classes: "",
 
         // private - external API credentials
-        clientId: "TMPN4FQH3UGB0NX5JBBA0B4WBWRYMK51MTOO0YN10JDLDKDQ",
-        clientSecret: "FXBLX5RUDZGZC34FNOVMNJTIMTLPTOIAINUO3FYUQNEQKGLN",
+        clientId: process.env.REACT_APP_FOURSQUARE_CLIENT_ID,
+        clientSecret: process.env.REACT_APP_FOURSQUARE_CLIENT_SECRET,
         version: "20210801"
     },
 
@@ -60,8 +79,17 @@ const usersSlice = createSlice({
         changeCityInput(state, action) {
             state.cityInput = action.payload
         },
+        changeEditStatus(state, action) {
+            state.editStatus = action.payload
+        },
+        changeAddCity(state, action) {
+            state.addCity = action.payload
+        },
         changeUser(state, action) {
             state.user = action.payload
+        },
+        changeCityProfiles(state, action) {
+            state.cityProfiles = action.payload
         },
         changeIsLoggedIn(state, action) {
             state.isLoggedIn = action.payload
@@ -84,7 +112,7 @@ const usersSlice = createSlice({
         changeCategoryArrFirst(state, action) {
             state.categoryArrFirst = action.payload
         },
-        changeCategoryArrLast(state, action) {
+        changeCategoryArrLength(state, action) {
             state.categoryArrLast = action.payload
         },
         changeSelectedCategoryArray(state, action) {
@@ -93,21 +121,70 @@ const usersSlice = createSlice({
         changeVenuesResultsArray(state, action) {
             state.venuesResultsArray = action.payload
         },
+        changeFilteredVenueResults(state, action) {
+            state.filteredVenueResults = action.payload
+        },
         changeVenuesDetailsArray(state, action) {
             state.venuesDetailsArray = action.payload
         },
+        changeClasses(state, action) {
+            state.classes = action.payload
+        },
+        changeFilterByPrimaryCategory(state, action) {
+            state.filterByPrimaryCategory = action.payload
+        },
+        changeTrendingResultsArray(state, action) {
+            state.trendingResultsArray = action.payload
+        },
+        changeCompletedVenuesArray(state, action) {
+            state.completedVenuesArray = action.payload
+        },
+        changeMapCenter(state, action) {
+            state.mapCenter = action.payload
+        },
+        changeTrendingCatArray(state, action) {
+            state.trendingCatArray = action.payload
+        },
+        changeResCategoryArray(state, action) {
+            state.resCategoryArray = action.payload
+        },
+        changeAddSecondCity(state, action) {
+            state.addSecondCity = action.payload
+        }
+        // changeLogout(state) {
+        //     state.usernameInput = ""
+        //     state.passwordInput = "",
+        //     state.nameInput = "",
+        //     state.cityInput = "",
+        //     state.editStatus = false,
+        //     state.addCity = false,
+        //     state.cityProfiles = null,
+        //     state.user = null,
+        //     state.isLoggedIn = false,
+        //     state.citySelection = "",
+        //     state.savedVenuesArray = [],
+        //     state.profileView = "categories",
+        //     state.venuesResultsArray = [],
+        //     state.venuesDetailsArray = [],
+        //     state.filteredVenueResults = [],
+        //     state.categoryArray = null,
+        //     state.selectCategoryArray = [],
+        //     state.selectedCategoryArray = [],
+        //     state.categoryArrFirst = 0,
+        //     state.categoryArrLength = 12,
+        // },
 
     },
-    // extraReducers: {
-    //     // handle async action types
-    //     [fetchUsers.pending](state) {
-    //     state.status = "loading";
-    //     },
-    //     [fetchUsers.fulfilled](state, action) {
-    //     state.entities = action.payload;
-    //     state.status = "idle";
-    //     },
-    // },
+    extraReducers: {
+        // handle async action types
+        [fetchPrimaryCats.pending](state) {
+        state.status = "loading";
+        },
+        [fetchPrimaryCats.fulfilled](state, action) {
+        state.primaryCategories = action.payload;
+        state.status = "idle";
+        },
+    },
     })
 
 // actions
@@ -124,10 +201,22 @@ const {
     changeProfileView,
     changeSelectCategoryArray,
     changeCategoryArrFirst,
-    changeCategoryArrLast,
+    changeCategoryArrLength,
     changeSelectedCategoryArray,
     changeVenuesResultsArray,
     changeVenuesDetailsArray,
+    changeFilteredVenueResults,
+    changeEditStatus,
+    changeAddCity,
+    changeCityProfiles,
+    changeClasses,
+    changeFilterByPrimaryCategory,
+    changeTrendingResultsArray,
+    changeCompletedVenuesArray,
+    changeMapCenter,
+    changeTrendingCatArray,
+    changeResCategoryArray,
+    changeAddSecondCity,
 
 } = usersSlice.actions; 
 
@@ -146,10 +235,22 @@ export {
     changeProfileView,
     changeSelectCategoryArray,
     changeCategoryArrFirst,
-    changeCategoryArrLast,
+    changeCategoryArrLength,
     changeSelectedCategoryArray,
     changeVenuesResultsArray,
     changeVenuesDetailsArray,
+    changeFilteredVenueResults,
+    changeEditStatus,
+    changeAddCity,
+    changeCityProfiles,
+    changeClasses,
+    changeFilterByPrimaryCategory,
+    changeTrendingResultsArray,
+    changeCompletedVenuesArray,
+    changeMapCenter,
+    changeTrendingCatArray,
+    changeResCategoryArray,
+    changeAddSecondCity,
 }
 
 export default usersSlice.reducer;

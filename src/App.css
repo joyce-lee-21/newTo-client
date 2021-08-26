@@ -7,6 +7,7 @@
   pointer-events: none;
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -37,29 +38,104 @@
   }
 }
 
-/* Login */
-.content-container {
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  /* background-image: url("./skyline.png"); */
+  background-size: cover;
+  height: 300px;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+/* Header */
+.header-container{
   display: flex;
+}
+
+.nav-left{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.nav-right{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 30px;
+}
+
+/* Login */
+
+.account-container, .account-edit-container{
+  min-height: 40vh;
+  margin: 10px;
+  padding: 10px;
+}
+
+.city-edit-container {
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
-.login-container, .signup-container {
+/* Main Page */
+.mainpage-desc {
+  background-color: #ffeca9;
+  /* opacity: 0.75; */
+  padding: 30px;
+  margin-top: 50px;
   display: flex;
+  justify-content: center;
+  text-align: center;
   flex-direction: column;
-  width: 30%;
-  border: 1px black solid;
-  margin: 20px;
+}
+
+.mainpage-steps {
+  padding: 30px;
 }
 
 /* Profile Tiles */
 .tile {
   display: flex;
   justify-content: center;
+  align-items: center;
+  text-align: center;
   flex-wrap: wrap;
   margin: 20px;
+  margin-right: 20px;
   padding: 5px;
+  height: 50px;
+  width: 150px;
+  background-color: #fcf3d3;
+}
+
+.category-container {
+  min-height: 70vh;
+  margin: 10px;
+  padding: 10px;
+  /* border: 1px solid black; */
+}
+
+.category-tile {
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
+  margin: 20px;
+  margin-right: 20px;
   height: 100px;
-  border: 1px black solid;
+  width: 150px;
+  background-color: #fcf3d3;
+  font-size: 14;
+  font-weight: bold;
+  border: '1px solid';
+  line-height: 1.5;
+  border-color: '#ffeca9';
 }
 
 .venue-tile {
@@ -70,9 +146,35 @@
   margin: 5px;
   padding: 5px;
   height: 150px;
+  width: 300px;
   border: 1px black solid;
 }
 
 .venue-tile p{
   margin: 2px;
 }
+
+.add-city-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.results-map{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* color scheme
+light yellow: '#fcf3d3', 
+normal yellow: '#ffeca9',
+light green: '#c8e4d6',
+normal green: '#9fcbb4',
+dark purple: '#68166c',
+light purple: '#955698',
+*/
