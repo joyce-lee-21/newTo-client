@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
     changeCategoryArrFirst, 
     changeSelectCategoryArray, 
+    changeSelectedCategoryArray,
     changeResCategoryArray,
     changeCategoryArray, 
     fetchPrimaryCats, 
@@ -75,14 +76,6 @@ const useStyles = makeStyles({
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
         minHeight: '200px',
-    },
-    modal: {
-        position: 'absolute',
-        width: 400,
-        backgroundColor: "white",
-        border: '2px solid #000',
-        boxShadow: [5],
-        padding: '10px',
     },
 });
 
@@ -180,6 +173,7 @@ function ProfileSelection() {
 
     const onSubmitClick = () => {
         dispatch(changeCategoryArray(selectedCategoryArray))
+        dispatch(changeSelectedCategoryArray([]))
         async function catArray(cat){
             const selection = {
                 name: cat.name, 
@@ -307,7 +301,7 @@ function ProfileSelection() {
                 <Grid item xs={12}>
                     <Paper elevation={3} className={classes.selections}>
                         <h4>Category Selections</h4>
-                        <Grid container>
+                        <Grid container style={{justifyContent: 'center'}}>
                             <SelectedCategoryList />
                         </Grid>
                         <LoadButtons onClick={()=>onSubmitClick()}>Save</LoadButtons>

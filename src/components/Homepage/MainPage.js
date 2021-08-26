@@ -41,7 +41,7 @@ function MainPage() {
                 <Grid item xs={10}>
                     <div className="mainpage-desc">
                             <div style={{padding: '0px 150px'}}>
-                                <h2>Welcome to your new city! We're so glad you're here. Our goal is to recommend places for you to go so you can quickly get to know your new city and start to feel at home.</h2>
+                                <h2>Welcome to your new city! We're so glad you're here. Our goal is to recommend places for you to go so you can quickly explore your new city and start to feel at home.</h2>
                             </div>
                             <div className="mainpage-steps" style={{backgroundColor: 'white'}}>
                             <h3>How to use this site</h3>
