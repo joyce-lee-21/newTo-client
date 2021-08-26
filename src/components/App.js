@@ -196,32 +196,40 @@ function App() {
   // }
 
   // ***---CODE FOR SESSION NOT PERSISTING (V1) ---***
+
   useEffect(() => {
-    fetch("http://localhost:3000/me", {
-      method: "GET",
-      credentials: "include"
-    })
-    .then((r) => {
-      if (r.ok) {
-        r.json()
-        .then((user) => {
-          // console.log('App useEffect fetch:', user)
-          dispatch(changeUser(user))
-          dispatch(changeIsLoggedIn(true))
-          if (user.cities.length === 1) {
-            dispatch(changeCitySelection(user.cities[0]))
-            dispatch(changeCategoryArray(user.category_selections))
-            dispatch(changeSavedVenuesArray(user.venue_selections))
-            dispatch(changeCityProfiles(user.city_profiles))
-          }
-          else {
+    // console.log(localStorage.token)
+    if (localStorage.token) {
+      fetch("http://localhost:3000/me", {
+        method: "GET",
+        // credentials: "include"
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.token}`
+        }
+      })
+      .then((r) => {
+        if (r.ok) {
+          r.json()
+          .then((user) => {
+            // console.log('App useEffect fetch:', user)
+            dispatch(changeUser(user))
+            dispatch(changeIsLoggedIn(true))
+            if (user.cities.length === 1) {
+              dispatch(changeCitySelection(user.cities[0]))
               dispatch(changeCategoryArray(user.category_selections))
               dispatch(changeSavedVenuesArray(user.venue_selections))
               dispatch(changeCityProfiles(user.city_profiles))
-          }
-        });
-      }
-    })
+            }
+            else {
+                dispatch(changeCategoryArray(user.category_selections))
+                dispatch(changeSavedVenuesArray(user.venue_selections))
+                dispatch(changeCityProfiles(user.city_profiles))
+            }
+          });
+        }
+      })
+    }
   }, []);
 
   // console.log(process.env.REACT_APP_FOURSQUARE_CLIENT_SECRET)

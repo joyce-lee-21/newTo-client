@@ -115,7 +115,8 @@ function Login() {
                     }),
             })
             if(res.ok){
-                const user = await res.json()
+                const result = await res.json()
+                const user = result.user
                 // set user to state
                 dispatch(changeUser(user))
                 dispatch(changeIsLoggedIn(true))
@@ -137,6 +138,7 @@ function Login() {
                     dispatch(changeUsernameInput(user.username))
                     dispatch(changeCityProfiles(user.city_profiles))
                 }
+                localStorage.token = result.token
                 history.push('/profile')
             } else {
                 const err = await res.json()

@@ -55,15 +55,25 @@ function Header() {
     
     // ***---V1 CODE---***
     const onLogout = () => {
-        fetch("http://localhost:3000/logout", { 
-            method: "DELETE" 
-        })
-        .then((r) => {
-            if (r.ok) {
-                dispatch(changeUser(null))
-                history.push("/")
-            }
-        });
+        // fetch("http://localhost:3000/logout", { 
+        //     method: "DELETE" 
+        // })
+        // .then((r) => {
+        //     if (r.ok) {
+        //         dispatch(changeUser(null))
+        //         history.push("/")
+        //     }
+        // });
+        localStorage.clear()
+        dispatch(changeUser(null))
+        // dispatch(changeCitySelection(user.city_profiles[0]))
+        // dispatch(changeCategoryArray(user.category_selections[0]))
+        // dispatch(changeSavedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed !== true)))
+        // dispatch(changeCompletedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed === true)))
+        // dispatch(changeNameInput(user.name))
+        // dispatch(changeUsernameInput(user.username))
+        // dispatch(changeCityProfiles(null))
+        history.push("/")
     }
 
     

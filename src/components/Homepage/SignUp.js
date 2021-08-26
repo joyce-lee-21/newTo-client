@@ -61,12 +61,14 @@ function SignUp() {
                     }),
             })
             if(res.ok){
-                const user = await res.json()
+                const result = await res.json()
+                const user = result.user
                 dispatch(changeUser(user))
                 dispatch(changeCitySelection(user.city_profiles[0]))
                 dispatch(changeNameInput(user.name))
                 dispatch(changeUsernameInput(user.username))
                 dispatch(changeCityProfiles(user.city_profiles))
+                localStorage.token = result.token
                 history.push('/profile')
             } else {
                 const err = await res.json()
