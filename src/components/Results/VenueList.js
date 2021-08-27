@@ -39,7 +39,7 @@ function VenueList() {
     // grab fs_venue_ids from resultsArray
     useEffect(() => {
         detailsFetch();
-    }, [])
+    }, [venuesResultsArray])
 
     const detailsFetch = () => {
     //     const detailsArray = [];
@@ -77,6 +77,8 @@ function VenueList() {
     // //  use this to fetch details for all venues in array:
     //     venuesResultsArray.map(venue=>venueDetails(venue));
     // const fsVenueDetails = async() => {
+        dispatch(changeVenuesDetailsArray([]))
+        dispatch(changeFilteredVenueResults([]))
         const detailsArray = [];
         // console.log(detailsArray)
         venuesResultsArray.forEach(venue => {
@@ -98,8 +100,8 @@ function VenueList() {
                     detailsArray.sort((a, b) => {return b.rating - a.rating})
                     dispatch(changeVenuesDetailsArray([...detailsArray]))
                     dispatch(changeFilteredVenueResults([...detailsArray]))
-                    console.log(detailsArray)
-                    console.log(data)
+                    // console.log(detailsArray)
+                    // console.log(data)
                 })
         })
 
@@ -110,7 +112,7 @@ function VenueList() {
         setCategory(e.target.value);
         if (e.target.value !== "All") {
             // let results = venuesDetailsArray.map(v => v.categories.filter((cat) => cat.name === e.target.value)).filter(v => v.length > 0)
-            const filterVenue = venuesResultsArray.filter(v => {
+            const filterVenue = venuesDetailsArray.filter(v => {
                 let catMatch = v.categories.filter(cat => cat.name === e.target.value)
                 if (catMatch.length > 0) {
                     return v
@@ -120,14 +122,14 @@ function VenueList() {
             // console.log(filterVenue)
             dispatch(changeFilteredVenueResults(filterVenue))
         } else {
-            dispatch(changeFilteredVenueResults(venuesResultsArray))
+            dispatch(changeFilteredVenueResults(venuesDetailsArray))
         }
     }
 
     const onQuery = (e) => {
         console.log(e.target.value)
         const query = e.target.value
-        const filtered = venuesResultsArray.filter(v=> v.name.toLowerCase().includes(query.toLowerCase()))
+        const filtered = venuesDetailsArray.filter(v=> v.name.toLowerCase().includes(query.toLowerCase()))
             // console.log(venuesDetailsArray.filter(v=> v.name.toLowerCase().includes(query.toLowerCase())))
         dispatch(changeFilteredVenueResults(filtered))
     }
