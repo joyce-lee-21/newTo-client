@@ -67,7 +67,7 @@ function ViewVenuesList() {
     return (
         <>
         <h4>Saved Venues</h4>
-            <Grid container classname={classes.root} style={{justifyContent: 'center'}}>
+            <Grid container className={classes.venueList}>
                 {savedVenuesArray && savedVenuesArray.length >= 1 
                 ? savedVenuesArray.filter(venue=> venue.is_completed !== true).map(venue => 
                     // (<Card key={venue.id} className={classes.root} variant="outlined">

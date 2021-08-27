@@ -3,6 +3,7 @@ import {
     changeCategoryArrFirst, 
     changeSelectCategoryArray, 
     changeSelectedCategoryArray,
+    changeVenuesResultsArray,
     changeResCategoryArray,
     changeCategoryArray, 
     fetchPrimaryCats, 
@@ -134,9 +135,14 @@ function ProfileSelection() {
     const filterByPrimaryCategory = useSelector(state => state.filterByPrimaryCategory);
     const categoryArray = useSelector(state => state.selectedCategoryArray);
     const resCategoryArray = useSelector(state => state.resCategoryArray);
+    const venuesResultsArray = useSelector(state => state.venuesResultsArray);
     const categoryArrFirst = useSelector(state => state.categoryArrFirst);
     const categoryArrLength = useSelector(state => state.categoryArrLength);
     const citySelection = useSelector(state => state.citySelection);
+    const client_id = useSelector(state => state.clientId);
+    const client_secret = useSelector(state => state.clientSecret);
+    const version = useSelector(state => state.version);
+    const near = citySelection.city;
     const [errors, setErrors] = useState([]);
     const [index, setIndex] = useState(0);
     const classes = useStyles();
@@ -171,36 +177,77 @@ function ProfileSelection() {
         categories()
     }, [categoryArrFirst || filterByPrimaryCategory])
 
-    const onSubmitClick = () => {
+    // async function fsVenue(){
+    //     const venueArray = [];
+
+    //     const res = await fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=3&categoryId=${cat.fs_category_id}`)
+
+    //     if (res.ok) {
+    //         const data = await res.json()
+    //         const vArr = data.response.groups[0].items
+    //         // const mapCenter = data.response.geocode.center
+    //         // dispatch(changeMapCenter([mapCenter]))
+    //         // vArr.map(v=> venueArray.push(v.venue))
+    //         // dispatch(changeVenuesResultsArray([...venuesResultsArray, ...venueArray]))
+    //         console.log(vArr)
+    //     } else {
+    //         const err = await res.json()
+    //         console.log(err.errors)
+    //     }
+    // };
+
+
+    const onSubmitClick = async () => {
         dispatch(changeCategoryArray(selectedCategoryArray))
-        dispatch(changeSelectedCategoryArray([]))
-        async function catArray(cat){
-            const selection = {
-                name: cat.name, 
-                city_profile_id: citySelection.id,
-                fs_category_id: cat.fs_category_id,
-                primary_category_id: cat.primary_category_id
-            }
-            const res = await fetch(`http://localhost:3000/category_selections/`, {
-                method: "POST",
-                // credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({category_selection: selection}),
+        const catArray = async() => {
+            selectedCategoryArray.forEach(cat => {
+                const selection = {
+                    name: cat.name, 
+                    city_profile_id: citySelection.id,
+                    fs_category_id: cat.fs_category_id,
+                    primary_category_id: cat.primary_category_id
+                }
+                fetch(`http://localhost:3000/category_selections/`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({category_selection: selection}),
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(`category_selection added: ${data}`)
+                    dispatch(changeSelectedCategoryArray([]))
+                })
+                .catch(error => console.log(error))
             })
-            if(res.ok){
-                const selected = await res.json()
-                // console.log(selected)
-                console.log(`category_selection added: ${selected}`)
-                // console.log(categoryArray)
-                // set city selection if user only has 1 city profile
-            } else {
-                const err = await res.json()
-                console.log(err.errors)
-            }
         };
-        selectedCategoryArray.forEach(cat => catArray(cat))
+        // const fsVenue = async() => {
+        //     const venueArray = [];
+        //     categoryArray.forEach(cat => {
+
+        //         fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=3&categoryId=${cat.fs_category_id}`)
+    
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             const vArr = data.response.groups[0].items
+        //             // const mapCenter = data.response.geocode.center
+        //             // dispatch(changeMapCenter([mapCenter]))
+        //             vArr.map(v=> venueArray.push(v.venue))
+        //             dispatch(changeVenuesResultsArray([...venuesResultsArray, ...venueArray]))
+        //             // vArr.map(v=> console.log(v.venue))
+        //             console.log(venuesResultsArray)
+        //         })
+        //         .catch(error => console.log(error))
+        //     })
+        // };
+
+        // const fetches = [catArray, fsVenue]
+        const fetches = [catArray]
+
+        for (const fn of fetches) {
+            await fn()
+        }
     }
 
     // const handleCategoryFilter = (e, cat) => {
@@ -214,9 +261,9 @@ function ProfileSelection() {
         setIndex(cat.id);
         dispatch(changeFilterByPrimaryCategory(cat.id))
         dispatch(changeCategoryArrFirst(0))
-      };
+    };
 
-      console.log(selectedCategoryArray)
+    //   console.log(selectedCategoryArray)
     
     return (
         <>

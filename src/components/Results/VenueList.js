@@ -38,11 +38,10 @@ function VenueList() {
 
     // grab fs_venue_ids from resultsArray
     useEffect(() => {
-        // detailsFetch();
-        dispatch(changeFilteredVenueResults(venuesResultsArray))
-    }, [venuesResultsArray])
+        detailsFetch();
+    }, [])
 
-    // const detailsFetch = () => {
+    const detailsFetch = () => {
     //     const detailsArray = [];
     //     async function venueDetails(venue){
     //     // console.log(venue.venue.id)
@@ -77,7 +76,34 @@ function VenueList() {
 
     // //  use this to fetch details for all venues in array:
     //     venuesResultsArray.map(venue=>venueDetails(venue));
-    // }
+    // const fsVenueDetails = async() => {
+        const detailsArray = [];
+        // console.log(detailsArray)
+        venuesResultsArray.forEach(venue => {
+            // console.log(venue)
+            // return fetch(`http://localhost:4000/venue_details/${venue.id}`)
+            // *---PRODUCTION CHANGE:
+                fetch(`https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`) 
+                // if(details.ok){
+                //     const arr = details.json()
+                //     const v = arr.response.venue
+                //     detailsArray.push(v)
+                //     detailsArray.sort((a, b) => {return b.rating - a.rating})
+                //     // dispatch(changeVenuesDetailsArray([...detailsArray]))
+                //     console.log(detailsArray)
+                .then(res => res.json())
+                .then(data => {
+                    const v = data.response.venue
+                    detailsArray.push(v)
+                    detailsArray.sort((a, b) => {return b.rating - a.rating})
+                    dispatch(changeVenuesDetailsArray([...detailsArray]))
+                    dispatch(changeFilteredVenueResults([...detailsArray]))
+                    console.log(detailsArray)
+                    console.log(data)
+                })
+        })
+
+    }
     // STRETCH GOAL AFTER SECONDARY CATEGORIES BROUGHT IN
     const onCategoryFilter = (e) => {
         // console.log(e.target.value)
@@ -154,9 +180,10 @@ function VenueList() {
                 }
             </Grid>
             <Grid container spacing={3}>
-                {filteredVenueResults.map(v=>
-                    <VenueItem key={v.id} venue={v}/>
-                )}
+                {filteredVenueResults.length >= 1 
+                    ? filteredVenueResults.map(v => <VenueItem key={v.id} venue={v}/>)
+                    : null
+                }
             </Grid>
         </Grid>
         </>

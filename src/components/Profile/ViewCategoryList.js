@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changeCategoryArray, changeSelectedCategoryArray} from '../../usersSlice';
+import {changeCategoryArray, changeSelectedCategoryArray, changeVenuesResultsArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -93,6 +93,7 @@ function ViewCategoryList() {
     const onReset = () => {
         dispatch(changeCategoryArray([]))
         dispatch(changeSelectedCategoryArray([]))
+        dispatch(changeVenuesResultsArray([]))
         fetch(`http://localhost:3000/category_selections/profile=${citySelection.id}`, { 
             method: "DELETE" 
         })
@@ -101,7 +102,7 @@ function ViewCategoryList() {
     return (
         <>
             <h4 style={{marginBottom: '5px'}}>Saved Categories</h4>
-            <Grid container classname={classes.savedCatArray} style={{height: '250px', justifyContent: 'center'}}>
+            <Grid container className={classes.savedCatArray} style={{height: '250px'}}>
                 {categoryArray.map(cat => (
                     <Paper key={cat.id} className={classes.root} elevation={2}>
                         {cat.name}

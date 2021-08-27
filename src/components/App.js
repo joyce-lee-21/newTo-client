@@ -7,7 +7,7 @@ import Content from './Content';
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider, createTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 // ***---V2 CODE---***
@@ -24,7 +24,7 @@ import {
   changeClasses,
 } from '../usersSlice';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: [
       'Work Sans', 
@@ -128,28 +128,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     padding: '5px',
   },
-  // resultsContainer: {
-  //   marginTop: '10px',
-  // },
-  // resultsList: {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: "center",
-  //   flexDirection: 'row',
-  //   // marginTop: '20px',
-  //   // padding: '5px',
-  //   height: '150px',
-  //   borderBottom: '1px black dotted',
-  //   backgroundColor: '#f2fce9',
-  // },
-  // results2List: {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: "center",
-  //   textAlign: 'center',
-  //   // flexDirection: 'column',
-  //   padding: '10px',
-  // },
+  venueList: {
+    justifyContent: 'center'
+  },
+  savedCatArray: {
+    justifyContent: 'center'
+  },
   formControl: {
     minWidth: 300,
   },

@@ -72,7 +72,8 @@ function SignUp() {
                 history.push('/profile')
             } else {
                 const err = await res.json()
-                console.log(err.error)
+                console.log(err)
+                console.log(errors)
                 setErrors(err.error)
             }
         };
@@ -90,7 +91,7 @@ function SignUp() {
                     {/* <p>Name</p> */}
                     {/* <input type="text" name="name" onChange={(e)=>dispatch(changeNameInput(e.target.value))}></input> */}
                     <TextField 
-                        id="outlined-basic" 
+                        // id="outlined-basic" 
                         label="Name" 
                         variant="outlined" 
                         style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}}
@@ -99,7 +100,7 @@ function SignUp() {
                     {/* <p>City</p> */}
                     {/* <input type="text" name="city" onChange={(e)=>dispatch(changeCityInput(e.target.value))}></input> */}
                     <TextField 
-                        id="outlined-basic" 
+                        // id="outlined-basic" 
                         label="City" 
                         variant="outlined" 
                         style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}} 
@@ -108,7 +109,7 @@ function SignUp() {
                     {/* <p>Username</p> */}
                     {/* <input type="text" name="username" onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}></input> */}
                     <TextField 
-                        id="outlined-basic" 
+                        // id="outlined-basic" 
                         label="Username" 
                         variant="outlined" 
                         style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}}
@@ -117,7 +118,8 @@ function SignUp() {
                     {/* <p>Password</p> */}
                     {/* <input type="text" name="password" onChange={(e)=>dispatch(changePasswordInput(e.target.value))}></input> */}
                     <TextField 
-                        id="outlined-basic" 
+                        // id="outlined-basic" 
+                        type="password"
                         label="Password" 
                         variant="outlined" 
                         style={{backgroundColor: 'white', borderRadius: '5px', width: '80%'}}

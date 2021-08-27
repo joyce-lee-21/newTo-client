@@ -164,7 +164,7 @@ function Login() {
                         onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}
                     ></input> */}
                     <TextField 
-                        id="outlined-basic" 
+                        // id="outlined-basic" 
                         label="Username" 
                         variant="outlined" 
                         style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}} 
@@ -177,8 +177,9 @@ function Login() {
                         onChange={(e)=>dispatch(changePasswordInput(e.target.value))}
                     ></input> */}
                     <TextField 
-                        id="outlined-basic" 
+                        // id="outlined-basic" 
                         label="Password" 
+                        type="password"
                         variant="outlined" 
                         style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}} 
                         onChange={(e)=>dispatch(changePasswordInput(e.target.value))}
