@@ -20,7 +20,6 @@ function Results() {
 
     useEffect(() => {
         if (categoryArray.length >= 1) {
-            console.log("true")
             venueFetch()
         }
     }, [])

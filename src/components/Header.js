@@ -5,7 +5,17 @@ import {useState} from 'react';
 // import {changeUser, changeIsLoggedIn} from '.././usersSlice';
 
 // ***---V1 CODE---***
-import {changeUser} from '../usersSlice';
+import {
+    changeUser, 
+    changeCitySelection, 
+    changeCategoryArray, 
+    changeSavedVenuesArray,
+    changeCompletedVenuesArray,
+    changeNameInput,
+    changeUsernameInput,
+    changePasswordInput,
+    changeCityProfiles,
+} from '../usersSlice';
 
 import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -66,13 +76,13 @@ function Header() {
         // });
         localStorage.clear()
         dispatch(changeUser(null))
-        // dispatch(changeCitySelection(user.city_profiles[0]))
-        // dispatch(changeCategoryArray(user.category_selections[0]))
-        // dispatch(changeSavedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed !== true)))
-        // dispatch(changeCompletedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed === true)))
-        // dispatch(changeNameInput(user.name))
-        // dispatch(changeUsernameInput(user.username))
-        // dispatch(changeCityProfiles(null))
+        dispatch(changeCitySelection(""))
+        dispatch(changeCategoryArray([]))
+        dispatch(changeSavedVenuesArray([]))
+        dispatch(changeCompletedVenuesArray([]))
+        dispatch(changeNameInput(""))
+        dispatch(changeUsernameInput(""))
+        dispatch(changeCityProfiles(null))
         history.push("/")
     }
 

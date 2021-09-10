@@ -21,8 +21,8 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     padding: '10px',
     margin: '20px',
-    width: '200px',
-    height: '150px',
+    width: '25%',
+    height: '170px',
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -135,7 +135,7 @@ function ViewVenueItem({venue}) {
               </Button>
             </Paper> */}
             <Card className={classes.root}>
-                <CardContent style={{height: '100px', padding: '5px'}}>
+                <CardContent style={{height: '120px', padding: '5px'}}>
                   <Typography className={classes.content}>
                       <div style={{marginTop: '15px'}}>
                           <p style={{fontWeight: 'bold'}}>{venue.name}</p>

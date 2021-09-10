@@ -102,51 +102,91 @@ function Login() {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        async function login(){
-            const res = await fetch("http://localhost:3000/login", {
-                method: "POST",
-                // credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ 
-                    username: usernameInput, 
-                    password: passwordInput 
-                    }),
-            })
-            if(res.ok){
-                const result = await res.json()
-                const user = result.user
-                // set user to state
-                dispatch(changeUser(user))
-                dispatch(changeIsLoggedIn(true))
-                // set city selection if user only has 1 city profile
-                if (user.cities.length === 1) {
-                    dispatch(changeCitySelection(user.city_profiles[0]))
-                    dispatch(changeCategoryArray(user.category_selections[0]))
-                    dispatch(changeSavedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed !== true)))
-                    dispatch(changeCompletedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed === true)))
-                    dispatch(changeNameInput(user.name))
-                    dispatch(changeUsernameInput(user.username))
-                    // may not be necessary if user only has 1 city profile:
-                    dispatch(changeCityProfiles(user.city_profiles))
-                }
-                else {
-                    dispatch(changeCategoryArray(user.category_selections))
-                    dispatch(changeSavedVenuesArray(user.venue_selections))
-                    dispatch(changeNameInput(user.name))
-                    dispatch(changeUsernameInput(user.username))
-                    dispatch(changeCityProfiles(user.city_profiles))
-                }
-                localStorage.token = result.token
-                history.push('/profile')
-            } else {
-                const err = await res.json()
-                console.log(err.errors)
-                setErrors(err.errors)
+        // async function login(){ --- V3
+        //     const res = await fetch("http://localhost:3000/login", {
+        //         method: "POST",
+        //         // credentials: "include",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ 
+        //             username: usernameInput, 
+        //             password: passwordInput 
+        //             }),
+        //     })
+        //     if(res.ok){
+        //         const result = await res.json()
+        //         const user = result.user
+        //         // set user to state
+        //         dispatch(changeUser(user))
+        //         dispatch(changeIsLoggedIn(true))
+        //         // set city selection if user only has 1 city profile
+        //         if (user.cities.length === 1) {
+        //             dispatch(changeCitySelection(user.city_profiles[0]))
+        //             dispatch(changeCategoryArray(user.category_selections[0]))
+        //             dispatch(changeSavedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed !== true)))
+        //             dispatch(changeCompletedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed === true)))
+        //             dispatch(changeNameInput(user.name))
+        //             dispatch(changeUsernameInput(user.username))
+        //             // may not be necessary if user only has 1 city profile:
+        //             dispatch(changeCityProfiles(user.city_profiles))
+        //         }
+        //         else {
+        //             dispatch(changeCategoryArray(user.category_selections))
+        //             dispatch(changeSavedVenuesArray(user.venue_selections))
+        //             dispatch(changeNameInput(user.name))
+        //             dispatch(changeUsernameInput(user.username))
+        //             dispatch(changeCityProfiles(user.city_profiles))
+        //         }
+        //         localStorage.token = result.token
+        //         history.push('/profile')
+        //     } else {
+        //         const err = await res.json()
+        //         // console.log(err.errors)
+        //         // setErrors(err.errors)
+        //         setErrors(err.failure)
+        //     }
+        // };
+        // login()
+        fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({                       
+                username: usernameInput, 
+                password: passwordInput 
+                }),
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.user)
+            const user = data.user
+            // set user to state
+            dispatch(changeUser(user))
+            dispatch(changeIsLoggedIn(true))
+            // set city selection if user only has 1 city profile
+            if (user.cities.length === 1) {
+                dispatch(changeCitySelection(user.city_profiles[0]))
+                dispatch(changeCategoryArray(user.category_selections[0]))
+                dispatch(changeSavedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed !== true)))
+                dispatch(changeCompletedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed === true)))
+                dispatch(changeNameInput(user.name))
+                dispatch(changeUsernameInput(user.username))
+                // may not be necessary if user only has 1 city profile:
+                dispatch(changeCityProfiles(user.city_profiles))
             }
-        };
-        login()
+            else {
+                dispatch(changeCategoryArray(user.category_selections))
+                dispatch(changeSavedVenuesArray(user.venue_selections))
+                dispatch(changeNameInput(user.name))
+                dispatch(changeUsernameInput(user.username))
+                dispatch(changeCityProfiles(user.city_profiles))
+            }
+            localStorage.setItem("token", data.jwt)
+            history.push('/profile')
+        })
     }
 
     return (

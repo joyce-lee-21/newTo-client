@@ -47,37 +47,60 @@ function SignUp() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(usernameInput, passwordInput, cityInput, nameInput)
-        async function signup(){
-            const res = await fetch("http://localhost:3000/users", {
-                method: "POST",
-                headers: {
+        // async function signup(){
+        //     const res = await fetch("http://localhost:3000/users", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ 
+        //             name: nameInput, 
+        //             city: cityInput,                         
+        //             username: usernameInput, 
+        //             password: passwordInput 
+        //             }),
+        //     })
+        //     if(res.ok){
+        //         const result = await res.json()
+        //         const user = result.user
+        //         dispatch(changeUser(user))
+        //         dispatch(changeCitySelection(user.city_profiles[0]))
+        //         dispatch(changeNameInput(user.name))
+        //         dispatch(changeUsernameInput(user.username))
+        //         dispatch(changeCityProfiles(user.city_profiles))
+        //         localStorage.token = result.token
+        //         history.push('/profile')
+        //     } else {
+        //         const err = await res.json()
+        //         console.log(err)
+        //         setErrors(err.errors)
+        //     }
+        // };
+        // signup();
+        fetch("http://localhost:3000/users", {
+            method: "POST",
+            headers: {
                 "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ 
-                    name: nameInput, 
-                    city: cityInput,                         
-                    username: usernameInput, 
-                    password: passwordInput 
-                    }),
-            })
-            if(res.ok){
-                const result = await res.json()
-                const user = result.user
-                dispatch(changeUser(user))
-                dispatch(changeCitySelection(user.city_profiles[0]))
-                dispatch(changeNameInput(user.name))
-                dispatch(changeUsernameInput(user.username))
-                dispatch(changeCityProfiles(user.city_profiles))
-                localStorage.token = result.token
-                history.push('/profile')
-            } else {
-                const err = await res.json()
-                console.log(err)
-                console.log(errors)
-                setErrors(err.error)
-            }
-        };
-        signup();
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({ 
+                name: nameInput, 
+                city: cityInput,                         
+                username: usernameInput, 
+                password: passwordInput 
+                }),
+        })
+        .then(res => res.json())
+        .then(data => {
+            const user = data.user
+            dispatch(changeUser(user))
+            dispatch(changeCitySelection(user.city_profiles[0]))
+            dispatch(changeNameInput(user.name))
+            dispatch(changeUsernameInput(user.username))
+            dispatch(changeCityProfiles(user.city_profiles))
+            localStorage.setItem("token", data.jwt)
+            history.push('/profile')
+        })
     }
 
     return (

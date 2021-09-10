@@ -15,12 +15,16 @@ import Typography from '@material-ui/core/Typography';
 
 // ***---V1 CODE---***
 import {
+  changePasswordInput, 
+  changeUsernameInput, 
+  changeNameInput, 
   changeUser, 
   changeCitySelection, 
   changeCategoryArray, 
   changeSavedVenuesArray, 
-  changeIsLoggedIn,
-  changeCityProfiles,
+  changeIsLoggedIn, 
+  changeCityProfiles, 
+  changeCompletedVenuesArray,
   changeClasses,
 } from '../usersSlice';
 
@@ -145,6 +149,41 @@ function App() {
 
   dispatch(changeClasses(classes))
 
+  // ***---CODE FOR SESSION PERSIST SOLUTION W/ JWT (V4)---***
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      fetch("http://localhost:3000/auto_login", {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      .then(r => r.json())
+      .then(user => {
+        // console.log('App useEffect fetch:', user)
+        dispatch(changeUser(user))
+        dispatch(changeIsLoggedIn(true))
+        if (user.cities.length === 1) {
+          dispatch(changeCitySelection(user.city_profiles[0]))
+          dispatch(changeCategoryArray(user.category_selections[0]))
+          dispatch(changeSavedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed !== true)))
+          dispatch(changeCompletedVenuesArray(user.venue_selections[0].filter(v=> v.is_completed === true)))
+          dispatch(changeNameInput(user.name))
+          dispatch(changeUsernameInput(user.username))
+          dispatch(changeCityProfiles(user.city_profiles[0]))
+        }
+        else {
+          dispatch(changeCategoryArray(user.category_selections))
+          dispatch(changeSavedVenuesArray(user.venue_selections))
+          dispatch(changeNameInput(user.name))
+          dispatch(changeUsernameInput(user.username))
+          dispatch(changeCityProfiles(user.city_profiles))
+        }
+      });
+    }
+  }, []);
+
   // ***---CODE FOR WIP SESSION PERSIST SOLUTION (V2)---***
 
   // const isLoggedIn = useSelector(state => state.isLoggedIn);
@@ -179,42 +218,43 @@ function App() {
   //   })
   // }
 
-  // ***---CODE FOR SESSION NOT PERSISTING (V1) ---***
+  // ***---CODE FOR SESSION NOT PERSISTING (V1/V3) ---***
 
-  useEffect(() => {
-    // console.log(localStorage.token)
-    if (localStorage.token) {
-      fetch("http://localhost:3000/me", {
-        method: "GET",
-        // credentials: "include"
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.token}`
-        }
-      })
-      .then((r) => {
-        if (r.ok) {
-          r.json()
-          .then((user) => {
-            // console.log('App useEffect fetch:', user)
-            dispatch(changeUser(user))
-            dispatch(changeIsLoggedIn(true))
-            if (user.cities.length === 1) {
-              dispatch(changeCitySelection(user.cities[0]))
-              dispatch(changeCategoryArray(user.category_selections))
-              dispatch(changeSavedVenuesArray(user.venue_selections))
-              dispatch(changeCityProfiles(user.city_profiles))
-            }
-            else {
-                dispatch(changeCategoryArray(user.category_selections))
-                dispatch(changeSavedVenuesArray(user.venue_selections))
-                dispatch(changeCityProfiles(user.city_profiles))
-            }
-          });
-        }
-      })
-    }
-  }, []);
+  // useEffect(() => {
+  //   // console.log(localStorage.token)
+  //   if (localStorage.token) {
+  //     fetch("http://localhost:3000/me", {
+  //       method: "GET",
+  //       // credentials: "include"
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         // "Authorization": `Bearer ${localStorage.token}` -- V3
+  //         "Authorization": `Bearer ${jwt-token}`
+  //       }
+  //     })
+  //     .then((r) => {
+  //       if (r.ok) {
+  //         r.json()
+  //         .then((user) => {
+  //           // console.log('App useEffect fetch:', user)
+  //           dispatch(changeUser(user))
+  //           dispatch(changeIsLoggedIn(true))
+  //           if (user.cities.length === 1) {
+  //             dispatch(changeCitySelection(user.cities[0]))
+  //             dispatch(changeCategoryArray(user.category_selections))
+  //             dispatch(changeSavedVenuesArray(user.venue_selections))
+  //             dispatch(changeCityProfiles(user.city_profiles))
+  //           }
+  //           else {
+  //               dispatch(changeCategoryArray(user.category_selections))
+  //               dispatch(changeSavedVenuesArray(user.venue_selections))
+  //               dispatch(changeCityProfiles(user.city_profiles))
+  //           }
+  //         });
+  //       }
+  //     })
+  //   }
+  // }, []);
 
   // console.log(process.env.REACT_APP_FOURSQUARE_CLIENT_SECRET)
 

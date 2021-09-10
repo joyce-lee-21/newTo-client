@@ -104,7 +104,6 @@ function VenueList() {
                     // console.log(data)
                 })
         })
-
     }
     // STRETCH GOAL AFTER SECONDARY CATEGORIES BROUGHT IN
     const onCategoryFilter = (e) => {
