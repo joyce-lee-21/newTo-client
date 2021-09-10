@@ -25,8 +25,6 @@ const useStyles = makeStyles({
   });
 
 function ViewCompleted() {
-    const dispatch = useDispatch();
-    const history = useHistory();
     const classes = useStyles();
     const completedVenuesArray = useSelector(state => state.completedVenuesArray);
     
