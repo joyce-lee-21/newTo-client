@@ -4,7 +4,6 @@ import {useHistory} from 'react-router-dom';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
@@ -109,10 +108,8 @@ function ViewCategoryList() {
                     </Paper>
                 ))}
             </Grid>
-            {/* <Grid container classname={classes.catButtons}> */}
-                <CategoryViewResultsButton onClick={()=>history.push("/results")}>Go to Results</CategoryViewResultsButton>
-                <CatResetButton onClick={onReset}>Reset Selections</CatResetButton>
-            {/* </Grid> */}
+            <CategoryViewResultsButton onClick={()=>history.push("/results")}>Go to Results</CategoryViewResultsButton>
+            <CatResetButton onClick={onReset}>Reset Selections</CatResetButton>
         </>
     );
 }
