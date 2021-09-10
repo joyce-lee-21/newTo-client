@@ -10,8 +10,8 @@ import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
     root: {
-        width: 200,
-        height: 120,
+        width: '25%',
+        height: '120px',
         textAlign: 'center',
         alignItems: 'center',
         backgroundColor: '#d9d1b2',
