@@ -6,7 +6,6 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -91,76 +90,55 @@ function ViewVenueItem({venue}) {
 
     const onCompleted = (e, venue) => {
       setChecked(true)
-      async function completedVenue(){
-          const res = await fetch(`http://localhost:3000/saved_venues/${venue.id}`, {
-              method: "PATCH",
-              headers: {
-              "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ 
-                  venue: {
-                      is_completed: true,   
-                  }          
-              }),
-          })
-          if(res.ok){
-              const venue = await res.json()
-              console.log(venue)
-              dispatch(changeCompletedVenuesArray([...completedVenuesArray, venue]))
-              dispatch(changeSavedVenuesArray(savedVenuesArray.filter(v=>v.id !== venue.id)))
-          } else {
-              const err = await res.json()
-              console.log(err.errors)
-          }
-      };
-      completedVenue();
+      fetch(`http://localhost:3000/saved_venues/${venue.id}`, {
+        method: "PATCH",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            venue: {
+                is_completed: true,   
+            }          
+        }),
+      })
+      .then(r => r.json())
+      .then(venue => {
+        // console.log(venue)
+        dispatch(changeCompletedVenuesArray([...completedVenuesArray, venue]))
+        dispatch(changeSavedVenuesArray(savedVenuesArray.filter(v=>v.id !== venue.id)))
+      })
+      .catch(errors => console.log(errors))
     }
 
     return (
         <>
-            {/* <Paper elevation={2} className={classes.root}>
-              <p style={{fontWeight: "bold"}}>{venue.name}
-              <br></br>
-              {venue.rating}
-              <br></br>
-              {venue.address}</p>
-              {venue.url 
-                ? (<a href={venue.url}>{`Visit Website`}</a>)
-                : null
-              }
-              <br></br>
-              <VenueViewButton onClick={(e)=>onRemove(e, venue)}>Remove</VenueViewButton>
-              <Button onClick={(e)=>onCompleted(e, venue)}>
-                {checked ? <CheckCircleIcon/> : <CheckCircleOutlineIcon/>}
-              </Button>
-            </Paper> */}
-            <Card className={classes.root}>
-                <CardContent style={{height: '120px', padding: '5px'}}>
-                  <Typography className={classes.content}>
-                      <div style={{marginTop: '15px'}}>
-                          <p style={{fontWeight: 'bold'}}>{venue.name}</p>
-                          <p>
-                              {venue.address}
-                              <br></br>
-                              {venue.url ? (<a href={venue.url} target="_blank" rel="noreferrer noopener">{`Visit Website`}</a>) : null}
-                              <br></br>
-                              {venue.category 
-                                ? venue.category.map(cat => 
-                                  (<Card key={cat.id} className={classes.cardCatSquare}>{cat.name}</Card>)) 
-                                : null}
-                          </p> 
-                      </div>
-                  </Typography>
-                </CardContent>
-                <CardActions className={classes.social}>
-                  <div>
-                    <VenueViewButton onClick={(e)=>onRemove(e, venue)}>Remove</VenueViewButton>
-                    <Button onClick={(e)=>onCompleted(e, venue)}>
-                      {checked ? <CheckCircleIcon style={{fontSize: 32}}/> : <CheckCircleOutlineIcon style={{fontSize: 32}}/>}
-                    </Button>
-                  </div>
-                </CardActions>
-            </Card>
+          <Card className={classes.root}>
+              <CardContent style={{height: '120px', padding: '5px'}}>
+                <Typography className={classes.content}>
+                    <div style={{marginTop: '15px'}}>
+                        <p style={{fontWeight: 'bold'}}>{venue.name}</p>
+                        <p>
+                            {venue.address}
+                            <br></br>
+                            {venue.url ? (<a href={venue.url} target="_blank" rel="noreferrer noopener">{`Visit Website`}</a>) : null}
+                            <br></br>
+                            {venue.category 
+                              ? venue.category.map(cat => 
+                                (<Card key={cat.id} className={classes.cardCatSquare}>{cat.name}</Card>)) 
+                              : null}
+                        </p> 
+                    </div>
+                </Typography>
+              </CardContent>
+              <CardActions className={classes.social}>
+                <div>
+                  <VenueViewButton onClick={(e)=>onRemove(e, venue)}>Remove</VenueViewButton>
+                  <Button onClick={(e)=>onCompleted(e, venue)}>
+                    {checked ? <CheckCircleIcon style={{fontSize: 32}}/> : <CheckCircleOutlineIcon style={{fontSize: 32}}/>}
+                  </Button>
+                </div>
+              </CardActions>
+          </Card>
         </>
     );
 }

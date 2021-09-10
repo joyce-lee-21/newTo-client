@@ -1,9 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {changeCategoryArray, changeSelectedCategoryArray} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -25,32 +23,6 @@ const useStyles = makeStyles({
         justifyContent: 'center',
     },
   });
-
-// const CompletedViewButton = withStyles({
-//     root: {
-//       boxShadow: 'none',
-//       fontSize: 14,
-//       border: '1px solid',
-//       lineHeight: 1.5,
-//       backgroundColor: '#9fcbb4',
-//       borderColor: '#9fcbb4',
-//       padding: '6px 15px',
-//       margin: '10px',
-//       '&:hover': {
-//         backgroundColor: '#9fcbb4',
-//         borderColor: '#9fcbb4',
-//         boxShadow: 'none',
-//       },
-//       '&:active': {
-//         boxShadow: 'none',
-//         backgroundColor: '#9fcbb4',
-//         borderColor: '#9fcbb4',
-//       },
-//       '&:focused': {
-//         boxShadow: '0 0 0 0.2rem #9fcbb4',
-//       },
-//     },
-//   })(Button);
 
 function ViewCompleted() {
     const dispatch = useDispatch();
@@ -75,7 +47,6 @@ function ViewCompleted() {
                     </Card>
                 ))}
             </Grid>
-            {/* <CompletedViewButton onClick={()=>history.push("/results")}>Go to Results</CompletedViewButton> */}
         </>
     );
 }
