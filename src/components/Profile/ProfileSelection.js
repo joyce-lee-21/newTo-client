@@ -3,7 +3,6 @@ import {
     changeCategoryArrFirst, 
     changeSelectCategoryArray, 
     changeSelectedCategoryArray,
-    changeVenuesResultsArray,
     changeResCategoryArray,
     changeCategoryArray, 
     fetchPrimaryCats, 
@@ -14,7 +13,7 @@ import SelectCategoryList from './SelectCategoryList';
 import SelectedCategoryList from './SelectedCategoryList';
 
 import Grid from '@material-ui/core/Grid';
-import { withStyles, useTheme, makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {
     CategoryProvider,
@@ -33,14 +32,6 @@ const useStyles = makeStyles({
     catActive: {
         display: 'flex',
         justifyContent: 'flex-start',
-        '&:active': {
-            textDecoration: 'underline #9fcbb4',
-            // backgroundColor: '#9fcbb4',
-        },
-        '&:focused': {
-            textDecoration: 'underline #9fcbb4',
-            // backgroundColor: '#9fcbb4',
-        },
         '&:hover': {
             textDecoration: 'underline #9fcbb4',
         },
@@ -101,49 +92,16 @@ const LoadButtons = withStyles({
     },
   })(Button);
 
-//   const CatButtons = withStyles({
-//     root: {
-//       boxShadow: 'none',
-//       fontSize: 14,
-//       border: '1px solid',
-//       lineHeight: 1.5,
-//       backgroundColor: '#9fcbb4',
-//       borderColor: '#9fcbb4',
-//       padding: '6px 15px',
-//       margin: '10px',
-//       '&:hover': {
-//         backgroundColor: '#9fcbb4',
-//         borderColor: '#9fcbb4',
-//         boxShadow: 'none',
-//       },
-//       '&:active': {
-//         boxShadow: 'none',
-//         backgroundColor: '#9fcbb4',
-//         borderColor: '#9fcbb4',
-//       },
-//       '&:focused': {
-//         boxShadow: '0 0 0 0.2rem #9fcbb4',
-//       },
-//     },
-//   })(Button);
-
 function ProfileSelection() {
     const dispatch = useDispatch();
     const selectCategoryArray = useSelector(state => state.selectCategoryArray);
     const selectedCategoryArray = useSelector(state => state.selectedCategoryArray);
     const primaryCategories = useSelector(state => state.primaryCategories);
     const filterByPrimaryCategory = useSelector(state => state.filterByPrimaryCategory);
-    const categoryArray = useSelector(state => state.selectedCategoryArray);
     const resCategoryArray = useSelector(state => state.resCategoryArray);
-    const venuesResultsArray = useSelector(state => state.venuesResultsArray);
     const categoryArrFirst = useSelector(state => state.categoryArrFirst);
     const categoryArrLength = useSelector(state => state.categoryArrLength);
     const citySelection = useSelector(state => state.citySelection);
-    const client_id = useSelector(state => state.clientId);
-    const client_secret = useSelector(state => state.clientSecret);
-    const version = useSelector(state => state.version);
-    const near = citySelection.city;
-    const [errors, setErrors] = useState([]);
     const [index, setIndex] = useState(0);
     const classes = useStyles();
 
@@ -161,40 +119,18 @@ function ProfileSelection() {
             })
             if(res.ok){
                 const arr = await res.json()
-                // console.log(arr)
                 arr.forEach((cat) => {
                     secondary_categories.push(cat)
                 })
-                // console.log(secondary_categories)
                 dispatch(changeSelectCategoryArray(secondary_categories)) 
                 dispatch(changeResCategoryArray(secondary_categories))
             } else {
                 const err = await res.json()
-                // console.log(err.errors)
-                setErrors(err.errors)
+                console.log(err.errors)
             }
         };
         categories()
     }, [categoryArrFirst || filterByPrimaryCategory])
-
-    // async function fsVenue(){
-    //     const venueArray = [];
-
-    //     const res = await fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=3&categoryId=${cat.fs_category_id}`)
-
-    //     if (res.ok) {
-    //         const data = await res.json()
-    //         const vArr = data.response.groups[0].items
-    //         // const mapCenter = data.response.geocode.center
-    //         // dispatch(changeMapCenter([mapCenter]))
-    //         // vArr.map(v=> venueArray.push(v.venue))
-    //         // dispatch(changeVenuesResultsArray([...venuesResultsArray, ...venueArray]))
-    //         console.log(vArr)
-    //     } else {
-    //         const err = await res.json()
-    //         console.log(err.errors)
-    //     }
-    // };
 
 
     const onSubmitClick = async () => {
@@ -222,38 +158,12 @@ function ProfileSelection() {
                 .catch(error => console.log(error))
             })
         };
-        // const fsVenue = async() => {
-        //     const venueArray = [];
-        //     categoryArray.forEach(cat => {
-
-        //         fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=3&categoryId=${cat.fs_category_id}`)
-    
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             const vArr = data.response.groups[0].items
-        //             // const mapCenter = data.response.geocode.center
-        //             // dispatch(changeMapCenter([mapCenter]))
-        //             vArr.map(v=> venueArray.push(v.venue))
-        //             dispatch(changeVenuesResultsArray([...venuesResultsArray, ...venueArray]))
-        //             // vArr.map(v=> console.log(v.venue))
-        //             console.log(venuesResultsArray)
-        //         })
-        //         .catch(error => console.log(error))
-        //     })
-        // };
-
-        // const fetches = [catArray, fsVenue]
         const fetches = [catArray]
 
         for (const fn of fetches) {
             await fn()
         }
     }
-
-    // const handleCategoryFilter = (e, cat) => {
-    //     dispatch(changeFilterByPrimaryCategory(cat.id))
-    //     dispatch(changeCategoryArrFirst(0))
-    // }
     
 
     const handleClick = (e, cat) => {
@@ -262,8 +172,6 @@ function ProfileSelection() {
         dispatch(changeFilterByPrimaryCategory(cat.id))
         dispatch(changeCategoryArrFirst(0))
     };
-
-    //   console.log(selectedCategoryArray)
     
     return (
         <>
@@ -271,37 +179,9 @@ function ProfileSelection() {
         <Grid item xs={10}>
             <Grid container>
                 <Grid item xs={3}>
-                    {/* <h5>Filter by category type:</h5> */}
-                    {/* <CatButtons onClick={(e, cat={id: 0})=>handleCategoryFilter(e, cat)}>All</CatButtons>
-                    {primaryCategories.map(cat=> (
-                        <CatButtons key={cat.id} onClick={(e)=>handleCategoryFilter(e, cat)}>{cat.name}</CatButtons>
-                    ))} */}
                     <CategoryProvider useStyles={useNikiCategoryMenuStyles}>
                         <Paper elevation={3} className={classes.catMenu}>
                             <h4>Filter by Category Type:</h4>
-                        {/* <FormControl className={classes.formControl}>
-                            <InputLabel shrink htmlFor="select-multiple-native">
-                            Filter by Category Type:
-                            </InputLabel>
-                            <Select
-                                multiple
-                                native
-                                value={cat}
-                                onChange={setCat(e.target.value)}
-                                inputProps={{
-                                    id: 'select-multiple-native',
-                                }}
-                            >
-                            <option value={"All"} onClick={(e, cat={id: 0})=>handleCategoryFilter(e, cat)}>
-                                All Categories
-                            </option>
-                            {primaryCategories.map((cat) => (
-                                <option key={cat.id} value={cat.name} onClick={(e, cat={id: 0})=>handleCategoryFilter(e, cat)}>
-                                {cat.name}
-                                </option>
-                            ))}
-                            </Select> 
-                        </FormControl>*/}
                         <CategoryItem className={classes.catActive} active={index === 0} 
                             onClick={(e, cat={id: 0})=>handleClick(e, cat)}
                         >
@@ -353,10 +233,6 @@ function ProfileSelection() {
                         </Grid>
                         <LoadButtons onClick={()=>onSubmitClick()}>Save</LoadButtons>
                     </Paper>
-                    {/* {selectedCategoryArray.map(selection => {
-                        <SelectedCategoryList key={selection.id} selection={selection}/>
-                    })} */}
-                    
                 </Grid>
             </Grid>
         </Grid>

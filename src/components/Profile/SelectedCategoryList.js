@@ -1,13 +1,10 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {useEffect} from 'react';
 import {changeSelectedCategoryArray, changeSelectCategoryArray} from '../../usersSlice';
 
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import ClearIcon from '@material-ui/icons/Clear';
 
-// const ProfileSelectButton = withStyles({
 const useStyles = makeStyles({
     root: {
         fontSize: 14,
@@ -42,14 +39,11 @@ const useStyles = makeStyles({
     }
   });
 
-function SelectedCategoryList({selection}) {
+function SelectedCategoryList() {
     const dispatch = useDispatch();
     const classes = useStyles();
     const selectedCategoryArray = useSelector(state => state.selectedCategoryArray);
     const selectCategoryArray = useSelector(state => state.selectCategoryArray);
-
-    // console.log("SelectedCategoryList is here!")
-    // console.log(selectedCategoryArray)
 
     return (
         <>
@@ -64,11 +58,6 @@ function SelectedCategoryList({selection}) {
                 <ClearIcon className={classes.remove}/> 
                 </Paper>)
             )}
-            {/* <ProfileSelectButton 
-                id={selection.id} 
-                >
-                    {selection.name}
-            </ProfileSelectButton> */}
         </>
     );
        
