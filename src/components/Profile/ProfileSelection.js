@@ -42,7 +42,7 @@ const useStyles = makeStyles({
         borderBottomRightRadius: 0,
         borderTopRightRadius: 0,
         borderTopLeftRadius: 5,
-        borderBottomLeftRadius: 5,
+        borderBottomLeftRadius: 0,
         minHeight: '500px',
     },
     catArray: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         flexDirection: 'column',
         padding: '20px',
-        borderBottomRightRadius: 5,
+        borderBottomRightRadius: 0,
         borderTopRightRadius: 5,
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0,
@@ -68,6 +68,7 @@ const useStyles = makeStyles({
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
         minHeight: '200px',
+        marginBottom: '30px',
     },
 });
 
@@ -110,7 +111,6 @@ function ProfileSelection() {
     useEffect(() => {
         dispatch(fetchPrimaryCats());
         async function categories(){
-            // console.log(filterByPrimaryCategory)
             const res = await fetch(`http://localhost:3000/categories/list/${filterByPrimaryCategory}/${categoryArrFirst}&${categoryArrLength}`, {
                 method: "GET",
                 headers: {

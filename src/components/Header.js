@@ -135,7 +135,7 @@ function Header() {
                             </>
                             }
                             <NavItem as={'div'} active={index === 4} onClick={handleClick(4)}>
-                                <NavLink to="/logout" style={{ textDecoration: 'none', color: 'black' }}>
+                                <NavLink to="/" style={{ textDecoration: 'none', color: 'black' }}>
                                     <Typography onClick={()=>onLogout()}>Logout</Typography>
                                 </NavLink>
                             </NavItem>
