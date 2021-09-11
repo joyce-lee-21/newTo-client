@@ -22,11 +22,9 @@ const useStyles = makeStyles(() => ({
       color: 'black',
       '&:hover': {
         boxShadow: 'none',
-        // backgroundColor: '#9fcbb4',
       },
       '&:active': {
         boxShadow: 'none',
-        // backgroundColor: '#9fcbb4',
       },
       '&:focused': {
         boxShadow: '0 0 0 0.2rem',
@@ -64,7 +62,6 @@ function ProfileView() {
     const dispatch = useDispatch();
     const history = useHistory();
     const buttons = useStyles();
-    const classes = useSelector(state => state.classes);
     const profileView = useSelector(state => state.profileView);
     const [alignment, setAlignment] = useState('left');
 
@@ -81,7 +78,7 @@ function ProfileView() {
     return (
         <>
         <Grid item xs={1}></Grid>
-        <Grid item xs={10} className={classes.viewCategoryContainer}>
+        <Grid item xs={10} style={{alignItems: 'center', minHeight: '30vh'}}>
             <Paper className="category-container" elevation={3}>
                 <ChangeCityButton 
                     style={{display: 'flex', justifyContent: 'flex-start'}} 
@@ -99,9 +96,6 @@ function ProfileView() {
                     <ToggleButton className={buttons.toggle} value="center" onClick={()=>dispatch(changeProfileView("venues"))}>Venues</ToggleButton>
                     <ToggleButton className={buttons.toggle} value="right" onClick={()=>dispatch(changeProfileView("completed"))}>Completed</ToggleButton>
                 </ToggleButtonGroup> 
-                {/* <ProfileViewButton value="left" onClick={()=>dispatch(changeProfileView("categories"))}>Categories</ProfileViewButton>
-                <ProfileViewButton value="center" onClick={()=>dispatch(changeProfileView("venues"))}>Venues</ProfileViewButton>
-                <ProfileViewButton value="right" onClick={()=>dispatch(changeProfileView("completed"))}>Completed</ProfileViewButton> */}
                 {profileView === "categories"
                     ? (<ViewCategoryList />)
                     : profileView === "venues"
@@ -109,7 +103,6 @@ function ProfileView() {
                         : (<ViewCompleted />)
                 }
             </Paper>
-            {/* <ProfileViewButton onClick={()=>onChangeCity()}><strong>Change City</strong></ProfileViewButton> */}
         </Grid>
         </>
     );

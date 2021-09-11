@@ -75,7 +75,6 @@ function ProfileCity() {
     const getCityProfile = (e, profile) => {
         // console.log(profile)
         async function select(){
-            // fetch category_selection based on city_profile id from button id
             const res = await fetch(`http://localhost:3000/city_profiles/${profile.id}`, {
                 method: "GET",
                 headers: {
@@ -100,18 +99,17 @@ function ProfileCity() {
 
     const onAddCity = (e) => {
         // console.log(e)
-        const c = {
+        const cityInfo = {
             user_id: user.id, 
             city: cityInput
         }
         async function addCity(){
-            // fetch category_selection based on city_profile id from button id
             const res = await fetch(`http://localhost:3000/city_profiles/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({profile: c})
+                body: JSON.stringify({profile: cityInfo})
             })
             if(res.ok){
                 const newCity = await res.json()
@@ -135,24 +133,19 @@ function ProfileCity() {
         <>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>
-            {/* <Grid container> */}
-                {/* <Grid> */}
-                    <h1>Select a city:</h1> 
-                    {cityProfiles.map(profile => (
-                        <ProfileCityButton key={profile.id} id={profile.id} onClick={(e)=>getCityProfile(e, profile)}>{profile.city}</ProfileCityButton>
-                    ))}
-                {/* </Grid> */}
-                <Grid >
-                {/* <br></br> */}
-                    {addCity 
-                        ? <div className="add-city-container">
-                            <TextField type="text" name="city" className={classes.addCity} onChange={(e)=>dispatch(changeCityInput(e.target.value))}></TextField>
-                            <AccountButton style={{width: '50%'}} onClick={(e)=>onAddCity(e)}>Add</AccountButton>
-                        </div>
-                        : <AccountButton onClick={()=>dispatch(changeAddCity(true))}>Add New City</AccountButton>
-                    }
-                </Grid>
-            {/* </Grid> */}
+            <h1>Select a city:</h1> 
+            {cityProfiles.map(profile => (
+                <ProfileCityButton key={profile.id} id={profile.id} onClick={(e)=>getCityProfile(e, profile)}>{profile.city}</ProfileCityButton>
+            ))}
+        <Grid >
+            {addCity 
+                ? <div className="add-city-container">
+                    <TextField type="text" name="city" className={classes.addCity} onChange={(e)=>dispatch(changeCityInput(e.target.value))}></TextField>
+                    <AccountButton style={{width: '50%'}} onClick={(e)=>onAddCity(e)}>Add</AccountButton>
+                </div>
+                : <AccountButton onClick={()=>dispatch(changeAddCity(true))}>Add New City</AccountButton>
+            }
+        </Grid>
         </Grid>
         </>
     );

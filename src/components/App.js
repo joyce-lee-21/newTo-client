@@ -108,10 +108,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '10px',
     backgroundColor: 'white',
   },
-  viewCategoryContainer: {
-    alignItems: "center",
-    minHeight: '30vh',
-  },
   categoryView: {
     height: '70px',
     width: '100%',
@@ -131,9 +127,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexDirection: 'row',
     padding: '5px',
-  },
-  venueList: {
-    justifyContent: 'center'
   },
   savedCatArray: {
     justifyContent: 'center'

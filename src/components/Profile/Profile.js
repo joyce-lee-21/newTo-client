@@ -15,12 +15,10 @@ function Profile() {
 
     return (
         <Grid container>
-            {/* if there is more than one city profile, and one has not been selected */}
+            {/* if there is more than one city profile, and one has not been selected OR addSecondCity is true from "Change City" button*/}
             {(cityProfiles && cityProfiles.length > 1 && !citySelection) || (addSecondCity)
                 ? <ProfileCity />
                 // if a city profile is selected, and there are category selections saved
-                // : addSecondCity 
-                //     ? <ProfileCity />
                     : categoryArray && categoryArray.length >= 1
                         ? <ProfileView />
                         // otherwise, user will select categories for that selected city profile
