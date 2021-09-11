@@ -104,6 +104,7 @@ function ProfileSelection() {
     const categoryArrLength = useSelector(state => state.categoryArrLength);
     const citySelection = useSelector(state => state.citySelection);
     const [index, setIndex] = useState(0);
+    const [errors, setErrors] = useState([]);
     const classes = useStyles();
 
     const secondary_categories = [];
@@ -134,38 +135,41 @@ function ProfileSelection() {
 
 
     const onSubmitClick = async () => {
-        dispatch(changeCategoryArray(selectedCategoryArray))
-        const catArray = async() => {
-            selectedCategoryArray.forEach(cat => {
-                const selection = {
-                    name: cat.name, 
-                    city_profile_id: citySelection.id,
-                    fs_category_id: cat.fs_category_id,
-                    primary_category_id: cat.primary_category_id
-                }
-                fetch(`http://localhost:3000/category_selections/`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({category_selection: selection}),
+        if (selectedCategoryArray.length <= 5) {
+            dispatch(changeCategoryArray(selectedCategoryArray))
+            const catArray = async() => {
+                selectedCategoryArray.forEach(cat => {
+                    const selection = {
+                        name: cat.name, 
+                        city_profile_id: citySelection.id,
+                        fs_category_id: cat.fs_category_id,
+                        primary_category_id: cat.primary_category_id
+                    }
+                    fetch(`http://localhost:3000/category_selections/`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({category_selection: selection}),
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(`category_selection added: ${data}`)
+                        dispatch(changeSelectedCategoryArray([]))
+                    })
+                    .catch(error => console.log(error))
                 })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(`category_selection added: ${data}`)
-                    dispatch(changeSelectedCategoryArray([]))
-                })
-                .catch(error => console.log(error))
-            })
-        };
-        const fetches = [catArray]
+            };
+            const fetches = [catArray]
 
-        for (const fn of fetches) {
-            await fn()
+            for (const fn of fetches) {
+                await fn()
+            }
+        } else {
+            setErrors("Please limit your category selections to 5 total.")
         }
     }
     
-
     const handleClick = (e, cat) => {
         e.preventDefault();
         setIndex(cat.id);
@@ -228,6 +232,7 @@ function ProfileSelection() {
                 <Grid item xs={12}>
                     <Paper elevation={3} className={classes.selections}>
                         <h4>Category Selections</h4>
+                        {errors ? (<p style={{color: 'red'}}>{`${errors}`}</p>) : null}
                         <Grid container style={{justifyContent: 'center'}}>
                             <SelectedCategoryList />
                         </Grid>

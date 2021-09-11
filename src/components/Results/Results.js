@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react'
-import {changeVenuesResultsArray, changeMapCenter, changeVenuesDetailsArray} from '../../usersSlice';
+import {changeVenuesResultsArray, changeMapCenter} from '../../usersSlice';
 import VenueList from './VenueList';
 
 import Grid from '@material-ui/core/Grid';

@@ -74,7 +74,7 @@ const VenueViewButton = withStyles({
     },
   })(Button);
 
-function ViewVenueItem({venue}) {
+function ViewVenuesItem({venue}) {
     const dispatch = useDispatch();
     const classes = useStyles();
     const savedVenuesArray = useSelector(state => state.savedVenuesArray);
@@ -103,7 +103,6 @@ function ViewVenueItem({venue}) {
       })
       .then(r => r.json())
       .then(venue => {
-        // console.log(venue)
         dispatch(changeCompletedVenuesArray([...completedVenuesArray, venue]))
         dispatch(changeSavedVenuesArray(savedVenuesArray.filter(v=>v.id !== venue.id)))
       })
@@ -143,4 +142,4 @@ function ViewVenueItem({venue}) {
     );
 }
     
-export default ViewVenueItem;
+export default ViewVenuesItem;
