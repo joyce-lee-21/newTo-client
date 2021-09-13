@@ -21,7 +21,7 @@ function Results() {
         }
     }, [])
 
-    const venueFetch = async () => {
+    const venueFetch = () => {
         dispatch(changeVenuesResultsArray([]))
         const venueArray = [];
         categoryArray.forEach(cat => {

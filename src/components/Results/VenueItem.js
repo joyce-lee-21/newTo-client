@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react'
 import {changeSavedVenuesArray} from '../../usersSlice';
 
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -61,8 +61,7 @@ const useStyles = makeStyles(() => ({
 
 function VenueItem({venue}) {
     const dispatch = useDispatch();
-    const classes = useSelector(state => state.classes);
-    const cards = useStyles();
+    const classes = useStyles();
     const savedVenuesArray = useSelector(state => state.savedVenuesArray);
     const citySelection = useSelector(state => state.citySelection);
     const [hearted, setHearted] = useState(false);
@@ -81,44 +80,36 @@ function VenueItem({venue}) {
             long: venue.location.lng,
             category: venue.categories[0].name
         }
-        async function heartLike(){
-            const res = await fetch("http://localhost:3000/saved_venues", {
-                method: "POST",
-                headers: {
-                "Content-Type": "application/json",
-                },
-                body: JSON.stringify({venue: v}),
-            })
-            if(res.ok){
-                const venue = await res.json()
-                // console.log(venue)
-                dispatch(changeSavedVenuesArray([...savedVenuesArray, {
-                    id: venue.id,
-                    city_profile_id: venue.city_profile_id,
-                    name: venue.name,
-                    address: venue.address,
-                    url: venue.url,
-                    rating: venue.rating,
-                    fs_venue_id: venue.fs_venue_id,
-                    lat: venue.lat,
-                    long: venue.long,
-                    category: venue.category,
-                    is_completed: false,
-                }]))
-            } else {
-                const err = await res.json()
-                console.log(err.errors)
-            }
-        };
-        heartLike();
-        console.log("Hearted!")
+        fetch("http://localhost:3000/saved_venues", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({venue: v}),
+        })
+        .then(res => res.json())
+        .then(venue => {
+            dispatch(changeSavedVenuesArray([...savedVenuesArray, {
+                id: venue.id,
+                city_profile_id: venue.city_profile_id,
+                name: venue.name,
+                address: venue.address,
+                url: venue.url,
+                rating: venue.rating,
+                fs_venue_id: venue.fs_venue_id,
+                lat: venue.lat,
+                long: venue.long,
+                category: venue.category,
+                is_completed: false,
+            }]))
+        })
     }
 
     return (
         <Grid item xs={4}>
-            <Card className={cards.root}>
+            <Card className={classes.root}>
                 <CardContent>
-                    <Typography className={cards.content} color="textSecondary" gutterBottom>
+                    <Typography className={classes.content} color="textSecondary" gutterBottom>
                         <div>
                             <p style={{fontWeight: 'bold'}}>{venue.name}</p>
                             <p>
@@ -129,18 +120,18 @@ function VenueItem({venue}) {
                                 {venue.url ? (<a href={venue.url} target="_blank" rel="noreferrer noopener">{`Visit Website`}</a>) : null}
                             </p> 
                             {'Rating: '}
-                            <span className={cards.ratingSquare}>
+                            <span className={classes.ratingSquare}>
                                 {venue.rating ? venue.rating.toFixed(1) : "N/A"}
                             </span>
                         </div>
-                        <div className={cards.catDiv}>
+                        <div className={classes.catDiv}>
                             {venue.categories.map(cat => 
-                                (<Card key={cat.id} className={cards.catSquare}>{cat.name}</Card>)
+                                (<Card key={cat.id} className={classes.catSquare}>{cat.name}</Card>)
                             )}
                         </div>
                     </Typography>
                 </CardContent>
-                <CardActions className={cards.social}>
+                <CardActions className={classes.social}>
                     <div>
                         <Button onClick={(e)=>onHeart(e, venue)}>
                             {hearted ? <FavoriteIcon style={{fontSize: '36px'}}/> :<FavoriteBorderIcon style={{fontSize: '36px'}}/>}
@@ -173,67 +164,6 @@ function VenueItem({venue}) {
                 </CardActions>
             </Card>
         </Grid>
-        // <Grid container className={classes.resultsList}>
-        //     <Grid item xs={1}>
-                // <Button onClick={(e)=>onHeart(e, venue)}>
-                //     {hearted ? <FavoriteIcon style={{fontSize: '36px'}}/> :<FavoriteBorderIcon style={{fontSize: '36px'}}/>}
-                // </Button>
-        //     </Grid>
-        //     <Grid item xs={3}>
-                // <div>
-                //     <p style={{fontWeight: 'bold'}}>{venue.name}</p>
-                //     <p>
-                //         {venue.location.address}
-                //         <br></br>
-                //         {venue.contact.formattedPhone}
-                //         <br></br>
-                //         {venue.url ? (<a href={venue.url}>{`Visit Website`}</a>) : null}
-                //     </p>
-                // </div>
-        //     </Grid>
-        //     <Grid item xs={4} className={classes.results2List}>
-        //         <div>
-        //             <div>
-        //                 {'Rating: '}
-        //                 <span className={classes.ratingSquare}>
-        //                     {venue.rating ? venue.rating.toFixed(1) : "N/A"}
-        //                 </span>
-                        // <div className="social-icons">
-                        //     {venue.contact.twitter 
-                        //         ? (<a href={`https://twitter.com/${venue.contact.twitter}`} target="_blank" rel="noreferrer noopener">
-                        //             <Button>
-                        //                 <TwitterIcon style={{fontSize: '28px'}}/>
-                        //             </Button>
-                        //         </a>) 
-                        //         : null
-                        //     }
-                        //     {venue.contact.instagram 
-                        //         ? (<a href={`https://www.instagram.com/${venue.contact.instagram}`} target="_blank" rel="noreferrer noopener">
-                        //             <Button>
-                        //                 <InstagramIcon style={{fontSize: '28px'}}/>
-                        //             </Button>
-                        //         </a>) 
-                        //         : null
-                        //     }
-                        //     {venue.contact.facebook 
-                        //         ? (<a href={`https://www.facebook.com/${venue.contact.facebook}`} target="_blank" rel="noreferrer noopener">
-                        //             <Button>
-                        //                 <FacebookIcon style={{fontSize: '28px'}}/>
-                        //             </Button>
-                        //         </a>) 
-                        //         : null
-                        //     }
-                        // </div>
-        //             </div>
-        //         </div>
-        //     </Grid>
-        //     <Grid item xs={3}>
-        //         <div>
-        //             {venue.categories.map(cat => (<p key={cat.id} className={classes.catSquare}>{cat.name}</p>))}
-        //         </div>
-        //     </Grid>
-        //     {/* <Grid item xs={2}></Grid> */}
-        // </Grid>
     );
 }
     
