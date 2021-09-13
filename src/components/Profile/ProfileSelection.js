@@ -111,60 +111,45 @@ function ProfileSelection() {
 
     useEffect(() => {
         dispatch(fetchPrimaryCats());
-        async function categories(){
-            const res = await fetch(`http://localhost:3000/categories/list/${filterByPrimaryCategory}/${categoryArrFirst}&${categoryArrLength}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-            if(res.ok){
-                const arr = await res.json()
-                arr.forEach((cat) => {
-                    secondary_categories.push(cat)
-                })
-                dispatch(changeSelectCategoryArray(secondary_categories)) 
-                dispatch(changeResCategoryArray(secondary_categories))
-            } else {
-                const err = await res.json()
-                console.log(err.errors)
-            }
-        };
-        categories()
+        fetch(`http://localhost:3000/categories/list/${filterByPrimaryCategory}/${categoryArrFirst}&${categoryArrLength}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then(res => res.json())
+        .then(arr => {
+            arr.forEach((cat) => secondary_categories.push(cat))
+            dispatch(changeSelectCategoryArray(secondary_categories)) 
+            dispatch(changeResCategoryArray(secondary_categories))
+        })
     }, [categoryArrFirst || filterByPrimaryCategory])
 
 
-    const onSubmitClick = async () => {
+    const onSubmitClick = () => {
         if (selectedCategoryArray.length <= 5) {
             dispatch(changeCategoryArray(selectedCategoryArray))
-            const catArray = async() => {
-                selectedCategoryArray.forEach(cat => {
-                    const selection = {
-                        name: cat.name, 
-                        city_profile_id: citySelection.id,
-                        fs_category_id: cat.fs_category_id,
-                        primary_category_id: cat.primary_category_id
-                    }
-                    fetch(`http://localhost:3000/category_selections/`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({category_selection: selection}),
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(`category_selection added: ${data}`)
-                        dispatch(changeSelectedCategoryArray([]))
-                    })
-                    .catch(error => console.log(error))
+            selectedCategoryArray.forEach(cat => {
+                const selection = {
+                    name: cat.name, 
+                    city_profile_id: citySelection.id,
+                    fs_category_id: cat.fs_category_id,
+                    primary_category_id: cat.primary_category_id
+                }
+                fetch(`http://localhost:3000/category_selections/`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({category_selection: selection}),
                 })
-            };
-            const fetches = [catArray]
-
-            for (const fn of fetches) {
-                await fn()
-            }
+                .then(res => res.json())
+                .then(data => {
+                    console.log(`category_selection added: ${data}`)
+                    dispatch(changeSelectedCategoryArray([]))
+                })
+                .catch(error => console.log(error))
+            })
         } else {
             setErrors("Please limit your category selections to 5 total.")
         }

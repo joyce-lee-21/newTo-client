@@ -1,10 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink, useHistory} from 'react-router-dom';
 import {useState} from 'react';
-// ***---V2 CODE---***
-// import {changeUser, changeIsLoggedIn} from '.././usersSlice';
 
-// ***---V1 CODE---***
 import {
     changeUser, 
     changeCitySelection, 
@@ -13,11 +10,10 @@ import {
     changeCompletedVenuesArray,
     changeNameInput,
     changeUsernameInput,
-    changePasswordInput,
     changeCityProfiles,
 } from '../usersSlice';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -26,7 +22,7 @@ import { usePointNavigationMenuStyles } from '@mui-treasury/styles/navigationMen
 import Typography from '@material-ui/core/Typography';
 
 
-  const TrendyButton = withStyles({
+const TrendyButton = withStyles({
     root: {
         minWidth: 120,
         transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
@@ -34,46 +30,37 @@ import Typography from '@material-ui/core/Typography';
         color: 'white',
         fontWeight: 'bold',
         '&:hover': {
-          transform: 'scale(1.1)',
+            transform: 'scale(1.1)',
         },
     },
-  })(Button);
+})(Button);
+
+const useStyles = makeStyles({
+    navbar: {
+        backgroundColor: 'white',
+        position: "fixed",
+        width: "100%",
+        height: '60px',
+        paddingTop: '5px',
+        zIndex: 1000,
+    },
+    logo: {
+        marginLeft: '20px',
+        textTransform: 'capitalize',
+        margin: '5px',
+    },
+});
 
 
 function Header() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
-    const classes = useSelector(state => state.classes)
+    const classes = useStyles();
     const citySelection = useSelector(state => state.citySelection);
     const history = useHistory();
     const [index, setIndex] = useState(1);
 
-
-    // ***---V2 CODE---***
-    // const onLogout = () => {
-    //     fetch("http://localhost:3000/logout", { 
-    //         method: "POST" 
-    //     })
-    //     .then((r) => {
-    //         if (r.ok) {
-    //             dispatch(changeUser(null))
-    //             dispatch(changeIsLoggedIn(false))
-    //             history.push("/")
-    //         }
-    //     });
-    // }
-    
-    // ***---V1 CODE---***
     const onLogout = () => {
-        // fetch("http://localhost:3000/logout", { 
-        //     method: "DELETE" 
-        // })
-        // .then((r) => {
-        //     if (r.ok) {
-        //         dispatch(changeUser(null))
-        //         history.push("/")
-        //     }
-        // });
         localStorage.clear()
         dispatch(changeUser(null))
         dispatch(changeCitySelection(""))

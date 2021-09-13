@@ -1,4 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
+import {useState} from 'react';
 import {
     changePasswordInput, 
     changeUsernameInput, 
@@ -61,7 +62,6 @@ const AccountButton = withStyles({
 
 function Account() {
     const dispatch = useDispatch();
-    const classes = useSelector(state => state.classes);
     const usernameInput = useSelector(state => state.usernameInput);
     const passwordInput = useSelector(state => state.passwordInput);
     const nameInput = useSelector(state => state.nameInput);
@@ -69,6 +69,7 @@ function Account() {
     const editStatus = useSelector(state => state.editStatus);
     const user = useSelector(state => state.user);
     const cityProfiles = useSelector(state => state.cityProfiles);
+    const [errors, setErrors] = useState([]);
 
 
     const handleSubmit = (e) => {
@@ -92,56 +93,19 @@ function Account() {
                 dispatch(changeEditStatus(false))
             } else {
                 const err = await res.json()
-                console.log(err.errors)
+                setErrors(err.errors)
             }
         };
         acctChange();
     }
 
     const onDeleteCity = (e, city) => {
-        console.log(city)
-        async function deleteCity(){
-            // fetch category_selection based on city_profile id from button id
-            await fetch(`http://localhost:3000/city_profiles/${city.id}`, {
-                method: "DELETE",
-            })
-            .then(dispatch(changeCityProfiles(cityProfiles.filter(cp=> cp.id !== city.id))))
-        };
-        deleteCity();
+        fetch(`http://localhost:3000/city_profiles/${city.id}`, {
+            method: "DELETE",
+        })
+        .then(dispatch(changeCityProfiles(cityProfiles.filter(cp => cp.id !== city.id))))
     }
 
-    // const onAddCity = (e) => {
-    //     console.log(e)
-    //     const c = {
-    //         user_id: user.id, 
-    //         city: cityInput
-    //     }
-    //     async function addCity(){
-    //         // fetch category_selection based on city_profile id from button id
-    //         const res = await fetch(`http://localhost:3000/city_profiles/`, {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({profile: c})
-    //         })
-    //         if(res.ok){
-    //             const newCity = await res.json()
-    //             const formatNewCity = {
-    //                 id: newCity.id,
-    //                 city: newCity.city,
-    //                 user_id: newCity.user_id
-    //             }
-    //             // console.log(newCity)
-    //             dispatch(changeCityProfiles([...cityProfiles, formatNewCity]))
-    //             dispatch(changeAddCity(false))
-    //         } else {
-    //             const err = await res.json()
-    //             setErrors(err.errors)
-    //         }
-    //     };
-    //     addCity();
-    // }
 
     return (
         <Grid container>
@@ -159,6 +123,7 @@ function Account() {
                         </div>)
                     :
                     <>
+                    {errors ? errors.map(e => (<p style={{color: 'red'}}>{`${errors}`}</p>)) : null}
                     <form onSubmit={(e)=>handleSubmit(e)}>
                         <h5>Name</h5>
                         <input type="text" name="name" style={{width: '70%'}} value={nameInput} onChange={(e)=>dispatch(changeNameInput(e.target.value))}></input>
@@ -176,15 +141,22 @@ function Account() {
             </Grid>
             <Grid item xs={4}>
                 <Paper className="account-container" elevation={3}>
-                    {cityProfiles.length > 1 ? <h1>Cities</h1> : <h1>City</h1>}
-                    {cityProfiles.map(city=>
-                        (<div key={city.id} className="city-edit-container">
-                        <p style={{width: "50%", display: 'inline'}}>{city.city}</p>
-                        <AccountCityDeleteButton onClick={(e)=>onDeleteCity(e, city)}>Delete</AccountCityDeleteButton>
-                        <br></br>
-                        </div>
+                    <h1>Cities</h1>
+                    {cityProfiles.length > 1 
+                        ? cityProfiles.map(city=>
+                            (<div key={city.id} className="city-edit-container">
+                            <p style={{width: "50%", display: 'inline'}}>{city.city}</p>
+                            <AccountCityDeleteButton onClick={(e)=>onDeleteCity(e, city)}>Delete</AccountCityDeleteButton>
+                            <br></br>
+                            </div>
+                            )
                         )
-                    )}
+                        : (<div className="city-edit-container">
+                            <p style={{width: "50%", display: 'inline'}}>{cityProfiles[0].city}</p>
+                            <AccountCityDeleteButton onClick={(e)=>onDeleteCity(e, cityProfiles)}>Delete</AccountCityDeleteButton>
+                            <br></br>
+                            </div>)
+                    }
                 </Paper>
             </Grid>
         </Grid>

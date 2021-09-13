@@ -3,7 +3,7 @@ import {changePasswordInput, changeUsernameInput, changeCityInput, changeNameInp
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react'
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
@@ -34,9 +34,31 @@ const HeaderButton = withStyles({
     },
   })(Button);
 
+  const useStyles = makeStyles({
+    login: {
+        flexDirection: 'column',
+        alignItems: "center",
+        justify: "center",
+        marginLeft: '30vw',
+        border: '1px solid black',
+        borderRadius: '5px',
+        width: '40vw',
+        backgroundColor: '#9fcbb4',
+    },
+    signupButton: {
+        marginBottom: '20px',
+    },
+    textFields: {
+        marginBottom: '30px', 
+        backgroundColor: 'white', 
+        borderRadius: '5px', 
+        width: '80%',
+    }
+});
+
 function SignUp() {
     const dispatch = useDispatch();
-    const classes = useSelector(state => state.classes);
+    const classes = useStyles();
     const history = useHistory();
     const usernameInput = useSelector(state => state.usernameInput);
     const passwordInput = useSelector(state => state.passwordInput);
@@ -46,61 +68,36 @@ function SignUp() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(usernameInput, passwordInput, cityInput, nameInput)
-        // async function signup(){
-        //     const res = await fetch("http://localhost:3000/users", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({ 
-        //             name: nameInput, 
-        //             city: cityInput,                         
-        //             username: usernameInput, 
-        //             password: passwordInput 
-        //             }),
-        //     })
-        //     if(res.ok){
-        //         const result = await res.json()
-        //         const user = result.user
-        //         dispatch(changeUser(user))
-        //         dispatch(changeCitySelection(user.city_profiles[0]))
-        //         dispatch(changeNameInput(user.name))
-        //         dispatch(changeUsernameInput(user.username))
-        //         dispatch(changeCityProfiles(user.city_profiles))
-        //         localStorage.token = result.token
-        //         history.push('/profile')
-        //     } else {
-        //         const err = await res.json()
-        //         console.log(err)
-        //         setErrors(err.errors)
-        //     }
-        // };
-        // signup();
-        fetch("http://localhost:3000/users", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({ 
-                name: nameInput, 
-                city: cityInput,                         
-                username: usernameInput, 
-                password: passwordInput 
-                }),
-        })
-        .then(res => res.json())
-        .then(data => {
-            const user = data.user
-            dispatch(changeUser(user))
-            dispatch(changeCitySelection(user.city_profiles[0]))
-            dispatch(changeNameInput(user.name))
-            dispatch(changeUsernameInput(user.username))
-            dispatch(changeCityProfiles(user.city_profiles))
-            localStorage.setItem("token", data.jwt)
-            history.push('/profile')
-        })
+        async function signup(){
+            const res = await fetch("http://localhost:3000/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({ 
+                    name: nameInput, 
+                    city: cityInput,                         
+                    username: usernameInput, 
+                    password: passwordInput 
+                    }),
+            })
+            if(res.ok){
+                const result = await res.json()
+                const user = result.user
+                dispatch(changeUser(user))
+                dispatch(changeCitySelection(user.city_profiles[0]))
+                dispatch(changeNameInput(user.name))
+                dispatch(changeUsernameInput(user.username))
+                dispatch(changeCityProfiles(user.city_profiles))
+                localStorage.setItem("token", result.jwt)
+                history.push('/profile')
+            } else {
+                const err = await res.json()
+                setErrors(err.errors)
+            }
+        }
+        signup();
     }
 
     return (
@@ -111,49 +108,37 @@ function SignUp() {
                 <h1>Sign Up</h1>
                 {errors ? errors.map(error => (<p style={{color: 'red'}}>{`${error}`}</p>)) : null}
                 <form onSubmit={(e)=>handleSubmit(e)}>
-                    {/* <p>Name</p> */}
-                    {/* <input type="text" name="name" onChange={(e)=>dispatch(changeNameInput(e.target.value))}></input> */}
                     <TextField 
-                        // id="outlined-basic" 
                         label="Name" 
                         variant="outlined" 
-                        style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}}
+                        className={classes.textFields}
                         onChange={(e)=>dispatch(changeNameInput(e.target.value))}
                     />
-                    {/* <p>City</p> */}
-                    {/* <input type="text" name="city" onChange={(e)=>dispatch(changeCityInput(e.target.value))}></input> */}
                     <TextField 
-                        // id="outlined-basic" 
                         label="City" 
                         variant="outlined" 
-                        style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}} 
+                        className={classes.textFields}
                         onChange={(e)=>dispatch(changeCityInput(e.target.value))}
                     />
-                    {/* <p>Username</p> */}
-                    {/* <input type="text" name="username" onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}></input> */}
                     <TextField 
-                        // id="outlined-basic" 
                         label="Username" 
                         variant="outlined" 
-                        style={{marginBottom: '30px', backgroundColor: 'white', borderRadius: '5px', width: '80%'}}
+                        className={classes.textFields}
                         onChange={(e)=>dispatch(changeUsernameInput(e.target.value))}
                     />
-                    {/* <p>Password</p> */}
-                    {/* <input type="text" name="password" onChange={(e)=>dispatch(changePasswordInput(e.target.value))}></input> */}
                     <TextField 
-                        // id="outlined-basic" 
                         type="password"
                         label="Password" 
                         variant="outlined" 
-                        style={{backgroundColor: 'white', borderRadius: '5px', width: '80%'}}
+                        className={classes.textFields}
+                        style={{marginBottom: '0px'}}
                         onChange={(e)=>dispatch(changePasswordInput(e.target.value))}
                     />
                     <br></br>
                     <HeaderButton 
                         type="submit" 
                         variant="outlined" 
-                        className={classes.signupButton} 
-                        // onClick={()=>history.push("/login")}
+                        className={classes.signupButton}
                     >
                         SIGN UP
                     </HeaderButton>

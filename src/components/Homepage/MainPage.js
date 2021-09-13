@@ -1,8 +1,6 @@
-import {useSelector} from 'react-redux';
-// import {changeHpView, changePasswordInput, changeUsernameInput} from '../../usersSlice';
 import {useHistory} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 
@@ -29,10 +27,18 @@ const HeaderButton = withStyles({
     },
   })(Button);
 
+const useStyles = makeStyles({
+    mainPageButtons: {
+        margin: '20px',
+    },
+    mainpage: {
+        textAlign: 'center',
+    },
+});
+
 function MainPage() {
-    // const dispatch = useDispatch();
     const history = useHistory();
-    const classes = useSelector(state => state.classes);
+    const classes = useStyles();
 
     return (
         <div>
@@ -65,7 +71,6 @@ function MainPage() {
                             </Grid>
                             </div>
                     </div>
-                    {/* <HeaderButton variant="outlined" className={classes.mainPageButtons} onClick={()=>history.push("/login")}>LOGIN</HeaderButton> */}
                 </Grid>
             </Grid>
         </div>

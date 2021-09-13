@@ -7,12 +7,21 @@ import Login from './Homepage/Login';
 import SignUp from './Homepage/SignUp';
 import Randomize from './Results/Randomize';
 import VenuesMapContainer from './Maps/VenuesMapContainer';
-import {useSelector} from 'react-redux';
-
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
+const useStyles = makeStyles({
+    contentContainer: {
+        minHeight: '50vh',
+        minWidth: '100vw',
+        alignItems: "center",
+        textAlign: 'center',
+        marginTop: '100px',
+    }
+});
+
 function Content() {
-    const classes = useSelector(state => state.classes);
+    const classes = useStyles();
 
     return (
         <div>

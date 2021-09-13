@@ -1,17 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
-// Action Creators
-
-// async actions
+// Async actions
 export const fetchPrimaryCats = createAsyncThunk("auth/fetchPrimaryCats", () => {
-    // return a Promise containing the data we want
     return fetch("http://localhost:3000/primary_categories")
       .then((response) => response.json())
       .then((data) => data);
 }); 
 
 // Reducer
-
 const usersSlice = createSlice({
     name: "auth",
     initialState: {
@@ -48,17 +44,16 @@ const usersSlice = createSlice({
 
         // category selections saved to the user city_profile
         categoryArray: [],
+
         // categories to be selected from seed data (foursquare's primary and secondary categories)
         resCategoryArray: [],
         selectCategoryArray: [],
         filterByPrimaryCategory: 0,
+
         // categories selected from selectCategoryArray, not yet saved to the user city_profile
         selectedCategoryArray: [],
         categoryArrFirst: 0,
         categoryArrLength: 12,
-
-        // CSS class
-        classes: "",
 
         // private - external API credentials
         clientId: process.env.REACT_APP_FOURSQUARE_CLIENT_ID,
@@ -127,9 +122,6 @@ const usersSlice = createSlice({
         changeVenuesDetailsArray(state, action) {
             state.venuesDetailsArray = action.payload
         },
-        changeClasses(state, action) {
-            state.classes = action.payload
-        },
         changeFilterByPrimaryCategory(state, action) {
             state.filterByPrimaryCategory = action.payload
         },
@@ -151,29 +143,6 @@ const usersSlice = createSlice({
         changeAddSecondCity(state, action) {
             state.addSecondCity = action.payload
         }
-        // changeLogout(state) {
-        //     state.usernameInput = ""
-        //     state.passwordInput = "",
-        //     state.nameInput = "",
-        //     state.cityInput = "",
-        //     state.editStatus = false,
-        //     state.addCity = false,
-        //     state.cityProfiles = null,
-        //     state.user = null,
-        //     state.isLoggedIn = false,
-        //     state.citySelection = "",
-        //     state.savedVenuesArray = [],
-        //     state.profileView = "categories",
-        //     state.venuesResultsArray = [],
-        //     state.venuesDetailsArray = [],
-        //     state.filteredVenueResults = [],
-        //     state.categoryArray = null,
-        //     state.selectCategoryArray = [],
-        //     state.selectedCategoryArray = [],
-        //     state.categoryArrFirst = 0,
-        //     state.categoryArrLength = 12,
-        // },
-
     },
     extraReducers: {
         [fetchPrimaryCats.pending](state) {
@@ -186,7 +155,7 @@ const usersSlice = createSlice({
     },
     })
 
-// actions
+// Actions
 const { 
     changeUsernameInput, 
     changePasswordInput, 
@@ -208,7 +177,6 @@ const {
     changeEditStatus,
     changeAddCity,
     changeCityProfiles,
-    changeClasses,
     changeFilterByPrimaryCategory,
     changeRandomizeResultsArray,
     changeCompletedVenuesArray,
@@ -219,7 +187,7 @@ const {
 
 } = usersSlice.actions; 
 
-// exports
+// Exports
 
 export { 
     changeUsernameInput, 
@@ -242,7 +210,6 @@ export {
     changeEditStatus,
     changeAddCity,
     changeCityProfiles,
-    changeClasses,
     changeFilterByPrimaryCategory,
     changeRandomizeResultsArray,
     changeCompletedVenuesArray,
