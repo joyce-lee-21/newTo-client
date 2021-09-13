@@ -128,7 +128,7 @@ function Header() {
                                     </NavLink>
                                 </NavItem>
                                 <NavItem as={'div'} active={index === 3} onClick={handleClick(3)}>
-                                    <NavLink to="/trending" style={{ textDecoration: 'none' }}>
+                                    <NavLink to="/randomize" style={{ textDecoration: 'none' }}>
                                         <TrendyButton>RANDOMIZE</TrendyButton>
                                     </NavLink>
                                 </NavItem>

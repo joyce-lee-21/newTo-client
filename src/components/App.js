@@ -107,33 +107,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '10px',
     marginRight: '10px',
     backgroundColor: 'white',
-  },
-  categoryView: {
-    height: '70px',
-    width: '100%',
-    justify: 'center',
-    alignItems: "center",
-    textAlign: 'center',
-    marginLeft: '10px',
-    marginRight: '10px',
-    backgroundColor: '#fcf3d3',
-  },
-  venueView: {
-    width: 300,
-    height: 160,
-    display: 'flex',
-    justifyContent: 'center',
-    textAlign: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    padding: '5px',
-  },
-  savedCatArray: {
-    justifyContent: 'center'
-  },
-  formControl: {
-    minWidth: 300,
-  },
+  }
 }));
 
 function App() {

@@ -33,7 +33,6 @@ function Results() {
                 dispatch(changeMapCenter([mapCenter]))
                 vArr.map(v => venueArray.push(v.venue))
                 dispatch(changeVenuesResultsArray([...venueArray]))
-                console.log(venueArray)
             })
             .catch(error => console.log(error))
         })

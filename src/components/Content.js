@@ -5,7 +5,7 @@ import Results from './Results/Results';
 import Account from './Account';
 import Login from './Homepage/Login';
 import SignUp from './Homepage/SignUp';
-import Trending from './Results/Trending';
+import Randomize from './Results/Randomize';
 import VenuesMapContainer from './Maps/VenuesMapContainer';
 import {useSelector} from 'react-redux';
 
@@ -36,8 +36,8 @@ function Content() {
                     <Route path="/results">
                         <Results />
                     </Route>
-                    <Route path="/trending">
-                        <Trending />
+                    <Route path="/randomize">
+                        <Randomize />
                     </Route>
                     <Route path="/map">
                         <VenuesMapContainer />

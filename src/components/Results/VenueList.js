@@ -1,6 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
 import {changeVenuesDetailsArray, changeFilteredVenueResults} from '../../usersSlice';
 
 import VenueItem from './VenueItem';
@@ -12,16 +11,11 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
-import MapIcon from '@material-ui/icons/Map';
 import RoomIcon from '@material-ui/icons/Room';
 
 function VenueList() {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const classes = useSelector(state => state.classes);
-    const [errors, setErrors] = useState([]);
     const [category, setCategory] = useState("All");
     const [map, setMap] = useState(false);
     const client_id = useSelector(state => state.clientId);
@@ -31,86 +25,31 @@ function VenueList() {
     const venuesDetailsArray = useSelector(state => state.venuesDetailsArray);
     const filteredVenueResults = useSelector(state => state.filteredVenueResults);
     const categoryArray = useSelector(state => state.categoryArray);
-    const user = useSelector(state => state.user);
-    
 
-    // console.log(venuesResultsArray)
-
-    // grab fs_venue_ids from resultsArray
     useEffect(() => {
         detailsFetch();
     }, [venuesResultsArray])
 
     const detailsFetch = () => {
-    //     const detailsArray = [];
-    //     async function venueDetails(venue){
-    //     // console.log(venue.venue.id)
-    //         const res = await fetch(
-    //             `http://localhost:4000/venue_details/${venue.id}`,
-    //             // *---PRODUCTION CHANGE:
-    //             // `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`, 
-    //             {method: "GET"}
-    //         ) 
-    //         // .then(res => res.json())
-    //         // .then(data => {
-    //         //     const v = data.response.venue
-    //         //     detailsArray.push(v)
-    //         //     // console.log(detailsArray)
-    //         //     const fArr = detailsArray.sort((a, b) => {return b.rating - a.rating})
-    //         //     dispatch(changeVenuesDetailsArray([...detailsArray]))
-    //         //     dispatch(changeFilteredVenueResults([...detailsArray]))
-    //         //     return fArr
-    //         // })
-    //         if(res.ok){
-    //             const arr = await res.json()
-    //             const v = arr.response.venue
-    //             detailsArray.push(v)
-    //             // console.log(detailsArray)
-    //             detailsArray.sort((a, b) => {return b.rating - a.rating})
-    //             dispatch(changeVenuesDetailsArray([...detailsArray]))
-    //             dispatch(changeFilteredVenueResults([...detailsArray]))
-    //         }
-    //     };
-    //     // use this to test one venue detail fetch:
-    //     // venueDetails(venuesResultsArray[0]);
-
-    // //  use this to fetch details for all venues in array:
-    //     venuesResultsArray.map(venue=>venueDetails(venue));
-    // const fsVenueDetails = async() => {
         dispatch(changeVenuesDetailsArray([]))
         dispatch(changeFilteredVenueResults([]))
         const detailsArray = [];
-        // console.log(detailsArray)
         venuesResultsArray.forEach(venue => {
-            // console.log(venue)
-            // return fetch(`http://localhost:4000/venue_details/${venue.id}`)
-            // *---PRODUCTION CHANGE:
-                fetch(`https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`) 
-                // if(details.ok){
-                //     const arr = details.json()
-                //     const v = arr.response.venue
-                //     detailsArray.push(v)
-                //     detailsArray.sort((a, b) => {return b.rating - a.rating})
-                //     // dispatch(changeVenuesDetailsArray([...detailsArray]))
-                //     console.log(detailsArray)
-                .then(res => res.json())
-                .then(data => {
-                    const v = data.response.venue
-                    detailsArray.push(v)
-                    detailsArray.sort((a, b) => {return b.rating - a.rating})
-                    dispatch(changeVenuesDetailsArray([...detailsArray]))
-                    dispatch(changeFilteredVenueResults([...detailsArray]))
-                    // console.log(detailsArray)
-                    // console.log(data)
-                })
+            fetch(`https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`) 
+            .then(res => res.json())
+            .then(data => {
+                const v = data.response.venue
+                detailsArray.push(v)
+                detailsArray.sort((a, b) => {return b.rating - a.rating})
+                dispatch(changeVenuesDetailsArray([...detailsArray]))
+                dispatch(changeFilteredVenueResults([...detailsArray]))
+            })
         })
     }
-    // STRETCH GOAL AFTER SECONDARY CATEGORIES BROUGHT IN
+
     const onCategoryFilter = (e) => {
-        // console.log(e.target.value)
         setCategory(e.target.value);
         if (e.target.value !== "All") {
-            // let results = venuesDetailsArray.map(v => v.categories.filter((cat) => cat.name === e.target.value)).filter(v => v.length > 0)
             const filterVenue = venuesDetailsArray.filter(v => {
                 let catMatch = v.categories.filter(cat => cat.name === e.target.value)
                 if (catMatch.length > 0) {
@@ -118,7 +57,6 @@ function VenueList() {
                 }
             })
             filterVenue.sort((a, b) => {return b.rating - a.rating})
-            // console.log(filterVenue)
             dispatch(changeFilteredVenueResults(filterVenue))
         } else {
             dispatch(changeFilteredVenueResults(venuesDetailsArray))
@@ -129,12 +67,8 @@ function VenueList() {
         console.log(e.target.value)
         const query = e.target.value
         const filtered = venuesDetailsArray.filter(v=> v.name.toLowerCase().includes(query.toLowerCase()))
-            // console.log(venuesDetailsArray.filter(v=> v.name.toLowerCase().includes(query.toLowerCase())))
         dispatch(changeFilteredVenueResults(filtered))
     }
-
-    // console.log(filteredVenueResults.sort((a, b) => {return b.rating - a.rating}))
-    // defineLordIconElement(loadAnimation);
 
     return (
         <>
@@ -152,7 +86,7 @@ function VenueList() {
                     <TextField id="outlined-basic" label="Filter Results by Name:" variant="outlined" style={{width: '300px', marginBottom: '20px'}} onChange={(e)=>onQuery(e)}/>
                 </Grid>    
                 <Grid item xs={5}>
-                    <FormControl variant="outlined" className={classes.formControl}>
+                    <FormControl variant="outlined" style={{minWidth: 300}}>
                         <InputLabel id="demo-simple-select-outlined-label">Filter Results by Category</InputLabel>
                         <Select
                             labelId="demo-simple-select-outlined-label"

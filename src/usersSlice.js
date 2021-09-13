@@ -42,8 +42,8 @@ const usersSlice = createSlice({
         venuesResultsArray: [],
         venuesDetailsArray: [],
         filteredVenueResults: [],
-        trendingCatArray: [],
-        trendingResultsArray: [],
+        randomizeCatArray: [],
+        randomizeResultsArray: [],
         mapCenter: [],
 
         // category selections saved to the user city_profile
@@ -133,8 +133,8 @@ const usersSlice = createSlice({
         changeFilterByPrimaryCategory(state, action) {
             state.filterByPrimaryCategory = action.payload
         },
-        changeTrendingResultsArray(state, action) {
-            state.trendingResultsArray = action.payload
+        changeRandomizeResultsArray(state, action) {
+            state.randomizeResultsArray = action.payload
         },
         changeCompletedVenuesArray(state, action) {
             state.completedVenuesArray = action.payload
@@ -142,8 +142,8 @@ const usersSlice = createSlice({
         changeMapCenter(state, action) {
             state.mapCenter = action.payload
         },
-        changeTrendingCatArray(state, action) {
-            state.trendingCatArray = action.payload
+        changeRandomizeCatArray(state, action) {
+            state.randomizeCatArray = action.payload
         },
         changeResCategoryArray(state, action) {
             state.resCategoryArray = action.payload
@@ -176,7 +176,6 @@ const usersSlice = createSlice({
 
     },
     extraReducers: {
-        // handle async action types
         [fetchPrimaryCats.pending](state) {
         state.status = "loading";
         },
@@ -211,10 +210,10 @@ const {
     changeCityProfiles,
     changeClasses,
     changeFilterByPrimaryCategory,
-    changeTrendingResultsArray,
+    changeRandomizeResultsArray,
     changeCompletedVenuesArray,
     changeMapCenter,
-    changeTrendingCatArray,
+    changeRandomizeCatArray,
     changeResCategoryArray,
     changeAddSecondCity,
 
@@ -245,10 +244,10 @@ export {
     changeCityProfiles,
     changeClasses,
     changeFilterByPrimaryCategory,
-    changeTrendingResultsArray,
+    changeRandomizeResultsArray,
     changeCompletedVenuesArray,
     changeMapCenter,
-    changeTrendingCatArray,
+    changeRandomizeCatArray,
     changeResCategoryArray,
     changeAddSecondCity,
 }

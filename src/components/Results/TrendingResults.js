@@ -87,7 +87,6 @@ function TrendingResults({venue}) {
             })
             if(res.ok){
                 const venue = await res.json()
-                // console.log(venue)
                 dispatch(changeSavedVenuesArray([...savedVenuesArray, {
                     id: venue.id,
                     city_profile_id: venue.city_profile_id,
@@ -103,7 +102,6 @@ function TrendingResults({venue}) {
             } else {
                 const err = await res.json()
                 console.log(err.errors)
-                // setErrors(err.errors)
             }
         };
         heartLike();
