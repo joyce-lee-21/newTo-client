@@ -56,7 +56,7 @@ const useStyles = makeStyles(() => ({
     },
   }));
 
-function TrendingResults({venue}) {
+function RandomizeResults({venue}) {
     const dispatch = useDispatch();
     const classes = useStyles();
     const citySelection = useSelector(state => state.citySelection);
@@ -65,7 +65,6 @@ function TrendingResults({venue}) {
 
     const onHeart = (e, venue) => {
         setHearted(true)
-        console.log(venue)
         const v = {
             city_profile_id: citySelection.id,
             name: venue.name,
@@ -77,35 +76,29 @@ function TrendingResults({venue}) {
             long: venue.location.lng,
             category: venue.categories
         }
-        async function heartLike(){
-            const res = await fetch("http://localhost:3000/saved_venues", {
-                method: "POST",
-                headers: {
-                "Content-Type": "application/json",
-                },
-                body: JSON.stringify({venue: v}),
-            })
-            if(res.ok){
-                const venue = await res.json()
-                dispatch(changeSavedVenuesArray([...savedVenuesArray, {
-                    id: venue.id,
-                    city_profile_id: venue.city_profile_id,
-                    name: venue.name,
-                    address: venue.address,
-                    url: venue.url,
-                    rating: venue.rating,
-                    fs_venue_id: venue.fs_venue_id,
-                    lat: venue.lat,
-                    long: venue.long,
-                    category: venue.category
-                }]))
-            } else {
-                const err = await res.json()
-                console.log(err.errors)
-            }
-        };
-        heartLike();
-        console.log("Hearted!")
+        fetch("http://localhost:3000/saved_venues", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({venue: v}),
+        })
+        .then(res => res.json())
+        .then(data => {
+            const venue = data
+            dispatch(changeSavedVenuesArray([...savedVenuesArray, {
+                id: venue.id,
+                city_profile_id: venue.city_profile_id,
+                name: venue.name,
+                address: venue.address,
+                url: venue.url,
+                rating: venue.rating,
+                fs_venue_id: venue.fs_venue_id,
+                lat: venue.lat,
+                long: venue.long,
+                category: venue.category
+            }]))
+        })           
     }
 
     return (
@@ -170,4 +163,4 @@ function TrendingResults({venue}) {
     );
 }
     
-export default TrendingResults;
+export default RandomizeResults;

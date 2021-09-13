@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useState, useEffect} from 'react'
 import {changeRandomizeResultsArray, changeRandomizeCatArray} from '../../usersSlice';
-import TrendingResults from './TrendingResults';
+import RandomizeResults from './RandomizeResults';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -202,7 +202,7 @@ function Randomize() {
                         <Grid container spacing={3} className={classes.catArray}>
                         {randomizeResultsArray.length > 0
                             ? randomizeResultsArray.map(venue => (
-                                <TrendingResults key={venue.id} venue={venue}/>
+                                <RandomizeResults key={venue.id} venue={venue}/>
                             ))
                             : null
                         }
