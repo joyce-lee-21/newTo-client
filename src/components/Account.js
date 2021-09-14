@@ -9,7 +9,7 @@ import {
     changeCityProfiles,
 } from '../usersSlice';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
@@ -38,7 +38,7 @@ const AccountButton = withStyles({
     },
   })(Button);
 
-  const AccountCityDeleteButton = withStyles({
+const AccountCityDeleteButton = withStyles({
     root: {
       boxShadow: 'none',
       textTransform: 'none',
@@ -58,7 +58,25 @@ const AccountButton = withStyles({
         boxShadow: '0 0 0 0.2rem #9fcbb4',
       },
     },
-  })(Button);
+})(Button);
+
+const useStyles = makeStyles({
+    accountCityEditContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    accountCities: {
+        width: "50%", 
+        display: 'inline', 
+        textTransform: 'capitalize',
+    },
+    accountContainer: {
+        minHeight: '40vh',
+        margin: '10px',
+        padding: '10px'
+    },
+});
 
 function Account() {
     const dispatch = useDispatch();
@@ -70,6 +88,7 @@ function Account() {
     const user = useSelector(state => state.user);
     const cityProfiles = useSelector(state => state.cityProfiles);
     const [errors, setErrors] = useState([]);
+    const classes = useStyles();
 
 
     const handleSubmit = (e) => {
@@ -111,7 +130,7 @@ function Account() {
         <Grid container>
             <Grid item xs={2}></Grid>
             <Grid item xs={4}>
-                <Paper className="account-container" elevation={3}>
+                <Paper className={classes.accountContainer} elevation={3}>
                     <h1>Account Details</h1>
                     {editStatus === false
                     ? 
@@ -140,19 +159,19 @@ function Account() {
                 </Paper>
             </Grid>
             <Grid item xs={4}>
-                <Paper className="account-container" elevation={3}>
+                <Paper className={classes.accountContainer} elevation={3}>
                     <h1>Cities</h1>
                     {cityProfiles.length > 1 
                         ? cityProfiles.map(city=>
-                            (<div key={city.id} className="city-edit-container">
-                            <p style={{width: "50%", display: 'inline'}}>{city.city}</p>
+                            (<div key={city.id} className={classes.accountCityEditContainer}>
+                            <p className={classes.accountCities}>{city.city}</p>
                             <AccountCityDeleteButton onClick={(e)=>onDeleteCity(e, city)}>Delete</AccountCityDeleteButton>
                             <br></br>
                             </div>
                             )
                         )
-                        : (<div className="city-edit-container">
-                            <p style={{width: "50%", display: 'inline'}}>{cityProfiles[0].city}</p>
+                        : (<div className={classes.accountCityEditContainer}>
+                            <p className={classes.accountCities}>{cityProfiles[0].city}</p>
                             <AccountCityDeleteButton onClick={(e)=>onDeleteCity(e, cityProfiles)}>Delete</AccountCityDeleteButton>
                             <br></br>
                             </div>)

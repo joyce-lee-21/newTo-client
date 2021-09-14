@@ -36,6 +36,9 @@ const TrendyButton = withStyles({
 })(Button);
 
 const useStyles = makeStyles({
+    headerContainer: {
+        display: 'flex',
+    },
     navbar: {
         backgroundColor: 'white',
         position: "fixed",
@@ -48,6 +51,18 @@ const useStyles = makeStyles({
         marginLeft: '20px',
         textTransform: 'capitalize',
         margin: '5px',
+    },
+    navRight: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingRight: '30px',
+    },
+    navLeft: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingRight: '30px',
     },
 });
 
@@ -84,7 +99,7 @@ function Header() {
             <Grid item xs={12}>
                 <Box boxShadow={3} className={classes.navbar}>
                 <NavMenu useStyles={usePointNavigationMenuStyles}>
-                    <Grid item xs={4} className="nav-left">
+                    <Grid item xs={4} className={classes.navLeft}>
                         <NavLink exact to="/" style={{color: 'inherit', textDecoration: 'none'}}>
                             <Box onClick={()=>handleClick(7)}>
                             {citySelection.city 
@@ -96,7 +111,7 @@ function Header() {
                     </Grid>
                 {user
                     ? <>
-                        <Grid item xs={8} className="nav-right">
+                        <Grid item xs={8} className={classes.navRight}>
                             <NavItem as={'div'} active={index === 0} style={{color: 'black'}} onClick={handleClick(0)}>
                                 <NavLink to="/account" style={{ textDecoration: 'none', color: 'black' }}>
                                     <Typography>Account</Typography>
@@ -128,7 +143,7 @@ function Header() {
                             </NavItem>
                         </Grid>
                     </>
-                    : <Grid item xs={8} className="nav-right">
+                    : <Grid item xs={8} className={classes.navRight}>
                         <NavItem as={'div'} active={index === 5} onClick={handleClick(5)}>
                             <NavLink to="/login" style={{ textDecoration: 'none', color: 'black'}}>
                                 <Typography>Login</Typography>

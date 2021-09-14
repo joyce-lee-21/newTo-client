@@ -5,6 +5,7 @@ import {changeVenuesDetailsArray, changeFilteredVenueResults} from '../../usersS
 import VenueItem from './VenueItem';
 import VenuesMapContainer from '../Maps/VenuesMapContainer';
 
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -13,6 +14,15 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Fab from '@material-ui/core/Fab';
 import RoomIcon from '@material-ui/icons/Room';
+
+const useStyles = makeStyles({
+    resultsMap: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '10px',
+    }
+});
 
 function VenueList() {
     const dispatch = useDispatch();
@@ -25,6 +35,7 @@ function VenueList() {
     const venuesDetailsArray = useSelector(state => state.venuesDetailsArray);
     const filteredVenueResults = useSelector(state => state.filteredVenueResults);
     const categoryArray = useSelector(state => state.categoryArray);
+    const classes = useStyles();
 
     useEffect(() => {
         detailsFetch();
@@ -64,7 +75,6 @@ function VenueList() {
     }
 
     const onQuery = (e) => {
-        console.log(e.target.value)
         const query = e.target.value
         const filtered = venuesDetailsArray.filter(v=> v.name.toLowerCase().includes(query.toLowerCase()))
         dispatch(changeFilteredVenueResults(filtered))
@@ -108,7 +118,7 @@ function VenueList() {
                     </Fab>
                 </Grid>
             </Grid>
-            <Grid className="results-map">
+            <Grid className={classes.resultsMap}>
                 {map 
                     ? <VenuesMapContainer /> 
                     : null

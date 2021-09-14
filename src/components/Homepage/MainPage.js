@@ -33,6 +33,22 @@ const useStyles = makeStyles({
     },
     mainpage: {
         textAlign: 'center',
+        marginBottom: '30px',
+    },
+    mainpageDesc: {
+        backgroundColor: '#ffeca9',
+        padding: '30px',
+        marginTop: '30px',
+        display: 'flex',
+        justifyContent: 'center',
+        textAlign: 'center',
+        flexDirection: 'column',
+    },
+    mainpageSteps: {
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        flexDirection: 'column'
     },
 });
 
@@ -45,24 +61,24 @@ function MainPage() {
             <Grid container className={classes.mainpage}>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={10}>
-                    <div className="mainpage-desc">
+                    <div className={classes.mainpageDesc}>
                             <div style={{padding: '0px 150px'}}>
                                 <h2>Welcome to your new city! We're so glad you're here. Our goal is to recommend places for you to go so you can quickly explore your new city and start to feel at home.</h2>
                             </div>
-                            <div className="mainpage-steps" style={{backgroundColor: 'white'}}>
+                            <div style={{backgroundColor: 'white', padding: '30px'}}>
                             <h3>How to use this site</h3>
                             <Grid container style={{display: 'flex', justifyContent: 'center'}}>
-                                <Grid item xs={3} style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+                                <Grid item xs={3} className={classes.mainpageSteps}>
                                     <p>If you're a new user, sign up for an account. You'll be asked to provide the city you're in and then be prompted to make your category selections to get started.</p>
                                     <HeaderButton className={classes.mainPageButtons} onClick={()=>history.push("/signup")}>SIGN UP</HeaderButton>
                                 </Grid>
-                                <Grid item xs={1} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                <Grid item xs={1} className={classes.mainpageSteps}>
                                     <ArrowRightAltIcon style={{fontSize: 40}}/>
                                 </Grid>
-                                <Grid item xs={3} style={{display: 'flex', justifyContent: 'center'}}>
+                                <Grid item xs={3} className={classes.mainpageSteps}>
                                     <p>You can filter by category type, then select up to 5 categories based on your interests. Once your categories are selected, it'll be saved to your Profile page. You can either reset your selections or view your results.</p>
                                 </Grid>
-                                <Grid item xs={1} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                <Grid item xs={1} className={classes.mainpageSteps}>
                                     <ArrowRightAltIcon style={{fontSize: 40}}/>
                                 </Grid>
                                 <Grid item xs={3}>

@@ -10,7 +10,7 @@ import {
     changeAddSecondCity,
 } from '../../usersSlice';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
@@ -47,7 +47,7 @@ root: {
     fontSize: 14,
     fontWeight: 'bold',
     padding: '6px 15px',
-    marginBottom: '20px',
+    margin: '5px 20px 20px',
     backgroundColor: '#955698',
     color: 'white',
     '&:hover': {
@@ -64,12 +64,30 @@ root: {
 },
 })(Button);
 
+const useStyles = makeStyles({
+    addCity: {
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '10px',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '10px'
+    },
+    addButtonsContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+    }
+});
+
 function ProfileCity() {
     const dispatch = useDispatch();
     const cityProfiles = useSelector(state => state.cityProfiles);
     const addCity = useSelector(state => state.addCity);
     const user = useSelector(state => state.user);
     const cityInput = useSelector(state => state.cityInput);
+    const classes = useStyles();
 
     const getCityProfile = (e, profile) => {
         fetch(`http://localhost:3000/city_profiles/${profile.id}`, {
@@ -122,9 +140,12 @@ function ProfileCity() {
             ))}
         <Grid >
             {addCity 
-                ? <div className="add-city-container">
+                ? <div className={classes.addCity}>
                     <TextField type="text" name="city" style={{width: '50%', paddingBottom: '20px'}} onChange={(e)=>dispatch(changeCityInput(e.target.value))}></TextField>
-                    <AccountButton style={{width: '50%'}} onClick={(e)=>onAddCity(e)}>Add</AccountButton>
+                    <div className={classes.addButtonsContainer}>
+                        <AccountButton onClick={(e)=>onAddCity(e)}>Add</AccountButton>
+                        <AccountButton onClick={()=>dispatch(changeAddCity(false))}>Cancel</AccountButton>
+                    </div>
                 </div>
                 : <AccountButton onClick={()=>dispatch(changeAddCity(true))}>Add New City</AccountButton>
             }
