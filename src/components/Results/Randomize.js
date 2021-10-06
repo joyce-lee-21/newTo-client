@@ -145,7 +145,7 @@ function Randomize() {
     const randomCatFetch = () => {
         dispatch(changeRandomizeResultsArray([]))
         setVenueArray([])
-        fetch('http://localhost:3000/secondary_categories/randomize')
+        fetch('https://newto-backend.herokuapp.com/secondary_categories/randomize')
         .then(res => res.json())
         .then(categories => {
             dispatch(changeRandomizeCatArray(categories)) 

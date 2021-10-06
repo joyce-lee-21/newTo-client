@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 // Async actions
 export const fetchPrimaryCats = createAsyncThunk("auth/fetchPrimaryCats", () => {
-    return fetch("http://localhost:3000/primary_categories")
+    return fetch("https://newto-backend.herokuapp.com/primary_categories")
       .then((response) => response.json())
       .then((data) => data);
 }); 

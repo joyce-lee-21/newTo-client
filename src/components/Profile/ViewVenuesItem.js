@@ -83,14 +83,14 @@ function ViewVenuesItem({venue}) {
 
     const onRemove = (e, venue) => {
         dispatch(changeSavedVenuesArray(savedVenuesArray.filter(v=>v.id !== venue.id)))
-        fetch(`http://localhost:3000/saved_venues/${venue.id}`, { 
+        fetch(`https://newto-backend.herokuapp.com/saved_venues/${venue.id}`, { 
             method: "DELETE" 
         })
     }
 
     const onCompleted = (e, venue) => {
       setChecked(true)
-      fetch(`http://localhost:3000/saved_venues/${venue.id}`, {
+      fetch(`https://newto-backend.herokuapp.com/saved_venues/${venue.id}`, {
         method: "PATCH",
         headers: {
         "Content-Type": "application/json",

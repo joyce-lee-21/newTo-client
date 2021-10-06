@@ -76,7 +76,7 @@ function RandomizeResults({venue}) {
             long: venue.location.lng,
             category: venue.categories
         }
-        fetch("http://localhost:3000/saved_venues", {
+        fetch("https://newto-backend.herokuapp.com/saved_venues", {
             method: "POST",
             headers: {
             "Content-Type": "application/json",

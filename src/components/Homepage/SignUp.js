@@ -69,7 +69,7 @@ function SignUp() {
     const handleSubmit = (e) => {
         e.preventDefault();
         async function signup(){
-            const res = await fetch("http://localhost:3000/users", {
+            const res = await fetch("https://newto-backend.herokuapp.com/users", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

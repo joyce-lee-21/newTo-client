@@ -89,7 +89,7 @@ function ProfileCity() {
     const classes = useStyles();
 
     const getCityProfile = (e, profile) => {
-        fetch(`http://localhost:3000/city_profiles/${profile.id}`, {
+        fetch(`https://newto-backend.herokuapp.com/city_profiles/${profile.id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -110,7 +110,7 @@ function ProfileCity() {
             user_id: user.id, 
             city: cityInput
         }
-        fetch(`http://localhost:3000/city_profiles/`, {
+        fetch(`https://newto-backend.herokuapp.com/city_profiles/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

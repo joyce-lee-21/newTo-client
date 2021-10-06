@@ -112,7 +112,7 @@ function ProfileSelection() {
 
     useEffect(() => {
         dispatch(fetchPrimaryCats());
-        fetch(`http://localhost:3000/categories/list/${filterByPrimaryCategory}/${categoryArrFirst}&${categoryArrLength}`, {
+        fetch(`https://newto-backend.herokuapp.com/categories/list/${filterByPrimaryCategory}/${categoryArrFirst}&${categoryArrLength}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -137,7 +137,7 @@ function ProfileSelection() {
                     fs_category_id: cat.fs_category_id,
                     primary_category_id: cat.primary_category_id
                 }
-                fetch(`http://localhost:3000/category_selections/`, {
+                fetch(`https://newto-backend.herokuapp.com/category_selections/`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

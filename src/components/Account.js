@@ -95,7 +95,7 @@ function Account() {
         e.preventDefault();
         console.log(usernameInput, passwordInput, cityInput, nameInput)
         async function acctChange(){
-            const res = await fetch(`http://localhost:3000/users/${user.id}`, {
+            const res = await fetch(`https://newto-backend.herokuapp.com/users/${user.id}`, {
                 method: "PATCH",
                 headers: {
                 "Content-Type": "application/json",
@@ -119,7 +119,7 @@ function Account() {
     }
 
     const onDeleteCity = (e, city) => {
-        fetch(`http://localhost:3000/city_profiles/${city.id}`, {
+        fetch(`https://newto-backend.herokuapp.com/city_profiles/${city.id}`, {
             method: "DELETE",
         })
         .then(dispatch(changeCityProfiles(cityProfiles.filter(cp => cp.id !== city.id))))

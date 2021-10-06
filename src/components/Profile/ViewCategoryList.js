@@ -93,7 +93,7 @@ function ViewCategoryList() {
         dispatch(changeCategoryArray([]))
         dispatch(changeSelectedCategoryArray([]))
         dispatch(changeVenuesResultsArray([]))
-        fetch(`http://localhost:3000/category_selections/${citySelection.id}`, { 
+        fetch(`https://newto-backend.herokuapp.com/category_selections/${citySelection.id}`, { 
             method: "DELETE" 
         })
     }
