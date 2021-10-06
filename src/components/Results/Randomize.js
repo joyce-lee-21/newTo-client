@@ -150,7 +150,7 @@ function Randomize() {
         .then(categories => {
             dispatch(changeRandomizeCatArray(categories)) 
             const venueExploreArray = [];
-            categories.map(cat=> {
+            categories.forEach(cat=> {
                 fetch(`https://api.foursquare.com/v2/venues/explore?client_id=${client_id}&client_secret=${client_secret}&v=${version}&near=${near}&limit=3&categoryId=${cat.fs_category_id}`)
                 .then(res => res.json())
                 .then(data => {
@@ -164,7 +164,7 @@ function Randomize() {
 
     const resultsFetch = () => {
         const detailsArray = [];
-        venueArray.map(venue => {
+        venueArray.forEach(venue => {
             fetch(`https://api.foursquare.com/v2/venues/${venue.id}?client_id=${client_id}&client_secret=${client_secret}&v=${version}`) 
             .then(res => res.json())
             .then(data => {

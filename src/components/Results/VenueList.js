@@ -65,6 +65,8 @@ function VenueList() {
                 let catMatch = v.categories.filter(cat => cat.name === e.target.value)
                 if (catMatch.length > 0) {
                     return v
+                } else {
+                    return null
                 }
             })
             filterVenue.sort((a, b) => {return b.rating - a.rating})
