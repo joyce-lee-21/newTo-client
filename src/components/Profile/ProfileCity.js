@@ -71,7 +71,6 @@ const useStyles = makeStyles({
         padding: '10px',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '10px'
     },
     addButtonsContainer: {
         display: 'flex',

@@ -153,7 +153,7 @@ const usersSlice = createSlice({
         state.status = "idle";
         },
     },
-    })
+})
 
 // Actions
 const { 

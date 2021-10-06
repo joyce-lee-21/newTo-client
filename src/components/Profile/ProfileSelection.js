@@ -108,6 +108,7 @@ function ProfileSelection() {
     const classes = useStyles();
 
     const secondary_categories = [];
+    const fetchDependencies = categoryArrFirst || filterByPrimaryCategory
 
     useEffect(() => {
         dispatch(fetchPrimaryCats());
@@ -123,7 +124,7 @@ function ProfileSelection() {
             dispatch(changeSelectCategoryArray(secondary_categories)) 
             dispatch(changeResCategoryArray(secondary_categories))
         })
-    }, [categoryArrFirst || filterByPrimaryCategory])
+    }, [fetchDependencies])
 
 
     const onSubmitClick = () => {
